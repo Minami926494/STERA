@@ -1,0 +1,4 @@
+RunSavedSearchReplaceAll 书源处理/合并前处理/注释添加/
+MendHTML
+RunSavedSearchReplaceAll 书源处理/合并前处理/注释修复/
+SetBookBrowserToAllHTML
