@@ -30,7 +30,7 @@
 >- 打开`书源.epub`
 >- 删除`OEBPS/Styles`中的所有文件
 >- 选中`OEBPS/Text`的最后一个文件，通过<b>「添加现有文件」</b>将`素材`内的文件导入
->- 打开`OEBPS/Text/insert.xhtml`，并按照如下格式填写`<body>`子节点：
+>- 打开`OEBPS/Text/insert.xhtml`，并按照如下格式填写`<body>`子节点：<br/>
 >	<pre><code>&lt;mark class="rit-name"&gt;[书籍标题]&lt;mark&gt;
 >	&lt;mark class="rit-number"\&gt;[书籍卷号]&lt;/mark\&gt;
 >	&lt;mark class="rit-subname"\&gt;[书籍副标题]&lt;/mark\&gt;
