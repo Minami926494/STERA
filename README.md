@@ -18,12 +18,14 @@
 >- 将`自动化`内的*txt*复制至`C:\Users\用户名\AppData\Local\sigil-ebook\sigil`
 >- 在Sigil首选项中勾选「EPUB可以使用JavaScript」选项
 ><br/>
+>
 >### 预处理
 >- 检查`OEBPS/Images`，寻找可能是行内图的字符图、标题图等，多为*png*
 >- 检查*xhtml*，用相应字符替换字符图，统一标题图格式以便后续替换
 >- 规范化重命名`OEBPS/Images`内的图片文件并删除多余图片
 >- 检查*nav*，确保导航链接至每个章节的第一个主文本*xhtml*
 ><br/>
+>
 >### 自动化执行\#1
 >- 打开`书源.epub`
 >- 删除`OEBPS/Styles`中的所有文件
