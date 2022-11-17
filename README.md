@@ -31,7 +31,7 @@
 >- 删除`OEBPS/Styles`中的所有文件
 >- 选中`OEBPS/Text`的最后一个文件，通过「添加现有文件」将`素材`内的文件导入
 >- 打开`OEBPS/Text/insert.xhtml`，并按照如下格式填写`<body>`子节点：
-><pre><code>&lt;mark class="rit-name"&gt;[书籍标题]&lt;mark&gt;
+>	<pre><code>&lt;mark class="rit-name"&gt;[书籍标题]&lt;mark&gt;
 >&lt;mark class="rit-number"\&gt;[书籍卷号]&lt;/mark\&gt;
 >&lt;mark class="rit-subname"\&gt;[书籍副标题]&lt;/mark\&gt;
 >&lt;mark class="rit-author"\&gt;[作者名字]&lt;/mark\&gt;
