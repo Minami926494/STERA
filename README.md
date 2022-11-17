@@ -76,6 +76,6 @@
 
 <h2 id="tips">注意事项</h2>
 1. 模板中需使用JavaScript元素，请确保Sigil对JavaScript的正常支持<br/>
-2. 模板自动化会清理`<img>`元素行内的字符，请提前分离行内图片<br/>
-3. 标题文本自动生成需依赖`[目录页].xhtml`与`[章节].xhtml`中id元素的正确链接<br/>
-4. 文件规范化命名应遵循易读原则的层进方法，要求<b>封面页</b>文档命名为`cover.xhtml`，<b>简介页</b>文档命名为`summary.xhtml`，单图文档命名需包含`cover/illus/intro/start/author`其中字符串之一
+2. 模板自动化会清理<code>&lt;img&gt;</code>元素行内的字符，请提前分离行内图片<br/>
+3. 标题文本自动生成需依赖<code>[目录页].xhtml</code>与<code>[章节].xhtml</code>中id元素的正确链接<br/>
+4. 文件规范化命名应遵循易读原则的层进方法，要求<b>封面页</b>文档命名为<code>cover.xhtml</code>，<b>简介页</b>文档命名为<code>summary.xhtml</code>，单图文档命名需包含<code>cover/illus/intro/start/author</code>其中字符串之一
