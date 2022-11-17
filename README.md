@@ -11,7 +11,7 @@
 <br/>
 
 ## 使用方法
-*（带"\*"条目请参[注意事项](#tips)）*
+*（部分条目相关说明请参[注意事项](#tips)）*
 
 >### 前期准备
 >- 将`插件`内的*zip*在Sigil插件管理中直接安装，无需解压
@@ -21,25 +21,25 @@
 ><br/>
 >
 >### 预处理
->- 打开`书源.epub`
+>- 打开`[书源].epub`
 >- 检查`OEBPS/Images`，寻找可能是行内图的字符图、标题图等，多为*png*
 >- 检查*xhtml*，用相应字符替换字符图，统一标题图格式以便后续替换
->- 检查`目录.xhtml`，确保目录链接至每个章节的第一个主文本*xhtml*
+>- 检查`[目录页].xhtml`，确保目录链接至每个章节的第一个主文本*xhtml*中相应的id元素
 ><br/>
 >
 >### 自动化执行\#1
 >- 删除`OEBPS/Styles`中的所有文件
 >- 规范化重命名`OEBPS/Images`内的图片文件并删除多余图片
 >- 选中`OEBPS/Text`的最后一个文件，通过<b>「添加现有文件」</b>将`素材`内的文件导入
->- 打开`OEBPS/Text/insert.xhtml`，并按照如下格式填写`<body>`子节点：
->	<pre><code>&lt;mark class="rit-name"&gt;[书籍标题]&lt;mark&gt;
->	&lt;mark class="rit-number"\&gt;[书籍卷号]&lt;/mark\&gt;
->	&lt;mark class="rit-subname"\&gt;[书籍副标题]&lt;/mark\&gt;
->	&lt;mark class="rit-author"\&gt;[作者名字]&lt;/mark\&gt;
->	&lt;mark class="rit-aut-illu"\&gt;[画师名字]&lt;/mark\&gt;
+>- 打开`insert.xhtml`，并按照如下格式填写`<body>`子节点：
+>	<pre><code>&lt;mark class="rit-name"&gt;[标题]&lt;mark&gt;
+>	&lt;mark class="rit-number"\&gt;[卷号]&lt;/mark\&gt;
+>	&lt;mark class="rit-subname"\&gt;[副标题]&lt;/mark\&gt;
+>	&lt;mark class="rit-author"\&gt;[作者]&lt;/mark\&gt;
+>	&lt;mark class="rit-aut-illu"\&gt;[画师]&lt;/mark\&gt;
 >	&lt;mark class="rit-intro"\&gt;&lt;/mark\&gt;
->	[简介文本]</code></pre>
->- 保存*epub*
+>	[简介]</code></pre>
+>- 检查无误后保存*epub*
 >- 打开*nav*后关闭其他标签页，运行<b>「自动执行列表1」</b>，等待运行完毕
 ><br/>
 > 
@@ -51,7 +51,31 @@
 >
 >### 自动化执行#3
 >- 在`桌面`找到文件名含有`"epub2"`的*epub*
->- 规范化重命名*xhtml*，调整前后顺序并删除空白/多余的*xhtml*
+>- 规范化重命名*xhtml*，调整前后顺序并删除空白/多余的*xhtml*，删除*nav*
+>- 打开`[封面页].xhtml`后关闭其他标签页，运行<b>「自动执行列表3」</b>，等待运行完毕
+>- 按照需求进行繁简转换，检查无误后保存*epub*
+><br/>
+>
+>### 后期加工
+>- `[章节].xhtml`头部检查章节标题，若为标题图可与正文拆分或替换为文字
+>- `[章节].xhtml`中部检查正文格式，若存在特殊格式进行手动处理
+>- `[章节].xhtml`尾部检查残留脚注，若存在残留依据标准注释格式进行修复
+>- 检查`[目录页].xhtml`与`toc.ncx`内链接是否完整正确，补正相关链接
+>- 检查`content.opf`内元数据，按需求修改元数据信息并补全ISBN号
+>- 制作`[标题页].xhtml`与`[目录页].xhtml`样式
+>- 检查无误后保存*epub*
+>- 运行`SigilFontSubset`插件，根据插件日志检查*xhtml*中特殊符号与字体缺字，修正格式并补全字体
+>- 运行`SigilCompressImg`插件，将除`cover.jpg`外的图片压缩为<b>「webp格式，80%质量」</b>
+>- 参考`EpubJSReader`插件、`ReadiumReader`插件与靶向适配阅读器表现效果调整样式
+>- 运行`ePub3`插件，导出*epub*并命名为`[作者].标题.～副标题～.卷号.epub`
+><br/>
+>
+>### 制作完成！
+
 <br/>
 
 <h2 id="tips">注意事项</h2>
+1. 模板中需使用JavaScript元素，请确保Sigil对JavaScript的正常支持<br/>
+2. 模板自动化会清理`<img>`元素行内的字符，请提前分离行内图片<br/>
+3. 标题文本自动生成需依赖`[目录页].xhtml`与`[章节].xhtml`中id元素的正确链接<br/>
+4. 文件规范化命名应遵循易读原则的层进方法，要求<b>封面页</b>文档命名为`cover.xhtml`，<b>简介页</b>文档命名为`summary.xhtml`，单图文档命名需包含`cover/illus/intro/start/author`其中字符串之一
