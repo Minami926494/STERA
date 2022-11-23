@@ -32,10 +32,10 @@ document.onreadystatechange = function() {
           }
           function note() {
             let w = window.innerWidth;
-            let x = link.offsetLeft;
-            let y = link.offsetTop;
-            let mw = link.offsetWidth;
-            let mh = link.offsetHeight;
+            let x = a[i].offsetLeft;
+            let y = a[i].offsetTop;
+            let mw = a[i].offsetWidth;
+            let mh = a[i].offsetHeight;
             let ml = event.clientX;
             let mt = event.clientY;
             let nw = b[i].offsetWidth;
