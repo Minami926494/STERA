@@ -39,7 +39,7 @@
 >	&lt;mark class="rit-number"\&gt;[卷号]&lt;/mark\&gt;
 >	&lt;mark class="rit-subname"\&gt;[副标题]&lt;/mark\&gt;
 >	&lt;mark class="rit-author"\&gt;[作者]&lt;/mark\&gt;
->	&lt;mark class="rit-aut-illu"\&gt;[画师]&lt;/mark\&gt;
+>	&lt;mark class="rit-aut-illu"\&gt;[插画]&lt;/mark\&gt;
 >	&lt;mark class="rit-intro"\&gt;&lt;/mark\&gt;
 >	[简介]</code></pre>
 >- 检查无误后保存*epub*
