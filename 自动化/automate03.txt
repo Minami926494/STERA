@@ -1,3 +1,4 @@
+CreateHTMLTOC
 RunSavedSearchReplaceAll 书源处理/epub2输出后处理/
 Save
 MendPrettifyHTML

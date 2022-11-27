@@ -19,7 +19,6 @@ document.onreadystatechange = function() {
           b[i].querySelector('a').href = 'javascript:void(0)';
           if(navigator.userAgent.match(pc)) {
             link.onmouseover = note;
-            link.onmousemove = note;
             link.onmouseout = function() {
               b[i].removeAttribute('style')
             }
@@ -36,14 +35,14 @@ document.onreadystatechange = function() {
             let y = a[i].offsetTop;
             let mw = a[i].offsetWidth;
             let mh = a[i].offsetHeight;
-            let ml = event.clientX;
-            let mt = event.clientY;
             let nw = b[i].offsetWidth;
             let nh = b[i].offsetHeight;
             let pw = notePanel.offsetWidth;
+            let ml = mw / 2 + x;
+            let mt = event.clientY;
             if(w >= pw * 2) {
               w /= 2;
-              if (ml > w) {
+              if(ml > w) {
                 ml -= w
               }
             }
@@ -54,7 +53,7 @@ document.onreadystatechange = function() {
             else {
               x += mw
             }
-            if(mt >= nh) {
+            if(mt >= nh + mh) {
               y -= nh
             }
             else {
@@ -69,11 +68,11 @@ document.onreadystatechange = function() {
     }
     if(navigator.userAgent.match(pc) == false) {
       if(document.images.length == 1) {
-        var img = document.querySelectorAll('img')[0];
+        var img = document.querySelector('img');
         img.onload = rotate;
         window.onresize = rotate;
         function rotate() {
-          if(img.parentNode.classList.contains('cover') == false) {
+          if(img.parentNode.classList.contains('kuchie')) {
             let w = window.innerWidth;
             let h = window.innerHeight;
             let iw = img.width;

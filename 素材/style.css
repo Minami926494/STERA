@@ -7,12 +7,7 @@
   box-sizing: border-box;
 }
 
-html {
-  height: 100%;
-}
-
 body {
-  height: 100%;
   padding: 0;
   margin: 0 1%;
   line-height: 130%;
@@ -460,12 +455,8 @@ a {
   text-indent: 0.2em;
   text-align: left;
   font-size: 2em;
-  margin: 1em 0 1em 1em;
+  margin: 1.5em 0 1em 1em;
   font-weight: bold;
-}
-
-.contpage {
-  padding: 1em 0 2em;
 }
 
 .contbg {
