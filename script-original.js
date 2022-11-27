@@ -31,14 +31,14 @@ document.onreadystatechange = function() {
           }
           function note() {
             let w = window.innerWidth;
-            let x = a[i].offsetLeft;
-            let y = a[i].offsetTop;
             let mw = a[i].offsetWidth;
             let mh = a[i].offsetHeight;
-            let nw = b[i].offsetWidth;
-            let nh = b[i].offsetHeight;
             let pw = notePanel.offsetWidth;
-            let ml = mw / 2 + x;
+            let ph = text.offsetHeight;
+            let left = a[i].offsetLeft;
+            let top = a[i].offsetTop;
+            let right = pw - left;
+            let ml = mw / 2 + left;
             let mt = event.clientY;
             if(w >= pw * 2) {
               w /= 2;
@@ -48,19 +48,18 @@ document.onreadystatechange = function() {
             }
             let vw = ml * 100 / w;
             if(vw > 50) {
-              x -= nw
+              b[i].style.right = right + 'px'
             }
             else {
-              x += mw
+              b[i].style.left = left + mw + 'px'
             }
+            let nh = b[i].offsetHeight;
             if(mt >= nh + mh) {
-              y -= nh
+              b[i].style.top = top - nh + 'px'
             }
             else {
-              y += mh
+              b[i].style.top = top + mh + 'px'
             }
-            b[i].style.left = x + 'px';
-            b[i].style.top = y + 'px';
             b[i].style.visibility = 'visible'
           }
         }

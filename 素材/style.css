@@ -1314,7 +1314,7 @@ div.change a {
 div.change aside {
   visibility: hidden;
   position: absolute;
-  width: fit-content;
+  max-width: fit-content;
   margin: 0;
 }
 
