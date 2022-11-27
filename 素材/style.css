@@ -1316,6 +1316,7 @@ div.change aside {
   position: absolute;
   max-width: fit-content;
   margin: 0;
+  z-index: 1;
 }
 
 /*旋转图片*/
