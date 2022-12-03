@@ -12,6 +12,7 @@ body {
   margin: 0 1%;
   line-height: 130%;
   text-align: justify;
+  text-justify: inter-ideograph;
   font-family: main, sym;
   -webkit-hyphens: auto;
   -epub-hyphens: auto;
@@ -55,6 +56,7 @@ div {
   margin: 0;
   padding: 0;
   text-align: justify;
+  text-justify: inter-ideograph;
 }
 
 p {
@@ -300,9 +302,10 @@ img {
 
 .em-dot {
   -webkit-text-emphasis-style: filled dot;
-  -epub-text-emphasis-style: filled circle;
-  text-emphasis: circle #000;
   -webkit-text-emphasis-position: under;
+  -epub-text-emphasis-style: filled circle;
+  -epub-text-emphasis-position: under;
+  text-emphasis: circle #000;
   text-emphasis-position: under;
 }
 
