@@ -13,10 +13,14 @@ body {
   line-height: 130%;
   text-align: justify;
   font-family: main, sym;
+  -webkit-hyphens: auto;
+  -epub-hyphens: auto;
+  hyphens: auto;
 }
 
 h3 {
   text-indent: 0;
+  duokan-text-indent: 0;
   line-height: 1.1em;
   text-align: center;
   font-weight: bold;
@@ -27,6 +31,7 @@ h3 {
 
 h4 {
   text-indent: 0;
+  duokan-text-indent: 0;
   line-height: 1.1em;
   text-align: center;
   font-weight: bold;
@@ -37,6 +42,7 @@ h4 {
 
 h5 {
   text-indent: 0;
+  duokan-text-indent: 0;
   line-height: 1.1em;
   text-align: center;
   font-weight: bold;
@@ -61,6 +67,7 @@ p {
 
 ruby rt {
   text-indent: 0;
+  duokan-text-indent: 0;
   font-size: 0.5em;
 }
 
@@ -100,6 +107,7 @@ img {
   margin: 0;
   padding: 0;
   text-indent: 0;
+  duokan-text-indent: 0;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
@@ -129,20 +137,24 @@ img {
 /*排版*/
 .zin {
   text-indent: 0;
+  duokan-text-indent: 0;
 }
 
 .left {
   text-indent: 0;
+  duokan-text-indent: 0;
   text-align: left;
 }
 
 .right {
   text-indent: 0;
+  duokan-text-indent: 0;
   text-align: right;
 }
 
 .center {
   text-indent: 0;
+  duokan-text-indent: 0;
   text-align: center;
 }
 
@@ -261,6 +273,7 @@ img {
 
 .cut {
   text-indent: 0;
+  duokan-text-indent: 0;
   line-height: 1.1em;
   margin: 1.5em 0 0.5em;
   text-align: center;
@@ -274,6 +287,7 @@ img {
   height: 1px;
   margin: 2em 0;
   text-indent: 0;
+  duokan-text-indent: 0;
   line-height: 0;
   border-width: 1px;
   border-color: #000;
@@ -313,6 +327,12 @@ img {
 }
 
 .dash-break {
+  -webkit-word-break: break-all;
+  -webkit-word-wrap: break-word;
+  -webkit-line-break: anywhere;
+  -epub-word-break: break-all;
+  -epub-word-wrap: break-word;
+  -epub-line-break: anywhere;
   word-break: break-all;
   word-wrap: break-word;
   line-break: anywhere;
@@ -417,6 +437,7 @@ ul {
   margin: 2em 1em 2em 1.5em;
   padding: 0;
   text-indent: 0;
+  duokan-text-indent: 0;
   font-weight: bold;
   line-height: 1.5em;
 }
@@ -424,6 +445,7 @@ ul {
 ul li {
   margin: 0.5em 0 0.5em 1em;
   text-indent: 0;
+  duokan-text-indent: 0;
   font-weight: lighter;
   list-style-position: inside;
 }
@@ -439,6 +461,7 @@ ul li {
 
 .tilh {
   text-indent: 0;
+  duokan-text-indent: 0;
   line-height: 1em;
   margin: 0;
 }
@@ -469,6 +492,7 @@ a {
 .mulu {
   width: fit-content;
   text-indent: 0;
+  duokan-text-indent: 0;
   text-align: left;
   line-height: 1.1em;
   padding: 0.35em;
@@ -509,6 +533,7 @@ a {
 .message p {
   margin: 0;
   text-indent: 0;
+  duokan-text-indent: 0;
   line-height: 1em;
   text-align: left;
   -webkit-transform: skewX(-8deg);
@@ -584,6 +609,7 @@ a {
 
 .summary p {
   text-indent: 0;
+  duokan-text-indent: 0;
   margin: 0 0.5em 0.8em;
 }
 
@@ -643,6 +669,7 @@ aside p {
 
 .duokan-footnote-item {
   text-indent: 0;
+  duokan-text-indent: 0;
   font-family: note, sym;
   text-shadow: 0 0 0.1em #000;
   font-size: 0.9em;
@@ -742,6 +769,7 @@ aside p {
 .num p {
   margin: 0;
   text-indent: 0;
+  duokan-text-indent: 0;
   line-height: 1em;
 }
 
