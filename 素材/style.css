@@ -390,7 +390,7 @@ img {
 .paper {
   width: 90%;
   margin: 1em auto;
-  padding: 1em 0.5em;
+  padding: 0.5em 1em;
   background-color: #fff;
   border-width: 1px 5px 5px 1px;
   border-color: #000;
