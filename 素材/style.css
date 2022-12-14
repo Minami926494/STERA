@@ -399,7 +399,7 @@ img {
 }
 
 .dialog {
-  margin: 1em 0.5em 1em 0.8em;
+  margin: 1em 0.5em;
   padding: 0.2em 1em;
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid #000;
