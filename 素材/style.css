@@ -61,6 +61,7 @@ div {
 
 p {
   text-indent: 2em;
+  duokan-text-indent: 2em;
   display: block;
   line-height: 1.5em;
   margin-top: 0.5em;
@@ -479,6 +480,7 @@ a {
 .contents {
   font-family: cont, sym;
   text-indent: 0.2em;
+  duokan-text-indent: 0.2em;
   text-align: left;
   font-size: 2em;
   margin: 1.5em 0 1em 1em;
@@ -655,6 +657,7 @@ aside ol {
 aside p {
   margin-left: 2em;
   text-indent: -2em;
+  duokan-text-indent: -2em;
 }
 
 .zhangyue-footnote {
