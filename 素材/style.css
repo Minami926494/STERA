@@ -4,6 +4,8 @@
 
 /*全局文本*/
 * {
+  -webkit-text-size-adjust: 0.58;
+  text-size-adjust: 0.58;
   box-sizing: border-box;
 }
 
