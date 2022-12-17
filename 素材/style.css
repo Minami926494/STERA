@@ -389,6 +389,15 @@ img {
   text-shadow: 2px 2px 0 #fff;
 }
 
+/*背景色*/
+.fff {
+  background-color: #fff;
+}
+
+.000 {
+  background-color: #000;
+}
+
 /*盒子*/
 .paper {
   width: 90%;
@@ -398,7 +407,7 @@ img {
   border-width: 1px 5px 5px 1px;
   border-color: #000;
   border-style: solid double double solid;
-  box-shadow: 3px 3px 3px #7c7c7c;
+  box-shadow: 3px 3px 3px #777;
 }
 
 .dialog {
@@ -407,7 +416,7 @@ img {
   background-color: rgba(255, 255, 255, 0.8);
   border: 1px solid #000;
   border-radius: 10px;
-  box-shadow: 1px 1px 1px #7c7c7c;
+  box-shadow: 1px 1px 1px #777;
 }
 
 .circle {
@@ -418,7 +427,7 @@ img {
   background-color: #fff;
   border: 1px solid #000;
   border-radius: 50%;
-  box-shadow: 1px 1px 1px #7c7c7c;
+  box-shadow: 1px 1px 1px #777;
 }
 
 /*表格与列表*/
@@ -562,7 +571,7 @@ a {
 
 .meghr {
   border-style: dotted none none;
-  border-color: #7c7c7c;
+  border-color: #777;
   border-width: 0.2em;
   margin-bottom: 0.5em;
 }
