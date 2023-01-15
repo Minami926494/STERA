@@ -1,0 +1,4 @@
+MendPrettifyHTML
+SigilFontSubset
+SigilCompressImg
+ePub3
