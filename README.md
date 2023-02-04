@@ -6,7 +6,7 @@
 - <b>适用工具：</b>Sigil 1.8.0+
 - <b>适用对象：</b>以[《台灣 EPUB 3 製作指引》](https://github.com/dpublishing/epub3guide)为标准的ePub电子书源
 - <b>目标类型：</b>横排中文（GBK）ePub电子书
-- <b>靶向适配：</b>WebKit内核浏览器/多看阅读/Starrea/iBooks/Kindle
+- <b>靶向适配：</b>WebKit内核浏览器/Reasily/多看阅读/Starrea/iBooks/Kindle
 - <b>执行标准：</b>EPUB 3.0.1/XHTML 1.1/CSS 3.0/ECMAScript 5
 <br/>
 
