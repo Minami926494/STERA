@@ -79,7 +79,7 @@ document.onreadystatechange = function() {
             }
             else {
               b[i].style.top = 'auto';
-              b[i].style.bottom = bottom + mh + 10 + 'px';
+              b[i].style.bottom = bottom + 10 + 'px';
               dir += '-shang'
             }
             b[i].classList.add(dir);
