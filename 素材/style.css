@@ -19,12 +19,12 @@
 .cb{clear:both;}
 .cc{margin:0 auto;max-width:fit-content;}
 .fc{display:flex;justify-content:center;align-items:center;}
-.r{--position:relative;position:var(--position);duokan-bleed:leftright;}
+.r{--position:relative;position:var(--position);}
 .ac{--position:absolute;position:var(--position);width:100%;left:0;right:0;margin:auto;}
-.lt{position:absolute;left:0;top:0;duokan-bleed:left;}
-.lb{position:absolute;left:0;bottom:0;duokan-bleed:left;}
-.rt{position:absolute;right:0;top:0;duokan-bleed:right;}
-.rb{position:absolute;right:0;bottom:0;duokan-bleed:right;}
+.lt{position:absolute;left:0;top:0;}
+.lb{position:absolute;left:0;bottom:0;}
+.rt{position:absolute;right:0;top:0;}
+.rb{position:absolute;right:0;bottom:0;}
 /*格式化*/
 .tilh{text-indent:0;duokan-text-indent:0;line-height:1em;margin:0;}
 .zin{text-indent:0;duokan-text-indent:0;}

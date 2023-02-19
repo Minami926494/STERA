@@ -1,3 +1,4 @@
+RemoveNCXGuideFromEpub3
 RunSavedSearchReplaceAll 书源处理/合并处理/
 SplitOnSGFSectionMarkers
 RunSavedSearchReplaceAll 书源处理/拆分处理/
