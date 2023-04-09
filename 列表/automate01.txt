@@ -1,0 +1,10 @@
+MendPrettifyHTML
+StandardizeEpub
+RemoveNCXGuideFromEpub3
+UpdateManifestProperties
+CreateHTMLTOC
+STERA-X
+MendPrettifyHTML
+GenerateNCXGuideFromNav
+DeleteUnusedMedia
+UpdateManifestProperties

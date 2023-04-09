@@ -1,58 +1,62 @@
 /*虚空文学旅团STERAePub++*/
 /*全局文本*/
 *{-webkit-text-size-adjust:100%;text-size-adjust:100%;box-sizing:border-box;}
-body{padding:0;margin:0 1%;line-height:130%;text-align:justify;text-justify:inter-ideograph;font-family:main,sym;-webkit-hyphens:auto;-epub-hyphens:auto;hyphens:auto;}
-h3{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.35em;margin:1.7em 0 1.5em;font-family:ch2,sym;}
-h4{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.3em;margin:1.7em 0 0.5em;font-family:ch1,sym;}
-h5{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.4em;margin:0.5em 0 1.5em;font-family:ch3,sym;}
+body{padding:0;margin:0 1%;line-height:130%;text-align:justify;text-justify:inter-ideograph;font-family:main,emoji,sym;-webkit-hyphens:auto;-epub-hyphens:auto;hyphens:auto;}
+h3{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.35em;margin:1.7em 0 1.5em;font-family:ch2,emoji,sym;}
+h4{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.3em;margin:1.7em 0 0.5em;font-family:ch1,emoji,sym;}
+h5{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.4em;margin:0.5em 0 1.5em;font-family:ch3,emoji,sym;}
 div{margin:0;padding:0;text-align:justify;text-justify:inter-ideograph;}
 p{text-indent:2em;duokan-text-indent:2em;display:block;line-height:1.5em;margin-top:0.5em;margin-bottom:0.5em;}
-ruby rt{text-indent:0;duokan-text-indent:0;font-size:0.5em;}
-#nav,#nav *{display:none;height:0 !important;line-height:0 !important;font-size:0 !important;font-family:serif !important;}
+ruby rp{display:inline !important;}
+ruby rt{color:#333;text-indent:0;duokan-text-indent:0;font-family:ctt2,emoji,sym;font-size:0.6em;}
+nav,nav *{display:none;height:0 !important;line-height:0 !important;font-size:0 !important;font-family:serif !important;}
 /*图片*/
 img{margin:0;padding:0;text-indent:0;duokan-text-indent:0;max-width:100%;max-height:100%;object-fit:contain;vertical-align:middle;vertical-align:duokan-middle-line;}
-.cover,.kuchie,.illus{display:flex;height:90vh;margin:0;padding:0;justify-content:center;align-items:center;page-break-inside:avoid;}
+.cover,.kuchie,.illus{display:flex;height:90vh;margin:0;padding:0;justify-content:center;align-items:center;page-break-inside:avoid;page-break-before:always;page-break-after:always;}
 .cover img{border-style:none solid;border-color:#000;border-width:1px;}
 .illus{padding:0.5em 0 1.5em;}
 img.change{max-width:90vh;max-height:100vw;-webkit-transform:rotate(90deg);transform:rotate(90deg);transform-origin:center;}
 /*格式*/
-.left{text-indent:0;duokan-text-indent:0;text-align:left;}
-.right{text-indent:0;duokan-text-indent:0;text-align:right;}
-.center{text-indent:0;duokan-text-indent:0;text-align:center;}
-.bold{font-weight:bold;}
-.bolder{font-weight:900;}
+.tilh{text-indent:0;duokan-text-indent:0;line-height:1em;margin:0;}
+.left,.left *,.right,.right *,.center,.center *{text-indent:0;duokan-text-indent:0;}
+.left{text-align:left;}.right{text-align:right;}.center{text-align:center;}
+.bold{font-weight:bold;}.bolder{font-weight:900;}
 .ita{font-style:italic;}
 .del{text-decoration:line-through;}
 .un{text-decoration:underline;}
 .dot{-webkit-text-emphasis-style:filled dot;-webkit-text-emphasis-position:under;-epub-text-emphasis-style:filled circle;-epub-text-emphasis-position:under;text-emphasis:circle #000;text-emphasis-position:under;}
-.cut{text-indent:0;duokan-text-indent:0;line-height:1.1em;margin:1.5em 0 0.5em;text-align:center;font-size:1.2em;font-family:ch1,sym;}
-.dash-break{-webkit-word-break:break-all;-webkit-word-wrap:break-word;-webkit-line-break:anywhere;-epub-word-break:break-all;-epub-word-wrap:break-word;-epub-line-break:anywhere;word-break:break-all;word-wrap:break-word;line-break:anywhere;}
+.cut{text-indent:0;duokan-text-indent:0;line-height:1.1em;margin:1.5em 0 0.5em;text-align:center;font-size:1.2em;font-family:ch1,emoji,sym;}.cut img{height:2em;}
+.break{-webkit-word-break:break-all;-webkit-word-wrap:break-word;-webkit-line-break:anywhere;-epub-word-break:break-all;-epub-word-wrap:break-word;-epub-line-break:anywhere;word-break:break-all;word-wrap:break-word;line-break:anywhere;}
 /*字色*/
-.red{color:#ff0000;}.green{color:#00ff00;}.blue{color:#0000ff;}.gray{color:#777;}.black{color:#000;}.white{color:#fff;}
+.white{color:#fff;}.black{color:#000;}.red{color:#ff0000;}.green{color:#228b22;}.blue{color:#0000ff;}.orange{color:#d07100;}.purple{color:#694965;}.gray{color:#808080;}.brown{color:#924a1F;}.silver{color:#c0c0c0;}.orangered{color:#ff4500;}.dimgray{color:#696969;}.darkgray{color:#a9a9a9;}.darkbrown{color:#231815;}.gainsboro{color:#dcdcdc;}.cyan{color:#00ffff;}.magenta{color:#ff00ff;}.kourai{color:#2c4f54;}.nando{color:#008899;}.kurobeni{color:#302833;}.tuchi{color:#958f5c;}.maroon{color:#800000;}.haigurin{color:#5d6d6d;}.choco{color:#4d0000;}.koiai{color:#0f2350;}.ebiiro{color:#640125;}.seiran{color:#274a78;}.shakudou{color:#752100;}.kurocha{color:#583822;}.karacha{color:#8d6449;}.soshoku{color:#eae5e3;}.sironezu{color:#dcdddd;}.kasumi{color:#c8c2c6;}.aisumi{color:#474a4d;}.sumicha{color:#373c38;}.shikoku{color:#2e2930;}.kuwacha{color:#956f29;}.akasumi{color:#3f312b;}.kesisumi{color:#524e4d;}.torinoko{color:#fff1cf;}.koniro{color:#223a70;}.hakuji{color:#f8fbf8;}.siramezu{color:#e5e4e6;}.hadairo{color:#fce2c4;}.usutama{color:#fde8d0;}
 /*字号*/
-.em01{font-size:0.1em;}.em02{font-size:0.2em;}.em03{font-size:0.3em;}.em04{font-size:0.4em;}.em05{font-size:0.5em;}.em06{font-size:0.6em;}.em07{font-size:0.7em;}.em08{font-size:0.8em;}.em09{font-size:0.9em;}.em105{font-size:1.05em;}.em11{font-size:1.1em;}.em115{font-size:1.15em;}.em12{font-size:1.2em;}.em125{font-size:1.25em;}.em13{font-size:1.3em;}.em14{font-size:1.4em;}.em15{font-size:1.5em;}.em16{font-size:1.6em;}.em17{font-size:1.7em;}.em18{font-size:1.8em;}.em19{font-size:1.9em;}.em20{font-size:2em;}.em21{font-size:2.1em;}.em22{font-size:2.2em;}.em23{font-size:2.3em;}.em24{font-size:2.4em;}.em25{font-size:2.5em;}.em26{font-size:2.6em;}.em27{font-size:2.7em;}.em28{font-size:2.8em;}.em29{font-size:2.9em;}.em30{font-size:3em;}.em31{font-size:3.1em;}.em32{font-size:3.2em;}.em33{font-size:3.3em;}.em34{font-size:3.4em;}.em35{font-size:3.5em;}.em36{font-size:3.6em;}.em37{font-size:3.7em;}.em38{font-size:3.8em;}.em39{font-size:3.9em;}.em40{font-size:4em;}.em41{font-size:4.1em;}.em42{font-size:4.2em;}.em43{font-size:4.3em;}.em44{font-size:4.4em;}.em45{font-size:4.5em;}.em46{font-size:4.6em;}.em47{font-size:4.7em;}.em48{font-size:4.8em;}.em49{font-size:4.9em;}.em50{font-size:5em;}.em51{font-size:5.1em;}.em52{font-size:5.2em;}.em53{font-size:5.3em;}.em54{font-size:5.4em;}.em55{font-size:5.5em;}.em56{font-size:5.6em;}.em57{font-size:5.7em;}.em58{font-size:5.8em;}.em59{font-size:5.9em;}.em60{font-size:6em;}
+.em01{font-size:0.1em;}.em02{font-size:0.2em;}.em03{font-size:0.3em;}.em04{font-size:0.4em;}.em05{font-size:0.5em;}.em06{font-size:0.6em;}.em07{font-size:0.7em;}.em075{font-size:0.75em;}.em08{font-size:0.8em;}.em085{font-size:0.85em;}.em09{font-size:0.9em;}.em095{font-size:0.95em;}.em10{font-size:1em !important;}.em105{font-size:1.05em;}.em11{font-size:1.1em;}.em115{font-size:1.15em;}.em12{font-size:1.2em;}.em125{font-size:1.25em;}.em13{font-size:1.3em;}.em14{font-size:1.4em;}.em15{font-size:1.5em;}.em16{font-size:1.6em;}.em17{font-size:1.7em;}.em18{font-size:1.8em;}.em19{font-size:1.9em;}.em20{font-size:2em;}.em21{font-size:2.1em;}.em22{font-size:2.2em;}.em23{font-size:2.3em;}.em24{font-size:2.4em;}.em25{font-size:2.5em;}.em26{font-size:2.6em;}.em27{font-size:2.7em;}.em28{font-size:2.8em;}.em29{font-size:2.9em;}.em30{font-size:3em;}.em31{font-size:3.1em;}.em32{font-size:3.2em;}.em33{font-size:3.3em;}.em34{font-size:3.4em;}.em35{font-size:3.5em;}.em36{font-size:3.6em;}.em37{font-size:3.7em;}.em38{font-size:3.8em;}.em39{font-size:3.9em;}.em40{font-size:4em;}.em41{font-size:4.1em;}.em42{font-size:4.2em;}.em43{font-size:4.3em;}.em44{font-size:4.4em;}.em45{font-size:4.5em;}.em46{font-size:4.6em;}.em47{font-size:4.7em;}.em48{font-size:4.8em;}.em49{font-size:4.9em;}.em50{font-size:5em;}.em51{font-size:5.1em;}.em52{font-size:5.2em;}.em53{font-size:5.3em;}.em54{font-size:5.4em;}.em55{font-size:5.5em;}.em56{font-size:5.6em;}.em57{font-size:5.7em;}.em58{font-size:5.8em;}.em59{font-size:5.9em;}.em60{font-size:6em;}
 /*字体*/
-.mes{font-family:mes,sym !important;}/*制作信息*/
-.sum{font-family:sum,sym !important;}/*简介*/
-.cont{font-family:cont,sym !important;}/*目录标题*/
-.ctt1{font-family:ctt1,sym !important;}/*目录章节粗*/
-.ctt2{font-family:ctt2,sym !important;}/*目录章节细*/
-.ch1{font-family:ch1,sym !important;}/*正文标题粗*/
-.ch2{font-family:ch2,sym !important;}/*正文标题中*/
-.ch3{font-family:ch3,sym !important;}/*正文标题细*/
-.main{font-family:main,sym !important;}/*正文文本*/
-.int{font-family:int,sym !important;}/*正文强调*/
-.note{font-family:note,sym !important;}/*注释*/
-.sym{font-family:sym !important;}/*特殊符号*/
-@font-face{font-family:"mes";src:url(../Fonts/mes.ttf);}@font-face{font-family:"sum";src:url(../Fonts/sum.ttf);}@font-face{font-family:"cont";src:url(../Fonts/cont.ttf);}@font-face{font-family:"ctt1";src:url(../Fonts/ctt1.ttf);}@font-face{font-family:"ctt2";src:url(../Fonts/ctt2.ttf);}@font-face{font-family:"ch1";src:url(../Fonts/ch1.ttf);}@font-face{font-family:"ch2";src:url(../Fonts/ch2.ttf);}@font-face{font-family:"ch3";src:url(../Fonts/ch3.ttf);}@font-face{font-family:"main";src:url(../Fonts/main.ttf);}@font-face{font-family:"int";src:url(../Fonts/int.ttf);}@font-face{font-family:"note";src:url(../Fonts/note.ttf);}@font-face{font-family:"sym";src:url(../Fonts/sym.ttf);}
+.mes{font-family:mes,emoji,sym !important;}/*制作信息*/
+.sum{font-family:sum,emoji,sym !important;}/*简介*/
+.cont{font-family:cont,emoji,sym !important;}/*目录标题*/
+.ctt1{font-family:ctt1,emoji,sym !important;}/*目录章节粗*/
+.ctt2{font-family:ctt2,emoji,sym !important;}/*目录章节细*/
+.ch1{font-family:ch1,emoji,sym !important;}/*正文标题粗*/
+.ch2{font-family:ch2,emoji,sym !important;}/*正文标题中*/
+.ch3{font-family:ch3,emoji,sym !important;}/*正文标题细*/
+.main{font-family:main,emoji,sym !important;}/*正文文本*/
+.int{font-family:int,emoji,sym !important;}/*正文强调*/
+.note{font-family:note,emoji,sym !important;}/*注释*/
+.emoji{font-family:emoji,sym !important;}/*特殊符号*/
+.sym{font-family:sym,emoji !important;}/*特殊符号*/
+@font-face{font-family:"mes";src:url(../Fonts/mes.ttf);}@font-face{font-family:"sum";src:url(../Fonts/sum.ttf);}@font-face{font-family:"cont";src:url(../Fonts/cont.ttf);}@font-face{font-family:"ctt1";src:url(../Fonts/ctt1.ttf);}@font-face{font-family:"ctt2";src:url(../Fonts/ctt2.ttf);}@font-face{font-family:"ch1";src:url(../Fonts/ch1.ttf);}@font-face{font-family:"ch2";src:url(../Fonts/ch2.ttf);}@font-face{font-family:"ch3";src:url(../Fonts/ch3.ttf);}@font-face{font-family:"main";src:url(../Fonts/main.ttf);}@font-face{font-family:"int";src:url(../Fonts/int.ttf);}@font-face{font-family:"note";src:url(../Fonts/note.ttf);}@font-face{font-family:"emoji";src:url(../Fonts/emoji.ttf);}@font-face{font-family:"sym";src:url(../Fonts/sym.ttf);}
 /*目录*/
 a{text-decoration:none;color:#000;cursor:pointer;}
-.contents{font-family:cont,sym;text-indent:0.2em;duokan-text-indent:0.2em;text-align:left;font-size:2em;margin:1.5em 0 1em 1em;font-weight:bold;}
-.contbg{background-image:;background-size:cover;background-position:left top;background-repeat:no-repeat;}
-.mulu{width:fit-content;text-indent:0;duokan-text-indent:0;text-align:left;line-height:1.1em;padding:0.35em;margin-left:2em;font-family:ctt1,sym;}
-.mulu:hover{background-color:rgba(124,124,124,0.15);}
+.ctt{font-family:cont,emoji,sym;text-align:left;font-size:2em;margin:1.3em 0 0.75em 1em;font-weight:bold;}
+.toc{margin:0 1em;text-align:left;}
+.toc a{display:block;text-indent:-1.5em;duokan-text-indent:-1.5em;line-height:1.25em;padding:0.25em 0.5em 0.25em 2em;}
+.toc a:hover{background-color:rgba(124,124,124,0.15);}
+.toc>a{margin:0.5em 0.8em;font-family:ctt1,emoji,sym;}
+.toc div a{margin:0.5em 2.8em;font-family:ctt2,emoji,sym;font-size: 0.95em}
+.toc span{font-family:ctt2,emoji,sym;font-weight:normal;color:#333;}
 /*制作信息*/
-.message{display:flex;justify-content:center;align-items:center;max-width:30em;height:90vh;max-height:40em;min-height:32em;margin:0 auto;padding:1em 0 2em;background-color:#333;border:1px solid #333;font-family:mes,sym;}
+.message{display:flex;justify-content:center;align-items:center;max-width:30em;height:90vh;max-height:40em;min-height:32em;margin:0 auto;padding:1em 0 2em;background-color:#333;border:1px solid #333;font-family:mes,emoji,sym;}
 .message>div{width:100%;margin:7% 0;padding:1em;background-color:#fcfcfc;-webkit-transform:skewY(8deg);transform:matrix(1,0.14054,0,1,0,0);transform-origin:center;}
 .message p{margin:0;text-indent:0;duokan-text-indent:0;line-height:1em;text-align:left;-webkit-transform:skewX(-8deg);transform:matrix(1,0,-0.14054,1,0,0);transform-origin:center;}
 .meg{margin-bottom:-1.2em;}
@@ -65,7 +69,7 @@ a{text-decoration:none;color:#000;cursor:pointer;}
 .logo{text-align:right;margin:0.5em 1em 0 0;-webkit-transform:skewX(-8deg);transform:matrix(1,0,-0.14054,1,0,0);transform-origin:center;}
 .logo img{width:7em;}
 /*简介*/
-.summary{max-width:fit-content;margin:0.5em auto;padding:0.5em 0.5em 1em;border:1px solid #333;border-radius:10px;font-family:sum,sym;}
+.summary{max-width:fit-content;margin:0.5em auto;padding:0.5em 0.5em 1em;border:1px solid #333;border-radius:10px;background-color:rgba(255,255,255,0.25);font-family:sum,emoji,sym;}
 .summary h3{margin:0.5em 0 0;}
 .summary p{text-indent:0;duokan-text-indent:0;margin:0 0.5em 0.8em;}
 .summary hr{color:#333;}
@@ -75,11 +79,11 @@ sup,sup *{cursor:help;}
 sup{font-size:0.75em;line-height:1.2;vertical-align:super !important;z-index:1;}
 aside{border:3px #333 double;margin:0 2em;border-radius:10px;background-color:#fcfcfc;}
 aside:hover{background-color:#eee;}
-aside ol{margin:0.2em auto;padding:0 0.5em;}
+aside ol{margin:0.2em auto;padding:0 0.5em;list-style:none !important;}
 aside p{margin-left:2em;text-indent:-2em;duokan-text-indent:-2em;}
 .zhangyue-footnote{vertical-align:top;height:1.2em !important;width:auto;border:0;}
 .duokan-footnote{height:1.2em !important;width:auto;border:0;}
-.duokan-footnote-item{text-indent:0;duokan-text-indent:0;font-family:note,sym;text-shadow:0 0 0.1em #000;font-size:0.9em;text-align:left;}
+.duokan-footnote-item{text-indent:0;duokan-text-indent:0;font-family:note,emoji,sym;text-shadow:0 0 0.1em #000;font-size:0.9em;text-align:left;}
 note{display:block;width:100%;}
 note.change{position:relative;}
 note.change a{cursor:help;}
@@ -88,8 +92,7 @@ note.change aside.zuo-shang,note.change aside.zuo-out-shang{background-image:lin
 note.change aside:after{display:block;position:absolute;content:'';width:0;height:0;border-style:solid;border-color:#333 transparent;}
 note.change aside.zuo-shang:after{border-width:10px 30px 0 0;-webkit-transform:skewX(-30deg);transform:matrix(1,0,-0.57735,1,0,0);transform-origin:bottom left;right:11px;bottom:-9px;}note.change aside.you-shang:after{border-width:10px 0 0 30px;-webkit-transform:skewX(30deg);transform:matrix(1,0,0.57735,1,0,0);transform-origin:bottom right;left:11px;bottom:-9px;}note.change aside.zuo-xia:after{border-width:0 30px 10px 0;-webkit-transform:skewX(30deg);transform:matrix(1,0,0.57735,1,0,0);transform-origin:top left;right:11px;top:-9px;}note.change aside.you-xia:after{border-width:0 0 10px 30px;-webkit-transform:skewX(-30deg);transform:matrix(1,0,-0.57735,1,0,0);transform-origin:top right;left:11px;top:-9px;}note.change aside.zuo-out-shang:after{border-width:10px 0 0 30px;-webkit-transform:skewX(30deg);transform:matrix(1,0,0.57735,1,0,0);transform-origin:bottom right;right:11px;bottom:-9px;}note.change aside.you-out-shang:after{border-width:10px 30px 0 0;-webkit-transform:skewX(-30deg);transform:matrix(1,0,-0.57735,1,0,0);transform-origin:bottom left;left:11px;bottom:-9px;}note.change aside.zuo-out-xia:after{border-width:0 0 10px 30px;-webkit-transform:skewX(-30deg);transform:matrix(1,0,-0.57735,1,0,0);transform-origin:top right;right:11px;top:-9px;}note.change aside.you-out-xia:after{border-width:0 30px 10px 0;-webkit-transform:skewX(30deg);transform:matrix(1,0,0.57735,1,0,0);transform-origin:top left;left:11px;top:-9px;}
 note.change aside p{color:#fcfcfc;text-shadow:0 0 3px #333;}
-@-webkit-keyframes show{0%{opacity:0;}100%{opacity:0.9;}}
-@-webkit-keyframes fade{0%{opacity:0.9;}100%{opacity:0;}}
-@keyframes show{0%{opacity:0;}100%{opacity:0.9;}}
-@keyframes fade{0%{opacity:0.9;}100%{opacity:0;}}
+@-webkit-keyframes show{0%{opacity:0;}100%{opacity:0.9;}}@-webkit-keyframes fade{0%{opacity:0.9;}100%{opacity:0;}}@keyframes show{0%{opacity:0;}100%{opacity:0.9;}}@keyframes fade{0%{opacity:0.9;}100%{opacity:0;}}
+/*检查与调试*/
+*[type*="check"]{border:3px black double;}*[type*="check"] *:nth-child(4n){border:1px red solid;}*[type*="check"] *:nth-child(4n+1){border:1px blue solid;}*[type*="check"] *:nth-child(4n+2){border:1px orange solid;}*[type*="check"] *:nth-child(4n+3){border:1px green solid;}
 /*虚空文学旅团STERAePub++*/
