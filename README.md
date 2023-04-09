@@ -60,7 +60,7 @@
 
 1. 模板引入Javascript在受支持的阅读器上实现互动式弹注、大图自动旋转、背景色冒泡，`素材`中的`script.js`是经压缩的文件，其源代码在`script-original.js`中
 	- 弹注除Javascript的阅读器外还兼容多看、掌阅、iBooks、Kindle，其HTML代码格式如下：
-	<pre><code>&lt;note&gt;
+	<pre><code> &lt;note&gt;
 		&lt;p&gt;[正文文本]&lt;sup&gt;&lt;a class="duokan-footnote" epub:type="noteref" href="#note[编号]" id="note_ref[编号]"&gt;&lt;img alt="note" class="zhangyue-footnote" src="../Images/note.png" zy-footnote="[注释文本]"/&gt;&lt;/a&gt;&lt;/sup&gt;[正文文本]&lt;/p&gt;
 		&lt;aside epub:type="footnote" id="note[编号]"&gt;
 		      &lt;a href="#note_ref[编号]"&gt; 
@@ -71,7 +71,7 @@
 		&lt;/aside&gt;
 	 &lt;/note&gt;</code></pre>
 	- 大图自动旋转功能仅在移动设备生效，要求目标*xhtml*文档中有且仅有一个被含有属性`class="kuchie"`的`<div>`标签包裹的唯一`<img>`标签，形如：
-	<pre><code>&lt;div class="kuchie duokan-image-single"&gt;
+	<pre><code> &lt;div class="kuchie duokan-image-single"&gt;
 		&lt;img alt="eg" src="../Images/eg.jpg"/&gt;
 	&lt;/div&gt;</code></pre>
 	- 背景色冒泡功能用于更广泛的阅读器兼容，将获取`<body>`标签的`bgcolor`属性值映射于其父元素`<html>`的背景色
@@ -79,7 +79,7 @@
 
 1. 自动化核心`STERA-X`插件安装后可在Sigil插件目录`C:\Users\用户名\AppData\Local\sigil-ebook\sigil\plugins\STERA-X\`下找到解压后的*py*文件并可进行自定义以适用于不同的书源情况，主要提供的功能接口为正则拓展和检索回复
 	- 正则拓展功能需要修改`launch_groups.py`的查找替换执行组，每个执行组都是一个由命名字符串，一个预查找正则字符串及若干子元组组成的大元组，而子元组又由一个命名字符串和一个`{查找正则:替换正则}`形式的字典组成，其中的正则相关字符串应使用`r''`注释写法防止转义。对于每个大元组，执行查找替换时会先输出其命名，然后开始在预查找匹配范围内逐个执行子元组；对于每个子元组，被执行时会按照字典先后顺序执行正则查找替换，最后输出命名及替换字符串数量，其结构如下所示，示例执行组eg将在`(?s)<body>.*?</body>`匹配范围内依序执行四条正则查找替换：
-	<pre><code>eg = ('示例执行组', r'(?s)&lt;body&gt;.*?&lt;/body&gt;',
+	<pre><code> eg = ('示例执行组', r'(?s)&lt;body&gt;.*?&lt;/body&gt;',
 			('执行组模块1', {
 				r'查找1': r'替换1',
 				r'查找2': r'替换2'}),
@@ -87,22 +87,22 @@
 				r'查找3': r'替换3',
 				r'查找4': r'替换4'}))</code></pre>
 	- 正则拓展包含跨页二级正则和无穷计数正则两个主模块，其中跨页二级正则模块除上述的预查找正则外，还将在初始化文档时把每个文档包裹在`<page>`标签对中后按照*spine*或*manifest*顺序首尾相连为一个长文档，*xhtml*为*spine*而其他文档类型为*manifest*，这意味着用户可以通过执行组来跨页查找替换来自同种类型多个文档的内容。`<page>`标签具有`id`和`href`属性，其值分别为此文档的*manifest* id与文档文件名，如下是插件对一个含有`OEBPS/Text/123.xhtml`和`OEBPS/Text/abc.xhtml`两个*xhtml*的*epub*处理*xhtml*时产生的初始文档示例，若预查找字符串为空或`(?s)<page.*/page>`时匹配的也是它：
-	<pre><code>&lt;page id="456" href="123.xhtml"&gt;
+	<pre><code> &lt;page id="456" href="123.xhtml"&gt;
 		[manifest id="456"的OEBPS/Text/123.xhtml文档内容]
 	&lt;/page&gt;
 	&lt;page id="def" href="abc.xhtml"&gt;
 		[manifest id="def"的OEBPS/Text/abc.xhtml文档内容]
 	&lt;/page&gt;</code></pre>
 	- 无穷计数正则定义一个新的正则标识符<b>「`(*)`」</b>或<b>「`(*[数字])`」</b>，当标识符出现在正则表达式开头时，若标识符含数字则数字代表此条目在标识符后的部分重复执行的次数，若不含数字则条目将重复执行至不再有匹配结果为止，故若启用无穷模式请注意循环逻辑防止出现死循环。插件为提升效率没有引入传统的`\0`拓展，但在查找条目含有上述标识符时，替换条目中的`\0`将被替换为计数正则当前的重复次数，它是一个左补零的三位数字序号，如下例所示：
-	<pre><code>原字符串：&lt;p&gt;&lt;span&gt;&lt;span&gt;&lt;span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
+	<pre><code> 原字符串：&lt;p&gt;&lt;span&gt;&lt;span&gt;&lt;span&gt;&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;
 	执行组条目：r'(*3)(&lt;p&gt;.*?)&lt;span&gt;': r'\1&lt;span id="\0"&gt;\0'
 	结果字符串：&lt;p&gt;&lt;span id="001"&gt;001&lt;span id="002"&gt;002&lt;span id="003"&gt;003&lt;span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/p&gt;</code></pre>
 	- 除两大主模块之外正则拓展部分还合并了单行与多行正则的首末检测，单个`^`或`$`对应整个字符串的最初和最末，而连续两个，即`^^`或`$$`对应一行的行首和行尾。正则拓展模块还解决了CRLF问题和制表符问题，从文档中获取的原字符串中`\r\n`、`\r`和`\n`被统一为`\n`，而`\t`将被替换为一个空格<br/><br/>
 	
 	- 正则拓展功能在`launch_groups.py`的修改完成后，还需要对`plugin.py`进行修改，这部分修改包括检索回复功能的使用，都涉及`file`类型。`file`类的其他定义及传参等工作插件中已经完成，用户使用中仅需修改<b>「文件编辑」</b>部分，`file`类的书写格式如下：
-	<pre><code>file([manifest id构成的元组], [右侧任务完成后输出的字符串，留空则不输出])([检索回复正则字符串或查找替换执行组]*n)</code></pre>
+	<pre><code> file([manifest id构成的元组], [右侧任务完成后输出的字符串，留空则不输出])([检索回复正则字符串或查找替换执行组]*n)</code></pre>
 	- 如上例，`file`后的第二个括号为任务队列，其可用逗号分隔输入多个值，并将从左到右依次执行。当队列进行至查找替换执行组时，该组执行；而当队列进行至检索回复正则字符串时，将在内存中生成一个包含所有该正则对应字符串出现位置之所属文件的*manifest* id的元组，当如下例遍历`file`对象时会依序逐个返回元组，可用于实现更高级的功能：
-	<pre><code>for i in file(x)('1', a, '2', b, '3'):
+	<pre><code> for i in file(x)('1', a, '2', b, '3'):
 	&gt;&gt; i = tuple([元组x中有'1'出现的所有文件之manifest id])
 	&gt;&gt; i = tuple([元组x中有'2'出现的所有文件之manifest id])
 	&gt;&gt; i = tuple([元组x中有'3'出现的所有文件之manifest id])</code></pre>
