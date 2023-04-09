@@ -63,13 +63,13 @@
 	<pre><code> &lt;note&gt;
 		&lt;p&gt;[正文文本]&lt;sup&gt;&lt;a class="duokan-footnote" epub:type="noteref" href="#note[编号]" id="note_ref[编号]"&gt;&lt;img alt="note" class="zhangyue-footnote" src="../Images/note.png" zy-footnote="[注释文本]"/&gt;&lt;/a&gt;&lt;/sup&gt;[正文文本]&lt;/p&gt;
 		&lt;aside epub:type="footnote" id="note[编号]"&gt;
-		      &lt;a href="#note_ref[编号]"&gt; 
-		        &lt;ol class="duokan-footnote-content"&gt;
-		          &lt;li class="duokan-footnote-item" id="note[编号]" value="[编号]"&gt;&lt;p&gt;[注释文本]&lt;/p&gt;&lt;/li&gt;
-		        &lt;/ol&gt;
-		      &lt;/a&gt;
+			&lt;a href="#note_ref[编号]"&gt; 
+				&lt;ol class="duokan-footnote-content"&gt;
+					&lt;li class="duokan-footnote-item" id="note[编号]" value="[编号]"&gt;&lt;p&gt;[注释文本]&lt;/p&gt;&lt;/li&gt;
+				&lt;/ol&gt;
+			&lt;/a&gt;
 		&lt;/aside&gt;
-	 &lt;/note&gt;</code></pre><br/>
+	&lt;/note&gt;</code></pre><br/>
 	- 大图自动旋转功能仅在移动设备生效，要求目标*xhtml*文档中有且仅有一个被含有属性`class="kuchie"`的`<div>`标签包裹的唯一`<img>`标签，形如：
 	<pre><code> &lt;div class="kuchie duokan-image-single"&gt;
 		&lt;img alt="eg" src="../Images/eg.jpg"/&gt;
