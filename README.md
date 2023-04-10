@@ -43,7 +43,7 @@
 >- 参考`EpubJSReader`插件、`ReadiumReader`插件与靶向适配阅读器表现效果调整样式
 >- 按需求使用`TraSimConvert`插件进行繁简转换
 >- 运行`SigilFontSubset`插件，根据插件日志检查*xhtml*中特殊符号与字体缺字，修正格式并补全字体
->- `SigilCompressImg`插件运行，将`cover.jpg`压缩为<b>「jpg格式，80%质量」</b>外的所有图片压缩为<b>「webp格式，80%质量」</b>
+>- `SigilCompressImg`插件运行，将`cover.jpg`压缩为<b>「jpg格式，80%质量」</b>，此外的所有图片压缩为<b>「webp格式，80%质量」</b>
 >-  检查无误后保存*epub*并命名为`[作者].标题～副标题～.卷号.epub`
 ><br/>
 >

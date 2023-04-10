@@ -24,13 +24,13 @@
 .em{font-size:initial !important;}
 .no{font-weight:initial !important;}
 .nos{text-shadow:initial !important;}
-.now{white-space:nowrap;}
-.ct{box-sizing:content-box;}
+.now{white-space:nowrap !important;}
+.ct{box-sizing:content-box !important;}
 /*字体*/
 .title{font-family:title,main,emoji,sym !important;}
 .illus1{font-family:illus1,inherit !important;}.illus2{font-family:illus2,inherit !important;}.illus3{font-family:illus3,inherit !important;}.illus4{font-family:illus4,inherit !important;}.illus5{font-family:illus5,inherit !important;}
 .num{font-family:num,inherit !important;}.num p{margin:0;text-indent:0;duokan-text-indent:0;line-height:1em;}/*直排英数*/
-@font-face{font-family:"title";src:url(../Fonts/title.ttf);}@font-face{font-family:"illus1";src:url(../Fonts/illus1.ttf);}@font-face{font-family:"illus2";src:url(../Fonts/illus2.ttf);}@font-face{font-family:"illus3";src:url(../Fonts/illus3.ttf);}@font-face{font-family:"illus4";src:url(../Fonts/illus4.ttf);}@font-face{font-family:"illus5";src:url(../Fonts/illus5.ttf);}@font-face{font-family:"num";src:url(../Fonts/num.ttf);}
+@font-face{font-family:"title";src:url(../../item/Fonts/title.ttf);}@font-face{font-family:"illus1";src:url(../../item/Fonts/illus1.ttf);}@font-face{font-family:"illus2";src:url(../../item/Fonts/illus2.ttf);}@font-face{font-family:"illus3";src:url(../../item/Fonts/illus3.ttf);}@font-face{font-family:"illus4";src:url(../../item/Fonts/illus4.ttf);}@font-face{font-family:"illus5";src:url(../../item/Fonts/illus5.ttf);}@font-face{font-family:"num";src:url(../Fonts/num.ttf);}
 /*字体阴影*/
 .kuro{text-shadow:1px 1px 1px #000;}.shiro{text-shadow:1px 1px 1px #fff;}
 .hei{text-shadow:0 0 3px #000;}.bai{text-shadow:0 0 3px #fff;}

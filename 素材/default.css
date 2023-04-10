@@ -1,13 +1,12 @@
 /*虚空文学旅团STERAePub++*/
 /*全局文本*/
 *{-webkit-text-size-adjust:100%;text-size-adjust:100%;box-sizing:border-box;}
-body{padding:0;margin:0 1%;line-height:130%;text-align:justify;text-justify:inter-ideograph;font-family:main,emoji,sym;-webkit-hyphens:auto;-epub-hyphens:auto;hyphens:auto;}
+body,iframe{margin:0;padding:0 5px;line-height:130%;text-align:justify;text-justify:inter-ideograph;font-family:main,emoji,sym;-webkit-hyphens:auto;-epub-hyphens:auto;hyphens:auto;}
 h3{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.35em;margin:1.7em 0 1.5em;font-family:ch2,emoji,sym;}
 h4{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.3em;margin:1.7em 0 0.5em;font-family:ch1,emoji,sym;}
 h5{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.4em;margin:0.5em 0 1.5em;font-family:ch3,emoji,sym;}
 div{margin:0;padding:0;text-align:justify;text-justify:inter-ideograph;}
-p{text-indent:2em;duokan-text-indent:2em;display:block;line-height:1.5em;margin-top:0.5em;margin-bottom:0.5em;}
-ruby rp{display:inline !important;}
+p{display:block;text-indent:2em;duokan-text-indent:2em;line-height:1.5em;margin-top:0.5em;margin-bottom:0.5em;}
 ruby rt{color:#333;text-indent:0;duokan-text-indent:0;font-family:ctt2,emoji,sym;font-size:0.6em;}
 nav,nav *{display:none;height:0 !important;line-height:0 !important;font-size:0 !important;font-family:initial !important;}
 /*图片*/
@@ -48,13 +47,13 @@ img.change{max-width:90vh;max-height:100vw;-webkit-transform:rotate(90deg);trans
 @font-face{font-family:"mes";src:url(../Fonts/mes.ttf);}@font-face{font-family:"sum";src:url(../Fonts/sum.ttf);}@font-face{font-family:"cont";src:url(../Fonts/cont.ttf);}@font-face{font-family:"ctt1";src:url(../Fonts/ctt1.ttf);}@font-face{font-family:"ctt2";src:url(../Fonts/ctt2.ttf);}@font-face{font-family:"ch1";src:url(../Fonts/ch1.ttf);}@font-face{font-family:"ch2";src:url(../Fonts/ch2.ttf);}@font-face{font-family:"ch3";src:url(../Fonts/ch3.ttf);}@font-face{font-family:"main";src:url(../Fonts/main.ttf);}@font-face{font-family:"int";src:url(../Fonts/int.ttf);}@font-face{font-family:"note";src:url(../Fonts/note.ttf);}@font-face{font-family:"emoji";src:url(../Fonts/emoji.ttf);}@font-face{font-family:"sym";src:url(../Fonts/sym.ttf);}
 /*目录*/
 a{text-decoration:none;color:#000;cursor:pointer;}
-.ctt{font-family:cont,emoji,sym;text-align:left;font-size:2em;margin:1.3em 0 0.75em 1em;font-weight:bold;}
-.toc{margin:0 1em;text-align:left;}
-.toc a{display:block;text-indent:-1.5em;duokan-text-indent:-1.5em;line-height:1.25em;padding:0.25em 0.5em 0.25em 2em;}
+.ctt{font-family:cont,emoji,sym;text-align:left;font-size:2em;margin:1.3em 0.75em 0.5em;font-weight:bold;}
+.toc{margin:0 0 0.5em 1.75em;text-align:left;border-left:3px rgba(124,124,124,0.5) solid;}
+.toc a{display:block;font-family:ctt1,emoji,sym;padding:0.25em 0.5em;}
 .toc a:hover{background-color:rgba(124,124,124,0.15);}
-.toc>a{margin:0.5em 0.8em;font-family:ctt1,emoji,sym;}
-.toc div a{margin:0.5em 2.8em;font-family:ctt2,emoji,sym;font-size: 0.95em}
-.toc span{font-family:ctt2,emoji,sym;font-weight:normal;color:#333;}
+.toc a p{text-indent:0;duokan-text-indent:0;margin:0;line-height:1em;}
+.toc a p+p{font-family:ctt2,emoji,sym;font-size:1.1em;padding:0.2em 0 0 1em;}
+.toc .part{font-size:0.9em;color:#333;margin-top:0.2em;border-left:2em rgba(124,124,124,0.15) solid;}
 /*制作信息*/
 .message{display:flex;justify-content:center;align-items:center;max-width:30em;height:90vh;max-height:40em;min-height:32em;margin:0 auto;padding:1em 0 2em;background-color:#333;border:1px solid #333;font-family:mes,emoji,sym;}
 .message>div{width:100%;margin:7% 0;padding:1em;background-color:#fcfcfc;-webkit-transform:skewY(8deg);transform:matrix(1,0.14054,0,1,0,0);transform-origin:center;}
