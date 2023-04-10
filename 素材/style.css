@@ -20,16 +20,16 @@
 .zin,.zin *{text-indent:0;duokan-text-indent:0;}
 .w{width:100%;}
 .m0{margin:0;}.p0{padding:0;}
-.em{font-size:1em !important;}
 .lh{line-height:1em;}
-.no{font-weight:normal !important;}
-.nowp{white-space:nowrap;}
-.nosd{text-shadow:0 0 0 transparent !important;}
+.em{font-size:initial !important;}
+.no{font-weight:initial !important;}
+.nos{text-shadow:initial !important;}
+.now{white-space:nowrap;}
 .ct{box-sizing:content-box;}
 /*字体*/
-.title{font-family:title,emoji,sym !important;}
-.illus1{font-family:illus1,emoji,sym !important;}.illus2{font-family:illus2,emoji,sym !important;}.illus3{font-family:illus3,emoji,sym !important;}.illus4{font-family:illus4,emoji,sym !important;}.illus5{font-family:illus5,emoji,sym !important;}
-.num{font-family:num,emoji,sym !important;}.num p{margin:0;text-indent:0;duokan-text-indent:0;line-height:1em;}/*直排英数*/
+.title{font-family:title,main,emoji,sym !important;}
+.illus1{font-family:illus1,inherit !important;}.illus2{font-family:illus2,inherit !important;}.illus3{font-family:illus3,inherit !important;}.illus4{font-family:illus4,inherit !important;}.illus5{font-family:illus5,inherit !important;}
+.num{font-family:num,inherit !important;}.num p{margin:0;text-indent:0;duokan-text-indent:0;line-height:1em;}/*直排英数*/
 @font-face{font-family:"title";src:url(../Fonts/title.ttf);}@font-face{font-family:"illus1";src:url(../Fonts/illus1.ttf);}@font-face{font-family:"illus2";src:url(../Fonts/illus2.ttf);}@font-face{font-family:"illus3";src:url(../Fonts/illus3.ttf);}@font-face{font-family:"illus4";src:url(../Fonts/illus4.ttf);}@font-face{font-family:"illus5";src:url(../Fonts/illus5.ttf);}@font-face{font-family:"num";src:url(../Fonts/num.ttf);}
 /*字体阴影*/
 .kuro{text-shadow:1px 1px 1px #000;}.shiro{text-shadow:1px 1px 1px #fff;}
