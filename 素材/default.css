@@ -7,7 +7,7 @@ h4{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-w
 h5{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.4em;margin:0.5em 0 1.5em;font-family:ch3,emoji,sym;}
 div{margin:0;padding:0;text-align:justify;text-justify:inter-ideograph;}
 p{display:block;text-indent:2em;duokan-text-indent:2em;line-height:1.5em;margin-top:0.5em;margin-bottom:0.5em;}
-ruby rt{color:#333;text-indent:0;duokan-text-indent:0;font-family:ctt2,emoji,sym;font-size:0.6em;}
+ruby rt{color:#333;text-indent:0;duokan-text-indent:0;font-size:0.6em;}
 nav,nav *{display:none;height:0 !important;line-height:0 !important;font-size:0 !important;font-family:initial !important;}
 /*图片*/
 img{margin:0;padding:0;text-indent:0;duokan-text-indent:0;max-width:100%;max-height:100%;object-fit:contain;vertical-align:middle;vertical-align:duokan-middle-line;}
