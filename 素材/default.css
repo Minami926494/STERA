@@ -52,7 +52,7 @@ a{text-decoration:none;color:#000;cursor:pointer;}
 .toc a{display:block;font-family:ctt1,emoji,sym;padding:0.25em 0.5em;}
 .toc a:hover{background-color:rgba(124,124,124,0.15);}
 .toc a p{text-indent:0;duokan-text-indent:0;margin:0;line-height:1em;}
-.toc a p+p{font-family:ctt2,emoji,sym;font-size:1.1em;padding:0.2em 0 0 1em;}
+.toc .ctit{font-family:ctt2,emoji,sym;font-size:1.1em;padding:0.2em 0 0 1em;}
 .toc .part{font-size:0.9em;color:#333;margin-top:0.2em;border-left:2em rgba(124,124,124,0.15) solid;}
 /*制作信息*/
 .message{display:flex;justify-content:center;align-items:center;max-width:30em;height:90vh;max-height:40em;min-height:32em;margin:0 auto;padding:1em 0 2em;background-color:#333;border:1px solid #333;font-family:mes,emoji,sym;}

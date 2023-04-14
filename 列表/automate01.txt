@@ -1,10 +1,9 @@
 MendPrettifyHTML
 StandardizeEpub
 RemoveNCXGuideFromEpub3
-UpdateManifestProperties
 CreateHTMLTOC
+UpdateManifestProperties
 STERA-X
-MendPrettifyHTML
 GenerateNCXGuideFromNav
 DeleteUnusedMedia
-UpdateManifestProperties
+TraSimConvert

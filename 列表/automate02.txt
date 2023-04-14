@@ -1,0 +1,5 @@
+
+RemoveNCXGuideFromEpub3
+GenerateNCXGuideFromNav
+SigilCompressImg
+SigilFontSubset
