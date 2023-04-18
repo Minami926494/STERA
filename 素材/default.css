@@ -1,5 +1,6 @@
 /*虚空文学旅团STERAePub++*/
 /*全局文本*/
+@media not screen{*{display:none !important;}}
 *{-webkit-text-size-adjust:100%;text-size-adjust:100%;box-sizing:border-box;}
 body,iframe{margin:0;padding:0 5px;line-height:130%;text-align:justify;text-justify:inter-ideograph;font-family:main,emoji,sym;-webkit-hyphens:auto;-epub-hyphens:auto;hyphens:auto;}
 h3{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.35em;margin:1.7em 0 1.5em;font-family:ch2,emoji,sym;}
@@ -7,7 +8,7 @@ h4{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-w
 h5{text-indent:0;duokan-text-indent:0;line-height:1.1em;text-align:center;font-weight:bold;font-size:1.4em;margin:0.5em 0 1.5em;font-family:ch3,emoji,sym;}
 div{margin:0;padding:0;text-align:justify;text-justify:inter-ideograph;}
 p{display:block;text-indent:2em;duokan-text-indent:2em;line-height:1.5em;margin-top:0.5em;margin-bottom:0.5em;}
-ruby rt{color:#333;text-indent:0;duokan-text-indent:0;font-size:0.6em;}
+ruby>rt{color:#333;text-indent:0;duokan-text-indent:0;font-size:0.6em;font-family:main,emoji,sym !important;}
 nav,nav *{display:none;height:0 !important;line-height:0 !important;font-size:0 !important;font-family:initial !important;}
 /*图片*/
 img{margin:0;padding:0;text-indent:0;duokan-text-indent:0;max-width:100%;max-height:100%;object-fit:contain;vertical-align:middle;vertical-align:duokan-middle-line;}
