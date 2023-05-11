@@ -1,9 +1,0 @@
-MendPrettifyHTML
-StandardizeEpub
-RemoveNCXGuideFromEpub3
-CreateHTMLTOC
-UpdateManifestProperties
-STERA-X
-GenerateNCXGuideFromNav
-DeleteUnusedMedia
-TraSimConvert
