@@ -50,6 +50,7 @@ def buildtoc(bk, mode='ncx'):
                 for k in j.findAll('li', recursive=False):
                     k.unwrap()
         toc = olwrap.sub(r'<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace">\n<head>\n<title>目錄</title>\n<link href="../Styles/stylesheet.css" type="text/css" rel="stylesheet"/>\n<script type="text/javascript" src="../Misc/script.js"></script>\n</head>\n<body>\n<h3 class="ctt">Contents</h3>\n\1\n</body>\n</html>', str(toc))
+        print(toc)
         bk._w.guide = [('toc', '目錄', bk.id_to_href(build(bk, bk.basename_to_id(getbsn(guide.find('a', {'epub:type': 'toc'})[
                         'href'])) if guide and guide.find('a', {'epub:type': 'toc'}) else 'contents.xhtml', toc, 'application/xhtml+xml')))]
     elif mode == 'nav':
@@ -101,7 +102,7 @@ def buildtem(bk, info=None):
                 cover = i1, i2
         bk.setmetadataxml('\n'.join((info['isbn'].join(('<dc:identifier id="BookId">urn:isbn:', '</dc:identifier>')), title.join(('<dc:title id="title">', '</dc:title>')), '\n'.join(('<meta property="belongs-to-collection" id="num">', info['tit'], '</meta>\n<meta refines="#num" property="collection-type">series</meta>\n<meta refines="#num" property="group-position">', info['vol'], '</meta>', info['writer'].join(('<dc:creator id="create">', '</dc:creator>')), info['epuber'].join(('<dc:contributor>', '</dc:contributor>')))) if info['vol'] else info['epuber'].join(('<dc:contributor>', '</dc:contributor>')),  cover[1].join(
             ('<meta property="file-as" refines="#create">明日✿咲葉</meta>\n<dc:subject>lightnovel</dc:subject>\n<dc:rights>voidlord</dc:rights>\n<dc:language>zh</dc:language>\n<meta property="ibooks:specified-fonts">true</meta>\n<meta property="ibooks:binding">true</meta>\n<dc:identifier id="duokan-book-id">none</dc:identifier>\n<meta property="opf:scheme" refines="#duokan-book-id">DKID</meta>\n<dc:identifier id="zhangyue-book-id">none</dc:identifier>\n<meta property="opf:scheme" refines="#zhangyue-book-id">ZYID</meta>\n<meta name="cover" content="', '"/>')))).join(('\n<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:opf="http://www.idpf.org/2007/opf">\n', '\n</metadata>\n'))), bk.setpackagetag('<package version="3.0" unique-identifier="BookId" prefix="rendition: http://www.idpf.org/vocab/rendition/#" xmlns="http://www.idpf.org/2007/opf">'), bk.setspine_ppd('ltr')
-        navid = None
+        navid, cttid = None, gettype(bk, 'toc')
         for i in bk.manifest_epub3_iter():
             if i[3] == 'nav':
                 navid = i[0]
@@ -117,6 +118,9 @@ def buildtem(bk, info=None):
             if i not in line:
                 if i in spine:
                     line[i] = (spine.index(i)+1)*1000
+                elif i == cttid:
+                    spine.append(i)
+                    line[cttid] = 4
                 else:
                     spine.append(i)
                     s = i.rsplit('_part', 1)

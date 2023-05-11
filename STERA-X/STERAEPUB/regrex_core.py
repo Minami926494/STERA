@@ -40,8 +40,7 @@ class dom:
         pgs = zip(pginfo.findall(self.page),
                   pgsplit.split(pgclear.sub('', self.page)))
         for (id, bsn), data in pgs:
-            self.bk.writefile(id, bs(data, True)) if id in self.id else self.bk.addfile(
-                id, bsn, bs(data, True))
+            self.bk.writefile(id, bs(data, True)) if id in self.id else self.bk.addfile(id, bsn, bs(data, True))
 
 
 def reg(aim, regrex, log=True):

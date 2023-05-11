@@ -4,7 +4,7 @@ from re import compile
 
 # 清理多余文件
 tourl, expg = compile(r'(?:url[(\'\"\s]+([^)\'\"\s]+)[)\'\"\s]+|(?:href|src)[:=\'\"\s]+([^()\'\"\s]+)[\'\"\s]+)'), compile(
-    r'(?i)(?:<title></title>|colophon|bookwalker[^"\n]*?\.|kobo[^"\n]*?\.)')
+    r'(?i)(?:<title></title>|colophon|logo-|bookwalker[^"\n]*?\.)')
 
 
 def getbsn(p, completily=False):
