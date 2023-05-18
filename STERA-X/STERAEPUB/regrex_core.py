@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from re import compile, subn
+from regex import compile, subn
 from .regrex_dict import XH
 from .clear_core import getbsn
 try:
@@ -10,7 +10,7 @@ except:
 
 # DOM正则读写
 wrap, pginfo, pgsplit = compile(r'(?:\r\n|(?<![\r\n])\r(?![\r\n]))'), compile(
-    r'<page id="(.*?)" href="(.*?)">'), compile(r'\s*</page>\s*')
+    r'<page id="([^"]*?)" href="([^"]*?)">'), compile(r'\s*</page>\s*')
 
 
 def bs(xt, prettify=False):
@@ -18,14 +18,14 @@ def bs(xt, prettify=False):
         try:
             return BeautifulSoup(xt, 'lxml').prettyprint_xhtml()
         except:
-            return BeautifulSoup(xt, 'lxml').prettify(encoding='utf-8')
+            return BeautifulSoup(xt, 'lxml').prettify()
     else:
         return BeautifulSoup(xt, 'lxml')
 
 
 class dom:
     def __init__(self, bk, chk=True):
-        self.bk, self.chk, self.id, self.page = bk, chk, (i[0] for i in bk.text_iter()), '\n'.join((''.join(('<page id="', i[0], '" href="', getbsn(
+        self.bk, self.chk, self.page = bk, chk, '\n'.join((''.join(('<page id="', i[0], '" href="', getbsn(
             i[1]), '">\n', wrap.sub('\n', bs(bk.readfile(i[0]), True).expandtabs(1)), '\n</page>')) for i in bk.text_iter()))
 
     def __call__(self, *flow):
@@ -36,11 +36,14 @@ class dom:
 
     def __del__(self):
         pgclear = compile(
-            r'\s*<page.*?>\s*') if self.chk else compile(r'(?:\s*<page.*?>\s*|\s*type="check")')
+            r'\s*<page.*?>\s*' if self.chk else r'(?:\s*<page.*?>\s*|\s*type="check")')
         pgs = zip(pginfo.findall(self.page),
                   pgsplit.split(pgclear.sub('', self.page)))
         for (id, bsn), data in pgs:
-            self.bk.writefile(id, bs(data, True)) if id in self.id else self.bk.addfile(id, bsn, bs(data, True))
+            try:
+                self.bk.writefile(id, bs(data, True))
+            except:
+                self.bk.addfile(id, bsn, bs(data, True))
 
 
 def reg(aim, regrex, log=True):
@@ -77,8 +80,8 @@ def rex(pg, dic):
             e, x = m.find(')'), 1
             m, n = compile(m[e+1:]), int(m[2:e]) if e > 2 else 0
             while x <= n or not n:
-                pg, _t = m.subn(r.replace('*', str(x).zfill(3)), pg)
-                if _t:
+                if m.search(pg):
+                    pg, _t = m.subn(r.replace('*', str(x).zfill(3)), pg)
                     t += _t
                     x += 1
                 else:

@@ -26,8 +26,13 @@ def start(bk):
                 buildtem(bk)
             if para['flow_title']:
                 buildtoc(bk, mode='ctt')
-            dom(bk, para['chk'])(para['flow_class'], para['flow_tag'], para['flow_text'],
-                                 para['flow_title'], para['flow_note'], para['flow_image'], para['flow_page'])
+            dom(bk, para['chk'])(para['flow_class'],
+                                 para['flow_tag'],
+                                 para['flow_text'],
+                                 para['flow_title'],
+                                 para['flow_note'],
+                                 para['flow_image'],
+                                 para['flow_page'])
             if para['del']:
                 clear(bk, mode='page')
             if para['tem']:
@@ -42,6 +47,6 @@ def start(bk):
             subfont(bk)
         if para['cps']:
             cpsimg(bk)
-        buildtoc(bk), print('\n【运行结束，共计耗时', int(time()-st), '秒】', sep='')
+        buildtoc(bk), print('\n【运行结束，共计耗时%2f秒】' % (time()-st))
     else:
         print('\n【运行中止】')

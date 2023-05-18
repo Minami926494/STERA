@@ -27,24 +27,25 @@ img.change{max-width:90vh;max-height:100vw;-webkit-transform:rotate(90deg);trans
 .dot{-webkit-text-emphasis-style:filled dot;-webkit-text-emphasis-position:under;-epub-text-emphasis-style:filled circle;-epub-text-emphasis-position:under;text-emphasis:circle #000;text-emphasis-position:under;}
 .cut{text-indent:0;duokan-text-indent:0;line-height:1.1em;margin:1.5em 0 0.5em;text-align:center;font-size:1.2em;font-family:ch1,emoji,sym;}.cut img{height:2em;}
 .break{-webkit-word-break:break-all;-webkit-word-wrap:break-word;-webkit-line-break:anywhere;-epub-word-break:break-all;-epub-word-wrap:break-word;-epub-line-break:anywhere;word-break:break-all;word-wrap:break-word;line-break:anywhere;}
+.chapter{duokan-bleed:leftright;font-size:1.1em;margin-top:8em;color:#fff;background-color:#333;border-top:3px #777 double;border-bottom:3px #777 double;}
 /*字色*/
 .white{color:#fff;}.black{color:#000;}.red{color:#ff0000;}.green{color:#228b22;}.blue{color:#0000ff;}.orange{color:#d07100;}.purple{color:#694965;}.gray{color:#808080;}.brown{color:#924a1F;}.silver{color:#c0c0c0;}.orangered{color:#ff4500;}.dimgray{color:#696969;}.darkgray{color:#a9a9a9;}.darkbrown{color:#231815;}.gainsboro{color:#dcdcdc;}.cyan{color:#00ffff;}.magenta{color:#ff00ff;}.kourai{color:#2c4f54;}.nando{color:#008899;}.kurobeni{color:#302833;}.tuchi{color:#958f5c;}.maroon{color:#800000;}.haigurin{color:#5d6d6d;}.choco{color:#4d0000;}.koiai{color:#0f2350;}.ebiiro{color:#640125;}.seiran{color:#274a78;}.shakudou{color:#752100;}.kurocha{color:#583822;}.karacha{color:#8d6449;}.soshoku{color:#eae5e3;}.sironezu{color:#dcdddd;}.kasumi{color:#c8c2c6;}.aisumi{color:#474a4d;}.sumicha{color:#373c38;}.shikoku{color:#2e2930;}.kuwacha{color:#956f29;}.akasumi{color:#3f312b;}.kesisumi{color:#524e4d;}.torinoko{color:#fff1cf;}.koniro{color:#223a70;}.hakuji{color:#f8fbf8;}.siramezu{color:#e5e4e6;}.hadairo{color:#fce2c4;}.usutama{color:#fde8d0;}
 /*字号*/
 .em01{font-size:0.1em;}.em02{font-size:0.2em;}.em03{font-size:0.3em;}.em04{font-size:0.4em;}.em05{font-size:0.5em;}.em06{font-size:0.6em;}.em07{font-size:0.7em;}.em075{font-size:0.75em;}.em08{font-size:0.8em;}.em085{font-size:0.85em;}.em09{font-size:0.9em;}.em095{font-size:0.95em;}.em10{font-size:1em !important;}.em105{font-size:1.05em;}.em11{font-size:1.1em;}.em115{font-size:1.15em;}.em12{font-size:1.2em;}.em125{font-size:1.25em;}.em13{font-size:1.3em;}.em14{font-size:1.4em;}.em15{font-size:1.5em;}.em16{font-size:1.6em;}.em17{font-size:1.7em;}.em18{font-size:1.8em;}.em19{font-size:1.9em;}.em20{font-size:2em;}.em21{font-size:2.1em;}.em22{font-size:2.2em;}.em23{font-size:2.3em;}.em24{font-size:2.4em;}.em25{font-size:2.5em;}.em26{font-size:2.6em;}.em27{font-size:2.7em;}.em28{font-size:2.8em;}.em29{font-size:2.9em;}.em30{font-size:3em;}.em31{font-size:3.1em;}.em32{font-size:3.2em;}.em33{font-size:3.3em;}.em34{font-size:3.4em;}.em35{font-size:3.5em;}.em36{font-size:3.6em;}.em37{font-size:3.7em;}.em38{font-size:3.8em;}.em39{font-size:3.9em;}.em40{font-size:4em;}.em41{font-size:4.1em;}.em42{font-size:4.2em;}.em43{font-size:4.3em;}.em44{font-size:4.4em;}.em45{font-size:4.5em;}.em46{font-size:4.6em;}.em47{font-size:4.7em;}.em48{font-size:4.8em;}.em49{font-size:4.9em;}.em50{font-size:5em;}.em51{font-size:5.1em;}.em52{font-size:5.2em;}.em53{font-size:5.3em;}.em54{font-size:5.4em;}.em55{font-size:5.5em;}.em56{font-size:5.6em;}.em57{font-size:5.7em;}.em58{font-size:5.8em;}.em59{font-size:5.9em;}.em60{font-size:6em;}
 /*字体*/
-.mes{font-family:mes,inherit !important;}/*制作信息*/
-.sum{font-family:sum,inherit !important;}/*简介*/
-.cont{font-family:cont,inherit !important;}/*目录标题*/
-.ctt1{font-family:ctt1,inherit !important;}/*目录章节粗*/
-.ctt2{font-family:ctt2,inherit !important;}/*目录章节细*/
-.ch1{font-family:ch1,inherit !important;}/*正文标题粗*/
-.ch2{font-family:ch2,inherit !important;}/*正文标题中*/
-.ch3{font-family:ch3,inherit !important;}/*正文标题细*/
-.main{font-family:main,inherit !important;}/*正文文本*/
-.int{font-family:int,inherit !important;}/*正文强调*/
-.note{font-family:note,inherit !important;}/*注释*/
-.emoji{font-family:emoji,inherit !important;}/*特殊符号*/
-.sym{font-family:sym,inherit !important;}/*特殊符号*/
+.mes{font-family:mes}/*制作信息*/
+.sum{font-family:sum}/*简介*/
+.cont{font-family:cont}/*目录标题*/
+.ctt1{font-family:ctt1}/*目录章节粗*/
+.ctt2{font-family:ctt2}/*目录章节细*/
+.ch1{font-family:ch1}/*正文标题粗*/
+.ch2{font-family:ch2}/*正文标题中*/
+.ch3{font-family:ch3}/*正文标题细*/
+.main{font-family:main}/*正文文本*/
+.int{font-family:int}/*正文强调*/
+.note{font-family:note}/*注释*/
+.emoji{font-family:emoji}/*特殊符号*/
+.sym{font-family:sym}/*特殊符号*/
 @font-face{font-family:"mes";src:url(../Fonts/mes.ttf);}@font-face{font-family:"sum";src:url(../Fonts/sum.ttf);}@font-face{font-family:"cont";src:url(../Fonts/cont.ttf);}@font-face{font-family:"ctt1";src:url(../Fonts/ctt1.ttf);}@font-face{font-family:"ctt2";src:url(../Fonts/ctt2.ttf);}@font-face{font-family:"ch1";src:url(../Fonts/ch1.ttf);}@font-face{font-family:"ch2";src:url(../Fonts/ch2.ttf);}@font-face{font-family:"ch3";src:url(../Fonts/ch3.ttf);}@font-face{font-family:"main";src:url(../Fonts/main.ttf);}@font-face{font-family:"int";src:url(../Fonts/int.ttf);}@font-face{font-family:"note";src:url(../Fonts/note.ttf);}@font-face{font-family:"emoji";src:url(../Fonts/emoji.ttf);}@font-face{font-family:"sym";src:url(../Fonts/sym.ttf);}
 /*目录*/
 .ctt{font-family:cont,emoji,sym;text-align:left;font-size:2em;margin:1.3em 0.75em 0.5em;font-weight:bold;}
@@ -53,7 +54,8 @@ img.change{max-width:90vh;max-height:100vw;-webkit-transform:rotate(90deg);trans
 .toc a:hover{background-color:rgba(124,124,124,0.15);}
 .toc a p{text-indent:0;duokan-text-indent:0;margin:0;line-height:1em;}
 .toc .ctit{font-family:ctt2,emoji,sym;font-size:1.1em;padding:0.2em 0 0 1em;}
-.toc .part{font-size:0.9em;margin-top:0.2em;border-left:2em rgba(124,124,124,0.15) solid;}
+.toc .toc{margin:0.2em 0 0;border:none;}
+.toc .part{font-size:0.9em;border-left:2em rgba(124,124,124,0.15) solid;}
 /*制作信息*/
 .message{display:flex;justify-content:center;align-items:center;max-width:30em;height:90vh;max-height:40em;min-height:32em;margin:0 auto;padding:1em 0 2em;background-color:#333;border:1px solid #333;font-family:mes,emoji,sym;}
 .message>div{width:100%;margin:7% 0;padding:1em;background-color:#fcfcfc;-webkit-transform:skewY(8deg);transform:matrix(1,0.14054,0,1,0,0);transform-origin:center;}

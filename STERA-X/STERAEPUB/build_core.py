@@ -43,12 +43,12 @@ def buildtoc(bk, mode='ncx'):
         'nav', {'epub:type': 'landmarks'})
     if mode == 'ctt':
         print('\n生成目录页……')
-        for i in toc.findAll('li', recursive=False):
+        for i in toc('li'):
             i.name, i['class'] = 'ctt', 'toc'
-            for j in i.findAll('ol'):
+            for j in i('ol'):
                 j.name, j['class'] = 'ctt', 'part'
-                for k in j.findAll('li', recursive=False):
-                    k.unwrap()
+        for i in toc('a'):
+            i.string.wrap(NAV.new_tag('p'))
         toc = olwrap.sub(r'<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace">\n<head>\n<title>目錄</title>\n<link href="../Styles/stylesheet.css" type="text/css" rel="stylesheet"/>\n<script type="text/javascript" src="../Misc/script.js"></script>\n</head>\n<body>\n<h3 class="ctt">Contents</h3>\n\1\n</body>\n</html>', str(toc))
         bk._w.guide = [('toc', '目錄', bk.id_to_href(build(bk, bk.basename_to_id(getbsn(guide.find('a', {'epub:type': 'toc'})[
                         'href'])) if guide and guide.find('a', {'epub:type': 'toc'}) else 'contents.xhtml', toc, 'application/xhtml+xml')))]
@@ -57,21 +57,15 @@ def buildtoc(bk, mode='ncx'):
         cover, ctt, intro = bk.id_to_href(tuple(getpic(bk))[0][0]).rsplit(
             '/', 1)[-1], gettype(bk, 'toc'), gettype(bk, 'introduction')
         nav = bs(bk.readfile(bk.basename_to_id(ctt)))
-        for i in nav.body.findAll('p'):
+        for i in nav.body('p'):
             if i.has_attr('class') and 'ctit' in i['class']:
                 i.string = ''.join(('\\ ', i.string))
             i.unwrap()
-        for i in nav.body.findAll(class_=True):
-            if 'toc' in i['class']:
-                del i['class']
-                i.name = 'li'
-            elif 'part' in i['class']:
-                del i['class']
-                i.name = 'ol'
-                for j in i.findAll('a', recursive=False):
-                    j.wrap(nav.new_tag('li'))
+        for i in nav.body(class_=['toc', 'part']):
+            i.name = 'li' if 'toc' in i['class'] else 'ol'
+            del i['class']
         bk.writefile(navid, bs(''.join(('<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace">\n<head>\n<title>導航</title>\n<link href="../Styles/stylesheet.css" type="text/css" rel="stylesheet"/>\n<script type="text/javascript" src="../Misc/script.js"></script>\n</head>\n<body epub:type="frontmatter" id="nav">\n<nav epub:type="toc" id="toc" role="doc-toc">\n<ol>\n<li><a href="', cover,
-                     '">封面</a></li>\n<li><a href="title.xhtml">標題</a></li>\n<li><a href="message.xhtml">製作信息</a></li>', intro.join(('\n<li><a href="', '">簡介</a></li>')) if intro else '', '\n<li><a href="', ctt, '">目錄</a></li>\n', tunwrap.sub('', '\n'.join(str(i) for i in nav.body.findAll('li', recursive=False))), '\n</ol>\n</nav>\n<nav epub:type="landmarks" id="landmarks" hidden="">\n<ol>\n<li><a epub:type="cover" href="', cover, '">封面</a></li>', intro.join(('\n<li><a epub:type="introduction" href="', '">簡介</a></li>')) if intro else '', '\n<li><a epub:type="toc" href="', ctt, '">目錄</a></li>\n</ol>\n</nav>\n</body>\n</html>')), True))
+                     '">封面</a></li>\n<li><a href="title.xhtml">標題</a></li>\n<li><a href="message.xhtml">製作信息</a></li>', intro.join(('\n<li><a href="', '">簡介</a></li>')) if intro else '', '\n<li><a href="', ctt, '">目錄</a></li>\n', tunwrap.sub('', '\n'.join(str(i) for i in nav.body('li', recursive=False))), '\n</ol>\n</nav>\n<nav epub:type="landmarks" id="landmarks" hidden="">\n<ol>\n<li><a epub:type="cover" href="', cover, '">封面</a></li>', intro.join(('\n<li><a epub:type="introduction" href="', '">簡介</a></li>')) if intro else '', '\n<li><a epub:type="toc" href="', ctt, '">目錄</a></li>\n</ol>\n</nav>\n</body>\n</html>')), True))
         print('　+重构：【', bk.id_to_href(navid).rsplit('/', 1)[-1], '】', sep='')
     else:
         print('\n生成NCX与GUIDE……')
@@ -80,8 +74,9 @@ def buildtoc(bk, mode='ncx'):
             meta) else '', bookid.search(meta).group(1) if bookid.search(meta) else ''
         NCX, bk._w.group_paths['ncx'] = '\n'.join(('<?xml version="1.0" encoding="utf-8"?>\n<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">\n<head>', bid.join(('<meta name="dtb:uid" content="', '"/>')), str(getdepth(toc)).join(
             ('<meta name="dtb:depth" content="', '"/>')), title.join(('<meta name="dtb:totalPageCount" content="0"/>\n<meta name="dtb:maxPageNumber" content="0"/>\n</head>\n<docTitle>\n<text>', '</text>\n</docTitle>\n<navMap>')), reg(str(toc), buildncx, False), '</navMap>\n</ncx>')), ['OEBPS']
-        build(bk, 'toc.ncx', NCX, 'application/x-dtbncx+xml'), bk.setguide(((i['epub:type'], i.string, bk.id_to_href(
-            bk.basename_to_id(getbsn(i['href'])))) for i in guide.findAll('a')) if guide else ())
+        build(bk, 'toc.ncx', NCX, 'application/x-dtbncx+xml')
+        bk._w.guide, bk._w.modified[bk.get_opfbookpath()] = [(i['epub:type'], i.string, bk.id_to_href(
+            bk.basename_to_id(getbsn(i['href'])))) for i in guide.findAll('a')] if guide else [], 'file'
 
 
 def buildtem(bk, info=None):

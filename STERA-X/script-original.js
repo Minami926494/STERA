@@ -2,7 +2,7 @@ document.onreadystatechange = function () {
   if (document.readyState == 'interactive') {
     var pc = RegExp(/windows|x11|mac/i);
     var ibooks = RegExp(/ibooks|图书|圖書|図書/i);
-    if (navigator.userAgent.match(ibooks) == null) {
+    if (!navigator.userAgent.match(ibooks)) {
       window.onload = changeNote;
       window.onresize = changeNote;
     }
@@ -104,8 +104,7 @@ document.onreadystatechange = function () {
     if (navigator.userAgent.match(pc)) {
       var body = document.body;
       if (body.bgColor) {
-        body.onload = bgcolor;
-        function bgcolor() {
+        body.onload = function () {
           body.parentNode.style.backgroundColor = body.bgColor
         }
       }
@@ -122,7 +121,7 @@ document.onreadystatechange = function () {
             let iw = img.width;
             let ih = img.height;
             if (iw > ih && ih / iw > w / h) {
-              if (img.classList.contains('change') == false) {
+              if (!img.classList.contains('change')) {
                 img.classList.add('change')
               }
             }
