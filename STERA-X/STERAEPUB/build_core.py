@@ -48,10 +48,15 @@ def buildtoc(bk, mode='ncx'):
             for j in i('ol'):
                 j.name, j['class'] = 'ctt', 'part'
         for i in toc('a'):
-            i.string.wrap(NAV.new_tag('p'))
+            i.string.wrap(NAV.new_tag('ch'))
         toc = olwrap.sub(r'<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace">\n<head>\n<title>目錄</title>\n<link href="../Styles/stylesheet.css" type="text/css" rel="stylesheet"/>\n<script type="text/javascript" src="../Misc/script.js"></script>\n</head>\n<body>\n<h3 class="ctt">Contents</h3>\n\1\n</body>\n</html>', str(toc))
-        bk._w.guide = [('toc', '目錄', bk.id_to_href(build(bk, bk.basename_to_id(getbsn(guide.find('a', {'epub:type': 'toc'})[
-                        'href'])) if guide and guide.find('a', {'epub:type': 'toc'}) else 'contents.xhtml', toc, 'application/xhtml+xml')))]
+        if guide and guide.find('a', {'epub:type': 'toc'}):
+            bk._w.guide = [('toc', '目錄', bk.id_to_href(build(bk, bk.basename_to_id(getbsn(
+                guide.find('a', {'epub:type': 'toc'})['href'])), toc, 'application/xhtml+xml')))]
+        else:
+            bk._w.guide = [('toc', '目錄', bk.id_to_href(
+                build(bk, 'contents.xhtml', toc, 'application/xhtml+xml')))]
+            bk.spine_insert_before(0, 'contents.xhtml', 'yes')
     elif mode == 'nav':
         print('\n重构NAV……')
         cover, ctt, intro = bk.id_to_href(tuple(getpic(bk))[0][0]).rsplit(
