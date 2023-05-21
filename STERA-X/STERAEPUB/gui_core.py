@@ -2,10 +2,14 @@
 # -*- coding: utf-8 -*-
 from PyQt5 import QtCore, QtGui, QtWidgets
 from re import compile
-from os import path, startfile, remove
+from os import path, remove
 from sys import argv
 from json import loads, dumps
 from .userpanel_ui import Ui_panel
+try:
+    from os import startfile
+except:
+    from subprocess import call
 
 # 用户面板UI
 f2p, gettit, getisbn, getsub, getvol, getsum, setsum, chkisbn = compile(r'[ａ-ｚＡ-Ｚ０-９]'), compile(r'<dc:title.*?>\s*([^<>]*?)\s*</dc:title>'), compile(r'(?i)<dc:identifier.*?>[^<>]*?isbn[^<>]*?([\d\s-]+)</dc:identifier>'), compile(
@@ -66,7 +70,7 @@ class UI(Ui_panel):
         self.summary.textChanged.connect(self.check_input)
         self.launch_start.clicked.connect(self.submit)
         self.config_reset.clicked.connect(self.reset_config)
-        self.to_content.clicked.connect(lambda: startfile(sdir))
+        self.to_content.clicked.connect(lambda: self.to_fold(sdir))
         self.to_github.clicked.connect(lambda: QtGui.QDesktopServices.openUrl(
             QtCore.QUrl('https://github.com/Minami926494/STERA')))
         self.from_opf.clicked.connect(self.get_opfinfo)
@@ -108,6 +112,12 @@ class UI(Ui_panel):
                 self.volume.setText('')
             self.title.setText(title.strip())
         self.isbn.setText(isbn.group(1) if isbn else '')
+
+    def to_fold(self, sdir):
+        try:
+            startfile(sdir)
+        except:
+            call(('open', sdir))
 
     def submit(self):
         self.para = {'auto': self.auto_check.isChecked(), 't2s': self.t2s_check.isChecked(), 'sub': self.sub_check.isChecked(), 'cps': self.cps_check.isChecked(), 'chk': self.chk_check.isChecked(), 'tem': self.tem_check.isChecked(), 'del': self.del_check.isChecked(), 'flow_class': self.flow_class.isChecked(), 'flow_tag': self.flow_tag.isChecked(), 'flow_text': self.flow_text.isChecked(), 'flow_title': self.flow_title.isChecked(), 'flow_note': self.flow_note.isChecked(
