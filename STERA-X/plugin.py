@@ -1,11 +1,12 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from STERAEPUB import start
+from sys import exit
 
 
 def run(bk):
-    if bk.launcher_version() <= 20210722:
-        print('Sigil版本过低，请更新至Sigil1.8.0+！')
+    if bk.launcher_version() <= 20220101:
+        print('Sigil版本过低，请更新至Sigil1.9.0+！')
         return -1
     elif not bk.epub_is_standard():
         print('文档不符合Sigil规范，请先执行规范化！')

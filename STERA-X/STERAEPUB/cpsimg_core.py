@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from re import compile
+from regex import compile
 from io import BytesIO
 from PIL import Image
 from .clear_core import getbsn
@@ -64,7 +64,7 @@ def cpsimg(bk):
                         n += '_'
     for i in sorted(IMG, reverse=True, key=len):
         for j in bk.manifest_iter():
-            if j[2].endswith('xhtml+xml') or j[2].endswith('css'):
+            if j[2].endswith(('xhtml+xml', 'css')):
                 bk.writefile(j[0], bk.readfile(j[0]).replace(i, IMG[i]))
 
 

@@ -1,7 +1,7 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from PyQt5 import QtCore, QtGui, QtWidgets
-from re import compile
+from regex import compile
 from os import path, remove
 from sys import argv
 from json import loads, dumps

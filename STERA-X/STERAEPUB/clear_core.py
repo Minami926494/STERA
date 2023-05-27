@@ -1,18 +1,18 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from re import compile
+from regex import compile
 
 # 清理多余文件
-tourl, expg = compile(r'(?:url[(\'\"\s]+([^)\'\"\s]+)[)\'\"\s]+|(?:href|src)[:=\'\"\s]+([^()\'\"\s]+)[\'\"\s]+)'), compile(
+tourl, expg = compile(r'(?:url[(\'\"\s]+([^)\'\":\s]+)[)\'\"\s]+|[^-](?:href|src)[:=\'\"\s]+([^()\'\":\s]+)[\'\"\s]+)'), compile(
     r'(?i)(?:<title></title>|colophon|logo[-_]|bookwalker[^"\n]*?\.)')
 
 
 def getbsn(p, completily=False):
     if not completily:
         res = tourl.findall(p)
-        return ''.join(res[0]).rsplit('/', 1)[-1] if res else p.rsplit('/', 1)[-1].strip('\'\" ')
+        return ''.join(res[0]).rsplit('/', 1)[-1].rsplit('#', 1)[0] if res else p.rsplit('/', 1)[-1].rsplit('#', 1)[0].strip('\'\" ')
     else:
-        return {''.join(i).rsplit('/', 1)[-1] for i in tourl.findall(p)}
+        return {''.join(i).rsplit('/', 1)[-1].rsplit('#', 1)[0] for i in tourl.findall(p)}
 
 
 def clear(bk, mode='unused'):
@@ -39,9 +39,9 @@ def clear(bk, mode='unused'):
     elif mode == 'unused':
         print('\n清理未使用的文件……')
         UNUSED = {i[0] for i in bk.manifest_iter() if not (
-            i[2].startswith('application') or i[2].startswith('text'))}
+            i[2].startswith(('application', 'text')))}
         for i in bk.manifest_iter():
-            if i[2].endswith('xhtml+xml') or i[2].endswith('css'):
+            if i[2].endswith(('xhtml+xml', 'css')):
                 for j in getbsn(bk.readfile(i[0]), True):
                     UNUSED.discard(bk.basename_to_id(j))
         for i in UNUSED:

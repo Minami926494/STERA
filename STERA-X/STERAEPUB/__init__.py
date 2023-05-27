@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from time import time
 from logging import disable
@@ -10,7 +10,7 @@ from .t2stext_core import t2stext
 from .cpsimg_core import cpsimg
 from .subfont_core import subfont
 
-version = __version__ = '1.3.1'
+version = __version__ = '1.3.1a'
 __all__ = ['start']
 
 

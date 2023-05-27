@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from re import compile
+from regex import compile
 from os import path, walk
 from .clear_core import getbsn
 from .regrex_core import bs, reg

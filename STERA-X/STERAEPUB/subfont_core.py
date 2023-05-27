@@ -1,10 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from fontTools.ttLib import TTFont
 from fontTools.subset import load_font, Subsetter, Options
 from lxml.html import document_fromstring
 from css_parser.css import CSSStyleSheet
-from re import compile
+from regex import compile
 from io import BytesIO
 from html import unescape
 from .clear_core import getbsn

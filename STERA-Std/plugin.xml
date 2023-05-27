@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin>
+  <name>STERA-Std</name>
+  <type>input</type>
+  <author>明日✿咲葉</author>
+  <description>虚空文学旅团STERAePub++标准化书源预处理</description>
+  <engine>python3.4</engine>
+  <version>1.0</version>
+  <oslist>osx,unx,win</oslist>
+  <autostart>true</autostart>
+  <autoclose>true</autoclose>
+</plugin>

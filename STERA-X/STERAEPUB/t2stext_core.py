@@ -1,6 +1,6 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from re import compile
+from regex import compile
 from .t2stext_dict import zht2s
 
 # 繁简转换
