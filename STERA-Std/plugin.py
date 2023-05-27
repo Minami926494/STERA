@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from os import path, makedirs, fsdecode, walk
+from os import path, makedirs, walk
 from shutil import rmtree
 from regex import compile, sub
 from zipfile import ZipFile, ZIP_DEFLATED
