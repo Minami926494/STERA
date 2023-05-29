@@ -47,6 +47,6 @@ def start(bk):
             subfont(bk)
         if para['cps']:
             cpsimg(bk)
-        buildtoc(bk), print('\n【运行结束，共计耗时%2f秒】' % (time()-st))
+        buildtoc(bk), print('\n【运行结束，共计耗时%.2f秒】' % (time()-st))
     else:
         print('\n【运行中止】')
