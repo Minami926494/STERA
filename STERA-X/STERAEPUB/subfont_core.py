@@ -10,7 +10,7 @@ from html import unescape
 from .clear_core import getbsn
 
 # 字体子集化
-white_clear, html_clear, css_clear, css_import, css_link, style_font, line_font, css_clssel, css_idsel, css_regsel, font_split = compile(r'[\s　]+'), compile(r'(?s)(?:<!--(?:(?!-->).)+-->|<script(?:(?!</script>).)*?</script>|<style(?:(?!</style>).)*?</style>)'), compile(r'(?s)(?:/\*(?:(?!\*/).)+\*/|[^{}\n\r]+\{((?!font-family)[^{}])*?\})'), compile(
+white_clear, html_clear, css_clear, css_import, css_link, style_font, line_font, css_clssel, css_idsel, css_regsel, font_split = compile(r'[\s　]+'), compile(r'(?s)(?:<!--(?:(?!-->).)+-->|<script(?:(?!</script>).)*?</script>|<style(?:(?!</style>).)*?</style>)'), compile(r'(?:/\*(?:(?!\*/)[\s\S])+\*/|[^{}\n\r]+\{((?!font-family)[^{}])*?\}|@char.+[\n\r]+)'), compile(
     r'@import\s*(.+?);'), compile(r'<link[^>]*?href="([^"]+)"'), compile(r'<style[^>]*?>((?:(?!</style>).)*?)</style>'), compile(r'font-family:\s*([^;\"\']+?)\s*(!important)?\s*[;\"\']'), compile(r'\.[A-Za-z\d*]+\s*$'), compile(r'#[A-Za-z\d*]+\s*$'), compile(r'\]\s*$'), compile(r'[\s,]+')
 
 
@@ -112,8 +112,23 @@ def subfont(bk):
                   loss[:80], '】' if ll <= 80 else '】等', sep='')
             return -1
         else:
-            hl, file, OPT = len(has), BytesIO(), Options()
-            OPT.layout_features, subsetter, font = '*', Subsetter(
-                OPT), load_font(ID2FILE[fid], OPT)
+            hl, (n, f), file, OPT = len(has), bsn.rsplit(
+                '.', 1), BytesIO(), Options()
+            OPT.layout_features, OPT.glyph_names, OPT.desubroutinize, OPT.drop_tables, OPT.flavor, subsetter, font = '*', True, True, [
+                'DSIG'], 'woff2', Subsetter(OPT), load_font(ID2FILE[fid], OPT)
             print('　+保留', str(hl), '个：【', bsn, '】=>【', has[:80], '】' if hl <= 80 else '】等', sep=''), HAS[i].add(30340), subsetter.populate(
-                unicodes=HAS[i]), subsetter.subset(font), font.save(file), font.close(), bk.writefile(fid, file.getvalue()), file.close()
+                unicodes=HAS[i]), subsetter.subset(font), font.save(file), font.close()
+            if f == 'ttf':
+                bk.writefile(fid, file.getvalue())
+            else:
+                try:
+                    nbsn = ''.join((n, '.ttf'))
+                    bk.deletefile(fid), bk.addfile(fid, nbsn, file.getvalue())
+                    for j in bk.manifest_iter():
+                        if j[2].endswith(('xhtml+xml', 'css')):
+                            inner = bk.readfile(j[0])
+                            if bsn in inner:
+                                bk.writefile(j[0], inner.replace(bsn, nbsn))
+                except:
+                    continue
+            file.close()
