@@ -1,5 +1,5 @@
 # STERAePub++标准化模板<br/>
-<b>～ePub自动化快速精排 ver 1.3.1a～</b>
+<b>～ePub自动化快速精排 ver 1.3.1+～</b>
 <br/><br/>
 
 >## 使用条件
