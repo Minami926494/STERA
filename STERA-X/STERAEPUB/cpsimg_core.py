@@ -74,7 +74,7 @@ def cps(img, fm=None, tofm='webp'):
     if max(size) > 2048:
         pic.resize((2048, int(size[1]*2048/size[0])) if size[0]
                    >= size[1] else (int(size[0]*2048/size[1]), 2048))
-    pic.save(img, tofm, optimize=True, quality=80)
+    pic.save(img, tofm, optimize=True, quality=80 if bsize > 100000 else 90)
     image = img.getvalue()
     img.close()
     return image if bsize/len(image) >= 1.1 or fm != tofm else None

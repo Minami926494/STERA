@@ -13,7 +13,7 @@ except:
 
 # 用户面板UI
 f2p, gettit, getisbn, getsub, getvol, getsum, setsum, chkisbn = compile(r'[ａ-ｚＡ-Ｚ０-９]'), compile(r'<dc:title.*?>\s*([^<>]*?)\s*</dc:title>'), compile(r'(?i)<dc:identifier.*?>[^<>]*?isbn[^<>]*?([\d\s-]+)</dc:identifier>'), compile(
-    r'[~～\s](\S*?[^\d\sA-z]\S*?)(?:[~～\s]|$)'), compile(r'([(（【〈-])?(\d+)(?(1)[)）】〉]|(?:\s|$))'), compile(r'(?:^[\s\S]+<body.*?>\s*|\s*</body>[\s\S]+$)|(?<=<p)[^>]+|(?<=<br)[^/]+'), compile(r'<[^>]+>'), compile(r'\D+')
+    r'[~～\s](\S*?[^\d\sA-z]\S*?)(?:[~～\s]|$)'), compile(r'([(（【〈-])?(\d+)(?(1)[)）】〉]|(?:[\s.-]|$))'), compile(r'(?:^[\s\S]+<body.*?>\s*|\s*</body>[\s\S]+$)|(?<=<p)[^>]+|(?<=<br)[^/]+'), compile(r'<[^>]+>'), compile(r'\D+')
 
 
 def launch(bk):
@@ -99,17 +99,18 @@ class UI(Ui_panel):
         tit, isbn = gettit.search(meta), getisbn.search(meta)
         if tit:
             title = tit.group(1)
-            sub, vol = getsub.search(title), getvol.search(title)
-            if sub:
-                title = title.replace(sub.group(0), '')
-                self.subtitle.setText(sub.group(1))
-            else:
-                self.subtitle.setText('')
+            vol = getvol.search(title)
             if vol:
                 title = title.replace(vol.group(0), '')
                 self.volume.setText(vol.group(2).zfill(2))
             else:
                 self.volume.setText('')
+            sub = getsub.search(title)
+            if sub:
+                title = title.replace(sub.group(0), '')
+                self.subtitle.setText(sub.group(1))
+            else:
+                self.subtitle.setText('')
             self.title.setText(title.strip())
         self.isbn.setText(isbn.group(1) if isbn else '')
 

@@ -95,5 +95,5 @@ note.change aside.zuo-shang:after{border-width:10px 30px 0 0;-webkit-transform:s
 note.change aside p{color:#fcfcfc;text-shadow:0 0 3px #333;}
 @-webkit-keyframes show{0%{opacity:0;}100%{opacity:0.9;}}@-webkit-keyframes fade{0%{opacity:0.9;}100%{opacity:0;}}@keyframes show{0%{opacity:0;}100%{opacity:0.9;}}@keyframes fade{0%{opacity:0.9;}100%{opacity:0;}}
 /*检查与调试*/
-*[type*="check"]{border:3px black double;}*[type*="check"] *:nth-child(4n){border:1px red solid;}*[type*="check"] *:nth-child(4n+1){border:1px blue solid;}*[type*="check"] *:nth-child(4n+2){border:1px orange solid;}*[type*="check"] *:nth-child(4n+3){border:1px green solid;}
+*[type*="check"]{border:3px purple double;}*[type*="check"] *:nth-child(4n){border:1px red solid;}*[type*="check"] *:nth-child(4n+1){border:1px blue solid;}*[type*="check"] *:nth-child(4n+2){border:1px orange solid;}*[type*="check"] *:nth-child(4n+3){border:1px green solid;}
 /*虚空文学旅团STERAePub++*/
