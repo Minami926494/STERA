@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from fontTools.ttLib import TTFont
+from fontTools.ttLib import TTFont, TTCollection
 from fontTools.subset import load_font, Subsetter, Options
 from lxml.html import document_fromstring
 from css_parser.css import CSSStyleSheet
@@ -11,7 +11,7 @@ from .clear_core import getbsn
 
 # 字体子集化
 white_clear, html_clear, css_clear, css_import, css_link, style_font, line_font, css_clssel, css_idsel, css_regsel, font_split = compile(r'[\s　]+'), compile(r'(?s)(?:<!--(?:(?!-->).)+-->|<script(?:(?!</script>).)*?</script>|<style(?:(?!</style>).)*?</style>)'), compile(r'(?:/\*(?:(?!\*/)[\s\S])+\*/|[^{}\n\r]+\{((?!font-family)[^{}])*?\}|@char.+[\n\r]+)'), compile(
-    r'@import\s*(.+?);'), compile(r'<link[^>]*?href="([^"]+)"'), compile(r'<style[^>]*?>((?:(?!</style>).)*?)</style>'), compile(r'font-family:\s*([^;\"\']+?)\s*(!important)?\s*[;\"\']'), compile(r'\.[A-Za-z\d*]+\s*$'), compile(r'#[A-Za-z\d*]+\s*$'), compile(r'\]\s*$'), compile(r'[\s,]+')
+    r'@import\s*(.+?)(?:;|$)'), compile(r'<link[^>]*?href="([^"]+)"'), compile(r'<style[^>]*?>((?:(?!</style>).)*?)</style>'), compile(r'font-family:\s*([^;\"\']+?)\s*(!important)?\s*(?:[;\"\']|$)'), compile(r'\.[A-Za-z\d*]+\s*$'), compile(r'#[A-Za-z\d*]+\s*$'), compile(r'\]\s*$'), compile(r'[\s,]+')
 
 
 def subfont(bk):
@@ -38,7 +38,12 @@ def subfont(bk):
     for i in bk.font_iter():
         f = BytesIO(bk.readfile(i[0]))
         if i[0] in ID2FML:
-            font, ID2FILE[i[0]] = set(TTFont(f).getBestCmap()), f
+            try:
+                font, ID2FILE[i[0]] = set(TTFont(f).getBestCmap()), f
+            except:
+                fc = TTCollection(f).fonts[0]
+                font = set(fc.getBestCmap())
+                fc.save(ID2FILE[i[0]])
             if font:
                 GLYPH[ID2FML[i[0]]] = font
         else:
@@ -110,18 +115,19 @@ def subfont(bk):
             ll = len(loss)
             print('　-缺字', str(ll), '个：【', bsn, '】=>【',
                   loss[:80], '】' if ll <= 80 else '】等', sep='')
-            return -1
         else:
             hl, (n, f), file, OPT = len(has), bsn.rsplit(
                 '.', 1), BytesIO(), Options()
             OPT.layout_features, OPT.glyph_names, OPT.desubroutinize, OPT.drop_tables, OPT.flavor, subsetter, font = '*', True, True, [
                 'DSIG'], 'woff2', Subsetter(OPT), load_font(ID2FILE[fid], OPT)
-            print('　+保留', str(hl), '个：【', bsn, '】=>【', has[:80], '】' if hl <= 80 else '】等', sep=''), HAS[i].add(30340), subsetter.populate(
-                unicodes=HAS[i]), subsetter.subset(font), font.save(file), font.close()
-            if f == 'ttf':
-                bk.writefile(fid, file.getvalue())
-            else:
-                try:
+            HAS[i].add(30340), subsetter.populate(unicodes=HAS[i])
+            try:
+                subsetter.subset(font), font.save(file), font.close()
+                print('　+保留', str(hl), '个：【', bsn, '】=>【',
+                      has[:80], '】' if hl <= 80 else '】等', sep='')
+                if f == 'ttf':
+                    bk.writefile(fid, file.getvalue())
+                else:
                     nbsn = ''.join((n, '.ttf'))
                     bk.deletefile(fid), bk.addfile(fid, nbsn, file.getvalue())
                     for j in bk.manifest_iter():
@@ -129,6 +135,6 @@ def subfont(bk):
                             inner = bk.readfile(j[0])
                             if bsn in inner:
                                 bk.writefile(j[0], inner.replace(bsn, nbsn))
-                except:
-                    continue
+            except:
+                print('　-子集化失败：【', bsn, '】', sep='')
             file.close()
