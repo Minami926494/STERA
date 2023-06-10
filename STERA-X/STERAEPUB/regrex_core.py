@@ -46,34 +46,41 @@ class dom:
                 self.bk.addfile(id, bsn, bs(data, True))
 
 
-def reg(aim, regrex, log=True):
+def reg(aim, regrex, log=True, debug=False):
     if log and regrex[0]:
         print('\n', regrex[0], '……', sep='')
     pre = compile(regrex[1].replace('^^', '(?<![^\\n])').replace(
         '$$', '(?![^\\n])')) if regrex[1] else None
     for s in regrex[2:]:
+        if log:
+            print('　-【', s[0], '】：', sep='', end='')
         if pre:
             r, pg = 0, [i.group(0) for i in pre.finditer(aim)]
             p = range(len(pg))
             for g in p:
                 part = pg[g]
                 aim = aim.split(part, 1)
-                part, _r = rex(part, s)
+                part, _r = rex(part, s, debug)
                 pg[g], aim = ''.join((aim[0], part)), aim[1]
                 r += _r
             pg[-1] = ''.join((pg[-1], aim))
             aim = ''.join(pg)
         else:
-            aim, r = rex(aim, s)
+            aim, r = rex(aim, s, debug)
+        if debug:
+            print()
         if log:
-            print(''.join(('　+替换', str(r), '项：【',
+            print(''.join(('\n　+替换', str(r), '项：【',
                   s[0], '】') if r else ('　-未匹配到：【', s[0],  '】')))
     return aim
 
 
-def rex(pg, dic):
-    ti, d = 0, dic[1]
+def rex(pg, dic, debug=False):
+    ti, step, d = 0, 0, dic[1]
     for m in d:
+        if debug:
+            step += 1
+            print('[', step, '/', len(d), ']', sep='', end='')
         m, r, t = m.replace('^^', '(?<![^\\n])').replace(
             '$$', '(?![^\\n])'), d[m], 0
         if m.startswith('(*'):

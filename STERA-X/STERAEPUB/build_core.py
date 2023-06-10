@@ -9,6 +9,8 @@ from .cpsimg_core import getpic
 # EPUB重构
 olwrap, tunwrap, tit, bookid = compile(r'(?s)<ol>\s*(.*?)\s*</ol>$'), compile(r'(?:[\n\r]+ *(?=[^< ])|\s*\\?(?= )|\s*(?=</a>))'), compile(
     r'<dc:title.*?>(.*?)</dc:title>'), compile(r'<dc:identifier.*?id="BookId".*?>(.*?)</dc:identifier>')
+fixnav = ('', '', ('', {
+          r'</li>((?:\s*<li>\s*<a[^>]*?>　[^<]*?</a>\s*</li>)+)': r'\n<ol>\1\n</ol>\n</li>', r'(<a[^>]*?>)　': r'\1'}))
 buildncx = ('', '', ('', {r'<a[^>]*href="[^"]*?([^"/]+)"[^>]*>\s*(.*?)\s*</a>': r'<navLabel>\n<text>\2</text>\n</navLabel>\n<content src="Text/\1"/>',
             r'</li>(?:\s*</ol>)?': '</navPoint>', r'(*)^([\s\S]*?)(?:<ol[^>]*>\s*)?<li[^>]*>': r'\1<navPoint id="navPoint*">'}))
 buildxml = {'META-INF/com.apple.ibooks.display-options.xml': '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>\n<display_options>\n<platform name="*">\n<option name="specified-fonts">true</option>\n</platform>\n</display_options>',
@@ -38,7 +40,10 @@ def getdepth(soup):
 
 def buildtoc(bk, mode='ncx'):
     navid = bk.getnavid()
-    NAV = bs(bk.readfile(navid))
+    NAV = bk.readfile(navid)
+    while '>　' in NAV:
+        NAV = reg(NAV, fixnav, False)
+    NAV = bs(NAV)
     toc, guide = NAV.find('nav', {'epub:type': 'toc'}).ol, NAV.find(
         'nav', {'epub:type': 'landmarks'})
     if mode == 'ctt':
