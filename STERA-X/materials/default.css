@@ -30,7 +30,7 @@
 .now{white-space:nowrap !important;}
 .ct{box-sizing:content-box !important;}
 /*字体*/
-.title{font-family:title,main,emoji,sym !important;}
+.title{font-family:title,main,emoji,sym;}
 .illus1{font-family:illus1;}.illus2{font-family:illus2;}.illus3{font-family:illus3;}.illus4{font-family:illus4;}.illus5{font-family:illus5;}
 .num{font-family:num;}.num p{margin:0;text-indent:0;duokan-text-indent:0;line-height:1em;}/*直排英数*/
 @font-face{font-family:"title";src:url(../Fonts/title.ttf);}@font-face{font-family:"illus1";src:url(../Fonts/illus1.ttf);}@font-face{font-family:"illus2";src:url(../Fonts/illus2.ttf);}@font-face{font-family:"illus3";src:url(../Fonts/illus3.ttf);}@font-face{font-family:"illus4";src:url(../Fonts/illus4.ttf);}@font-face{font-family:"illus5";src:url(../Fonts/illus5.ttf);}@font-face{font-family:"num";src:url(../Fonts/num.ttf);}
@@ -48,7 +48,7 @@ table{margin:1em auto;font-family:int,emoji,sym;}
 td{padding:0.2em 1em;}
 .bc{border-collapse:collapse;}
 .bs{border-spacing:0;}
-ul{margin:2em 1em 2em 1.5em;padding:0;text-indent:0;duokan-text-indent:0;font-weight:bold;line-height:1.5em;}
+ul{margin:2em 1em;padding:0;text-indent:0;duokan-text-indent:0;font-weight:bold;line-height:1.5em;}
 ul li{margin:0.5em 0 0.5em 1em;text-indent:0;duokan-text-indent:0;font-weight:lighter;list-style-position:inside;}
 /*变形*/
 .turn{-webkit-transform:rotate(180deg);transform:rotate(180deg);transform-origin:center;}
