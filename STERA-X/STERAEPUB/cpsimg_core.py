@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 from regex import compile
 from io import BytesIO
+from multiprocessing import Pool
 from PIL import Image
 from .clear_core import getbsn
 
@@ -19,49 +20,37 @@ def getpic(bk):
 
 def cpsimg(bk):
     print('\n图片压缩……')
-    IMG = {}
+    PIC, IMG, pool = {}, {}, Pool()
     for i in bk.image_iter():
         bsn = getbsn(i[1])
         if i[0] == tuple(getpic(bk))[0][1]:
-            img = cps(bk.readfile(i[0]), bsn.rsplit('.', 1)[-1], 'jpeg')
-            if img:
-                print('　+压缩：【', bsn, '】', sep='')
-            else:
-                print('　-未压缩：【', bsn, '】', sep='')
-                continue
-            if i[1].endswith('jpg'):
-                bk.writefile(i[0], img)
-            else:
-                bk.deletefile(i[0])
-                n = bsn.rsplit('.', 1)[0]
-                while 1:
-                    name = ''.join((n, '.jpg'))
-                    try:
-                        bk.addfile(i[0], name, img, 'image/jpeg')
-                        IMG[bsn] = name
-                        break
-                    except:
-                        n += '_'
+            PIC[(i[0], bsn, True)] = pool.apply_async(cps, args=(
+                bk.readfile(i[0]), bsn.rsplit('.', 1)[-1], 'jpeg'))
         else:
-            img = cps(bk.readfile(i[0]), bsn.rsplit('.', 1)[-1])
-            if img:
-                print('　+压缩：【', bsn, '】', sep='')
-            else:
-                print('　-未压缩：【', bsn, '】', sep='')
-                continue
-            if i[1].endswith('webp'):
-                bk.writefile(i[0], img)
-            else:
-                bk.deletefile(i[0])
-                n = bsn.rsplit('.', 1)[0]
-                while 1:
-                    name = ''.join((n, '.webp'))
-                    try:
-                        bk.addfile(i[0], name, img, 'image/webp')
-                        IMG[bsn] = name
-                        break
-                    except:
-                        n += '_'
+            PIC[(i[0], bsn, False)] = pool.apply_async(
+                cps, args=(bk.readfile(i[0]), bsn.rsplit('.', 1)[-1]))
+    pool.close(), pool.join()
+    for (pid, bsn, cover), img in PIC.items():
+        img, (ext, mime) = img.get(), ('jpg',
+                                       'image/jpeg') if cover else ('webp', 'image/webp')
+        if img:
+            print('　+压缩：【', bsn, '】', sep='')
+        else:
+            print('　-未压缩：【', bsn, '】', sep='')
+            continue
+        if bsn.endswith(ext):
+            bk.writefile(pid, img)
+        else:
+            bk.deletefile(pid)
+            n = bsn.rsplit('.', 1)[0]
+            while 1:
+                name = '.'.join((n, ext))
+                try:
+                    bk.addfile(pid, name, img, mime)
+                    IMG[bsn] = name
+                    break
+                except:
+                    n += '_'
     for i in sorted(IMG, reverse=True, key=len):
         for j in bk.manifest_iter():
             if j[2].endswith(('xhtml+xml', 'css')):
@@ -77,4 +66,4 @@ def cps(img, fm=None, tofm='webp'):
     pic.save(img, tofm, optimize=True, quality=80 if bsize > 100000 else 90)
     image = img.getvalue()
     img.close()
-    return image if bsize/len(image) >= 1.1 or fm != tofm else None
+    return image if bsize/len(image) >= 1.1 or (fm != 'webp' if tofm == 'webp' else fm != 'jpg') else None

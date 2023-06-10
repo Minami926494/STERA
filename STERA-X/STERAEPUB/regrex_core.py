@@ -52,7 +52,7 @@ def reg(aim, regrex, log=True, debug=False):
     pre = compile(regrex[1].replace('^^', '(?<![^\\n])').replace(
         '$$', '(?![^\\n])')) if regrex[1] else None
     for s in regrex[2:]:
-        if log:
+        if debug:
             print('　-【', s[0], '】：', sep='', end='')
         if pre:
             r, pg = 0, [i.group(0) for i in pre.finditer(aim)]
@@ -70,8 +70,7 @@ def reg(aim, regrex, log=True, debug=False):
         if debug:
             print()
         if log:
-            print(''.join(('\n　+替换', str(r), '项：【',
-                  s[0], '】') if r else ('　-未匹配到：【', s[0],  '】')))
+            print(''.join(('　+替换', str(r), '项：【', s[0], '】') if r else ('　-未匹配到：【', s[0],  '】')))
     return aim
 
 

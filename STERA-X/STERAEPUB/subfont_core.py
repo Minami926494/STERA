@@ -5,6 +5,7 @@ from fontTools.subset import load_font, Subsetter, Options
 from lxml.html import document_fromstring
 from css_parser.css import CSSStyleSheet
 from regex import compile
+from multiprocessing import Pool
 from io import BytesIO
 from html import unescape
 from .clear_core import getbsn
@@ -16,8 +17,8 @@ white_clear, html_clear, css_clear, css_import, css_link, style_font, line_font,
 
 def subfont(bk):
     print('\n字体子集化……')
-    SHEET, CSS, ID2FML, FML2ID, GLYPH, ELEM, FONT = CSSStyleSheet(), {}, {}, {
-    }, {}, {}, {}
+    SHEET, CSS, ID2FML, FML2ID, GLYPH, ELEM, FONT, CHANGED = CSSStyleSheet(), {}, {
+    }, {}, {}, {}, {}, {}
     for i in bk.css_iter():
         bsn = getbsn(i[1])
         CSS[bsn], SHEET.cssText = [], css_import.sub(lambda x: css_clear.sub('', bk.readfile(
@@ -104,6 +105,7 @@ def subfont(bk):
                 break
         else:
             LOSS[i1[-1]] = LOSS[i1[-1]] | i2
+    pool = Pool()
     for i in GLYPH:
         fid, has, loss = FML2ID[i], ''.join(
             chr(j) for j in HAS[i]), ''.join(chr(j) for j in LOSS[i])
@@ -116,25 +118,33 @@ def subfont(bk):
             print('　-缺字', str(ll), '个：【', bsn, '】=>【',
                   loss[:80], '】' if ll <= 80 else '】等', sep='')
         else:
-            hl, (n, f), file, OPT = len(has), bsn.rsplit(
-                '.', 1), BytesIO(), Options()
-            OPT.layout_features, OPT.glyph_names, OPT.desubroutinize, OPT.drop_tables, OPT.flavor, subsetter, font = '*', True, True, [
-                'DSIG'], 'woff2', Subsetter(OPT), load_font(ID2FILE[fid], OPT)
-            HAS[i].add(30340), subsetter.populate(unicodes=HAS[i])
-            try:
-                subsetter.subset(font), font.save(file), font.close()
-                print('　+保留', str(hl), '个：【', bsn, '】=>【',
-                      has[:80], '】' if hl <= 80 else '】等', sep='')
-                if f == 'ttf':
-                    bk.writefile(fid, file.getvalue())
-                else:
-                    nbsn = ''.join((n, '.ttf'))
-                    bk.deletefile(fid), bk.addfile(fid, nbsn, file.getvalue())
-                    for j in bk.manifest_iter():
-                        if j[2].endswith(('xhtml+xml', 'css')):
-                            inner = bk.readfile(j[0])
-                            if bsn in inner:
-                                bk.writefile(j[0], inner.replace(bsn, nbsn))
-            except:
-                print('　-子集化失败：【', bsn, '】', sep='')
-            file.close()
+            hl = len(has)
+            HAS[i].add(30340)
+            CHANGED[(fid, bsn)] = pool.apply_async(
+                sbf, args=(ID2FILE[fid], HAS[i]))
+            print('　+保留', str(hl), '个：【', bsn, '】=>【',
+                  has[:80], '】' if hl <= 80 else '】等', sep='')
+    pool.close(), pool.join()
+    for (fid, bsn), file in CHANGED.items():
+        n, f = bsn.rsplit('.', 1)
+        if f == 'ttf':
+            bk.writefile(fid, file.get())
+        else:
+            nbsn = ''.join((n, '.ttf'))
+            bk.deletefile(fid), bk.addfile(fid, nbsn, file.get())
+            for j in bk.manifest_iter():
+                if j[2].endswith(('xhtml+xml', 'css')):
+                    inner = bk.readfile(j[0])
+                    if bsn in inner:
+                        bk.writefile(j[0], inner.replace(bsn, nbsn))
+
+
+def sbf(f, d):
+    OPT, file = Options(), BytesIO()
+    OPT.layout_features, OPT.glyph_names, OPT.desubroutinize, OPT.drop_tables, OPT.flavor, subsetter, font = '*', True, True, [
+        'DSIG'], 'woff2', Subsetter(OPT), load_font(f, OPT)
+    subsetter.populate(unicodes=d), subsetter.subset(
+        font), font.save(file), font.close()
+    font = file.getvalue()
+    file.close()
+    return font
