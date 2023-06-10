@@ -97,8 +97,8 @@ def buildtem(bk, info=None):
         if sumid:
             bk._w.guide.append(('introduction', '簡介', bk.id_to_href(sumid)))
         print('\n重构OPF……')
-        title, cover, picpg = info['stit'].join(('～', '～')).join((info['tit'], info['vol'])).strip(
-        ) if info['stit'] else ' '.join((info['tit'], info['vol'])).strip(), None, set()
+        title, cover, picpg = ' '.join((info['tit'], info['vol'], info['stit']) if info['stit'] else (
+            info['tit'], info['vol'])).strip(), None, set()
         for i1, i2 in getpic(bk):
             if cover:
                 picpg.add(i1)
