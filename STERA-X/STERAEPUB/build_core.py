@@ -7,8 +7,8 @@ from .regrex_core import bs, reg
 from .cpsimg_core import getpic
 
 # EPUB重构
-olwrap, tunwrap, tit, bookid = compile(r'(?s)<ol>\s*(.*?)\s*</ol>$'), compile(r'(?:[\n\r]+ *(?=[^< ])|\s*\\?(?= )|\s*(?=</a>))'), compile(
-    r'<dc:title.*?>(.*?)</dc:title>'), compile(r'<dc:identifier.*?id="BookId".*?>(.*?)</dc:identifier>')
+spanclear, olwrap, tunwrap, tit, bookid = compile(r'</?span[^>]*?>'), compile(r'(?s)<ol>\s*(.*?)\s*</ol>$'), compile(
+    r'(?:[\n\r]+ *(?=[^< ])|\s*\\?(?= )|\s*(?=</a>))'), compile(r'<dc:title.*?>(.*?)</dc:title>'), compile(r'<dc:identifier.*?id="BookId".*?>(.*?)</dc:identifier>')
 fixnav = ('', '', ('', {
           r'</li>((?:\s*<li>\s*<a[^>]*?>　[^<]*?</a>\s*</li>)+)': r'\n<ol>\1\n</ol>\n</li>', r'(<a[^>]*?>)　': r'\1'}))
 buildncx = ('', '', ('', {r'<a[^>]*href="[^"]*?([^"/]+)"[^>]*>\s*(.*?)\s*</a>': r'<navLabel>\n<text>\2</text>\n</navLabel>\n<content src="Text/\1"/>',
@@ -53,6 +53,10 @@ def buildtoc(bk, mode='ncx'):
             for j in i('ol'):
                 j.name, j['class'] = 'ctt', 'part'
         for i in toc('a'):
+            if not i.string:
+                string = i.getText(strip=True)
+                i.clear()
+                i.string = string
             i.string.wrap(NAV.new_tag('ch'))
         toc = olwrap.sub(r'<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace">\n<head>\n<title>目錄</title>\n<link href="../Styles/stylesheet.css" type="text/css" rel="stylesheet"/>\n<script type="text/javascript" src="../Misc/script.js"></script>\n</head>\n<body>\n<h3 class="ctt">Contents</h3>\n\1\n</body>\n</html>', str(toc))
         if guide and guide.find('a', {'epub:type': 'toc'}):
