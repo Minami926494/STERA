@@ -160,8 +160,9 @@ def buildtem(bk, info=None):
         print('\n添加素材文件……')
         for r, d, f in walk(path.join(bk._w.plugin_dir, bk._w.plugin_name, 'materials')):
             for n in f:
-                with open(path.join(r, n), 'rb') as d:
-                    build(bk, n, d.read())
+                if 'original' not in n:
+                    with open(path.join(r, n), 'rb') as d:
+                        build(bk, n, d.read())
         print('\n添加汇总样式表……')
         css = tuple(getbsn(i[1]).join(('@import "', '";'))
                     for i in bk.css_iter())
