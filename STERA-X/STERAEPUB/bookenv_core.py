@@ -3,10 +3,14 @@
 from os import path, walk
 from time import time
 from html import unescape
+from copy import copy
 from collections.abc import Generator
 from regex import compile, sub, Match
 from lxml.etree import fromstring, tostring
-from .epubio_core import pjoin, elem, InvalidEpubError
+try:
+    from .epubio_core import pjoin, elem, InvalidEpubError
+except ImportError:
+    from epubio_core import pjoin, elem, InvalidEpubError
 
 # EPUB解析
 linkpath, navmap, ol1, ol2, navpoint, navlabel = compile(r'(?<=url\(|url\([\'\"]|href=[\'\"]|[^-]src=[\'\"]|@import [\'\"])[^)\'\"#:]+?(?=[)\'\"#])'), compile(r'(?i)[\s\S]*<navMap>([\s\S]*)</navMap>[\s\S]*'), compile(
@@ -142,7 +146,7 @@ class book:
         通过类型参数返回包含所有该类型文件elem对象的迭代器，多个参数时可匹配多类型文件。\n
         form -> 文件类型参数（'text'：HTML类文档 | 'css'：CSS样式表 | 'font'：字体文件 | 'audio'：音频文件 | 'video'：视频文件 | 'ncx'：NCX文件 | 'other'：META-INF中的XML文件 | 'misc'：其他常见类型文件）
         '''
-        for ele in self.elems:
+        for ele in copy(self.elems):
             if ele.form in form:
                 yield ele
 
@@ -169,7 +173,8 @@ class book:
                 nbsn += '_'
             new.mid = nbsn
             self.mid2ele[nbsn], self.href2ele[new.href] = new, new
-            self.spine.append(new)
+            if new.form == 'text':
+                self.spine.append(new)
             self.stdopf()
         elif nbsn != bsn:
             new.rename(nbsn)
@@ -251,3 +256,11 @@ class book:
             return self
         outdir.remove()
         del self
+
+
+bk = book('D:\\QQ浏览器\\左右兩邊都是妹妹，哥哥想選的是誰？(01).epub')
+for i in bk.iter('css'):
+    print(i.mid)
+    bk.delete(i)
+bk.add('1.txt', '666')
+bk.ref().get(bsn='1.txt').write('888')

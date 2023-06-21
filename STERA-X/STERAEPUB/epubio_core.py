@@ -63,6 +63,7 @@ class elem:
     def move(self, dst: str, clear: bool = False):
         if clear and path.exists(dst):
             rmtree(dst) if path.isdir(dst) else remove(dst)
+        makedirs(path.dirname(dst), exist_ok=True)
         try:
             self.__init__(move(self.fp, dst))
         except FileExistsError:
