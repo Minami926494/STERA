@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 from os import path, walk
 from time import time
+from html import unescape
 from collections.abc import Generator
 from regex import compile, sub, Match
-from lxml.etree import parse, tostring
+from lxml.etree import fromstring, tostring
 from .epubio_core import pjoin, elem, InvalidEpubError
 
 # EPUB解析
@@ -25,8 +26,6 @@ class book:
         runInSigil -> 是否在Sigil中作为插件运行
         '''
         self.runInSigil, norepeat = runInSigil, {'container.xml', 'mimetype'}
-        elems = self.elems = {elem(pjoin(metainf, 'container.xml')).write(
-            '<?xml version="1.0" encoding="UTF-8"?>\n<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">\n<rootfiles>\n<rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/>\n</rootfiles>\n</container>'), elem(pjoin(outdir, 'mimetype')).write('application/epub+zip')}
         outdir = self.outdir = pjoin(path.expanduser('~').replace(
             '\\', '/'), 'STERAEPUB', str(time()).replace('.', '-'))
         oebps = self.oebps = pjoin(outdir, 'OEBPS')
@@ -36,6 +35,8 @@ class book:
         opfpath = ncxpath = None
         elem(src).copy(outdir, True) if runInSigil == 'sigil' else elem(
             src).extract(outdir, True)
+        elems = self.elems = {elem(pjoin(metainf, 'container.xml')).write(
+            '<?xml version="1.0" encoding="UTF-8"?>\n<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">\n<rootfiles>\n<rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/>\n</rootfiles>\n</container>'), elem(pjoin(outdir, 'mimetype')).write('application/epub+zip')}
         mid2ele = self.mid2ele = {}
         href2ele = self.href2ele = {}
         fp2ele = self.fp2ele = {}
@@ -69,9 +70,10 @@ class book:
         if not opfpath:
             raise InvalidEpubError('未找到有效的OPF')
         opf = self.opf = fp2ele[opfpath]
-        opftree, self.ncx, self.nav = parse(
-            opf.read()), fp2ele.get(ncxpath), None
-        for item in opftree.xpath('//item[@id and @href]'):
+        opftree, self.ncx, self.nav = fromstring(
+            opf.read(True)), fp2ele.get(ncxpath), None
+        ns = {'ns': 'http://www.idpf.org/2007/opf'}
+        for item in opftree.xpath('//ns:item[@id and @href]', namespaces=ns):
             mid, href, prop = item.get('id'), item.get(
                 'href'), item.get('properties')
             ele = bsn2ele.get(extlower(path.basename(href)))
@@ -84,7 +86,7 @@ class book:
                         self.nav = ele
                 mid2ele[mid] = ele
         spine = self.spine = []
-        for itemref in opftree.xpath('//itemref[@idref]'):
+        for itemref in opftree.xpath('//ns:itemref[@idref]', namespaces=ns):
             idref, linear, prop = itemref.get('idref'), itemref.get(
                 'linear'), itemref.get('properties')
             ele = mid2ele.get(idref)
@@ -95,7 +97,7 @@ class book:
             if ele not in spine:
                 spine.append(ele)
         guide = self.guide = []
-        for reference in opftree.xpath('//reference[@href and @type and @title]'):
+        for reference in opftree.xpath('//ns:reference[@href and @type and @title]', namespaces=ns):
             href, type_, title = reference.get(
                 'href'), reference.get('type'), itemref.get('title')
             ele = self.get(bsn=extlower(path.basename(href)))
@@ -103,12 +105,13 @@ class book:
                 ele.guideType, ele.guideTitle = type_, title if title else ''
                 guide.append(ele)
         stdmeta = '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:opf="http://www.idpf.org/2007/opf">'
-        for meta in opftree.xpath('//metadata'):
-            self.metadata = sub(r'<metadata[^>]*?>', stdmeta, tostring(meta))
+        for meta in opftree.xpath('//ns:metadata', namespaces=ns):
+            self.metadata = sub(
+                r'<metadata[^>]*?>', stdmeta, unescape(tostring(meta).decode()))
             break
         else:
             self.metadata = stdmeta+'\n</metadata>'
-        for sp in opftree.xpath('//spine'):
+        for sp in opftree.xpath('//ns:spine', namespaces=ns):
             ppd = sp.get('page-progression-direction')
             self.ppd = ppd if ppd == 'ltr' or ppd == 'rtl' else None
             break
@@ -221,7 +224,7 @@ class book:
         if not self.ncx:
             raise InvalidEpubError('未找到有效的NCX')
         newnav = navmap.sub(lambda x: '\n'.join(('<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace">\n<head>\n<title>導航</title>\n<link href="../Styles/stylesheet.css" type="text/css" rel="stylesheet"/>\n<script type="text/javascript" src="../Misc/script.js"></script>\n</head>\n<body epub:type="frontmatter" id="nav">\n<nav epub:type="toc" id="toc" role="doc-toc">\n<ol>',
-                            x.group(1), '</ol>\n</nav>\n<nav epub:type="landmarks" id="landmarks" hidden="">\n<ol>', *('<li><a epub:type="'+ele.guideType+'" href="'+ele.href+'">'+ele.guideTitle+'</a></li>' for ele in self.guide), '</ol>\n</nav>\n</body>\n</html>')), ol1.sub('</li>\n</ol>', ol2.sub(r'', r'\1\n<ol>', navpoint.sub(r'<\1li>', navlabel.sub(r'<a href="\2">\1</a>', self.ncx.read())))))
+                            x.group(1), '</ol>\n</nav>\n<nav epub:type="landmarks" id="landmarks" hidden="">\n<ol>', *('<li><a epub:type="'+ele.guideType+'" href="'+ele.href+'">'+ele.guideTitle+'</a></li>' for ele in self.guide), '</ol>\n</nav>\n</body>\n</html>')), ol1.sub('</li>\n</ol>', ol2.sub(r'\1\n<ol>', navpoint.sub(r'<\1li>', navlabel.sub(r'<a href="\2">\1</a>', self.ncx.read())))))
         if not self.nav:
             self.nav = self.add('nav.xhtml', newnav)
         elif cover:
@@ -232,7 +235,9 @@ class book:
         '''
         生成新的OPF并覆盖旧的OPF，返回OPF的elem对象。
         '''
-        return self.opf.write('\n'.join(('<?xml version="1.0" encoding="utf-8"?>\n<package version="3.0" unique-identifier="BookId" prefix="rendition: http://www.idpf.org/vocab/rendition/#" xmlns="http://www.idpf.org/2007/opf">', self.metadata, *('<item id="%s" href="%s" media-type="%s"/>' % (ele.mid, ele.href, ele.mime+'" properties="'+ele.prop if ele.prop else ele.mime) for ele in self.elems), '<spine%s%s>' % (' page-progression-direction="'+self.ppd+'"' if self.ppd else '', ' toc="'+self.ncx.mid+'"' if self.ncx else ''), *('<itemref idref="%s"%s%s/>' % (ele.mid, ' linear="'+ele.spineLinear+'"' if ele.spineLinear else '', ' properties="'+ele.spineProp+'"' if ele.spineProp else '') for ele in self.spine), '</spine>\n<guide>', *('<reference type="'+ele.guideType+'" title="'+ele.guideTitle+'" href="'+ele.href+'"/>' for ele in self.guide), '</guide>\n</package>')))
+        a = '\n'.join(('<spine%s%s>' % (' page-progression-direction="'+self.ppd +
+                      '"' if self.ppd else '', ' toc="'+self.ncx.mid+'"' if self.ncx else '')))
+        return self.opf.write('\n'.join(('<?xml version="1.0" encoding="utf-8"?>\n<package version="3.0" unique-identifier="BookId" prefix="rendition: http://www.idpf.org/vocab/rendition/#" xmlns="http://www.idpf.org/2007/opf">', self.metadata, *('<item id="%s" href="%s" media-type="%s"/>' % (mid, ele.href, ele.mime+'" properties="'+ele.prop if ele.prop else ele.mime) for mid, ele in self.mid2ele.items()), '<spine%s%s>' % (' page-progression-direction="'+self.ppd+'"' if self.ppd else '', ' toc="'+self.ncx.mid+'"' if self.ncx else ''), *('<itemref idref="%s"%s%s/>' % (ele.mid, ' linear="'+ele.spineLinear+'"' if ele.spineLinear else '', ' properties="'+ele.spineProp+'"' if ele.spineProp else '') for ele in self.spine), '</spine>\n<guide>', *('<reference type="'+ele.guideType+'" title="'+ele.guideTitle+'" href="'+ele.href+'"/>' for ele in self.guide), '</guide>\n</package>')))
 
     def save(self, dst: str, done: bool = False):
         '''
