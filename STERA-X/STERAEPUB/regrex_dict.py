@@ -28,7 +28,7 @@ XH = (('样式整理', r'(?<!ctt )class="(?:(?!ctt).)*?"',
            r'(?s)<!--(?:(?!-->).)*?-->': '',
            r'(?:^^[\s　]+(?=<)|\s*\n\s*(?=[^<\s])|(?<=>) +(?=<))': ''}),
        ('标签规范化', {
-           r'^(<page.*?>)(?:(?!<title>目錄</title>)[\s\S])*?<body.*?>': r'\1\n<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace">\n<head>\n<title></title>\n<link href="../Styles/stylesheet.css" type="text/css" rel="stylesheet"/>\n<script type="text/javascript" src="../Misc/script.js"></script>\n</head>\n<body>',
+           r'^(<page.*?>)(?:(?!<title>[目導][錄航]</title>)[\s\S])*?<body.*?>': r'\1\n<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace">\n<head>\n<title></title>\n<link href="../Styles/stylesheet.css" type="text/css" rel="stylesheet"/>\n<script type="text/javascript" src="../Misc/script.js"></script>\n</head>\n<body>',
            r'(<(p|div|span|a|h\d)[^>\n]*?) */>': r'\1></\2>',
            r'alt=".*?"': '',
            r'\s+/>': '/>',
