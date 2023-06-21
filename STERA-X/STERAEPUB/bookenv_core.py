@@ -20,7 +20,7 @@ def extlower(bsn: str) -> str:
 class book:
     def __init__(self, src: str, runInSigil: bool = False):
         '''
-        传入源EPUB以初始化book类并执行规范化，将在系统的用户文件夹下建立工作区。\n
+        传入源EPUB以初始化book对象并执行规范化，将在系统的用户文件夹下建立工作区。\n
         src -> 源EPUB文件（夹）路径\n
         runInSigil -> 是否在Sigil中作为插件运行
         '''
@@ -236,9 +236,9 @@ class book:
 
     def save(self, dst: str, done: bool = False):
         '''
-        将工作区中内容保存并输出为EPUB文件，返回book类（如果存在）。\n
+        将工作区中内容保存并输出为EPUB文件，返回book对象（如果存在）。\n
         dst -> EPUB文件输出路径\n
-        done -> 是否已经完成处理，若完成将删除工作区和book类
+        done -> 是否已经完成处理，若完成将删除工作区和book对象
         '''
         outdir = elem(self.outdir)
         outdir.create(dst, True)
