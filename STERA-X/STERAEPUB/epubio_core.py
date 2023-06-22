@@ -11,10 +11,18 @@ except ImportError:
 
 # 基础文件读写
 def pjoin(*p: str):
+    '''
+    使用'/'连接路径。\n
+    p -> 要连接的路径
+    '''
     return '/'.join(p)
 
 
 def dclear(fp):
+    '''
+    检查目标路径所在文件夹是否为空文件夹，是则删除。\n
+    fp -> 要检查的目标路径
+    '''
     fp = path.dirname(fp)
     if not listdir(fp):
         rmdir(fp)

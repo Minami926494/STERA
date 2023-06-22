@@ -2,9 +2,16 @@
 # -*- coding: utf-8 -*-
 from regex import compile
 from os import path, walk
-from .clear_core import getbsn
-from .regrex_core import bs, reg
-from .cpsimg_core import getpic
+try:
+    from .bookenv_core import book
+    from .clear_core import getbsn
+    from .regrex_core import bs, reg
+    from .cpsimg_core import getpic
+except ImportError:
+    from bookenv_core import book
+    from clear_core import getbsn
+    from regrex_core import bs, reg
+    from cpsimg_core import getpic
 
 # EPUB重构
 spanclear, olwrap, tunwrap, tit, bookid = compile(r'</?span[^>]*?>'), compile(r'(?s)<ol>\s*(.*?)\s*</ol>$'), compile(
@@ -61,10 +68,10 @@ def buildtoc(bk, mode='ncx'):
         toc = olwrap.sub(r'<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace">\n<head>\n<title>目錄</title>\n<link href="../Styles/stylesheet.css" type="text/css" rel="stylesheet"/>\n<script type="text/javascript" src="../Misc/script.js"></script>\n</head>\n<body>\n<h3 class="ctt">Contents</h3>\n\1\n</body>\n</html>', str(toc))
         if guide and guide.find('a', {'epub:type': 'toc'}):
             bk._w.guide = [('toc', '目錄', bk.id_to_href(build(bk, bk.basename_to_id(getbsn(
-                guide.find('a', {'epub:type': 'toc'})['href'])), toc, 'application/xhtml+xml')))]
+                guide.find('a', {'epub:type': 'toc'})['href'])), toc)))]
         else:
             bk._w.guide = [('toc', '目錄', bk.id_to_href(
-                build(bk, 'contents.xhtml', toc, 'application/xhtml+xml')))]
+                build(bk, 'contents.xhtml', toc)))]
             bk.spine_insert_before(0, 'contents.xhtml', 'yes')
     elif mode == 'nav':
         print('\n重构NAV……')
@@ -88,12 +95,12 @@ def buildtoc(bk, mode='ncx'):
             meta) else '', bookid.search(meta).group(1) if bookid.search(meta) else ''
         NCX, bk._w.group_paths['ncx'] = '\n'.join(('<?xml version="1.0" encoding="utf-8"?>\n<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">\n<head>', bid.join(('<meta name="dtb:uid" content="', '"/>')), str(getdepth(toc)).join(
             ('<meta name="dtb:depth" content="', '"/>')), title.join(('<meta name="dtb:totalPageCount" content="0"/>\n<meta name="dtb:maxPageNumber" content="0"/>\n</head>\n<docTitle>\n<text>', '</text>\n</docTitle>\n<navMap>')), reg(str(toc), buildncx, False), '</navMap>\n</ncx>')), ['OEBPS']
-        build(bk, 'toc.ncx', NCX, 'application/x-dtbncx+xml')
+        build(bk, 'toc.ncx', NCX)
         bk._w.guide, bk._w.modified[bk.get_opfbookpath()] = [(i['epub:type'], i.string, bk.id_to_href(
             bk.basename_to_id(getbsn(i['href'])))) for i in guide.findAll('a')] if guide else [], 'file'
 
 
-def buildtem(bk, info=None):
+def buildtem(bk: book, info=None):
     if info:
         print('\n生成信息页……')
         titid, mesid, sumid = build(bk, 'title.xhtml', ''.join(('<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace">\n<head>\n<title>標題</title>\n<link href="../Styles/stylesheet.css" type="text/css" rel="stylesheet"/>\n<script type="text/javascript" src="../Misc/script.js"></script>\n</head>\n<body>\n<div class="title">\n<div class="center" style="margin:4em auto 0;">\n<p class="tilh em18 bold">', info['tit'], '</p>\n', info['stit'].join(('<p class="tilh em09 bold" style="margin:1em 0 0;">～', '～</p>\n')) if info['stit'] else '', '</div>\n<div class="center" style="margin:3em auto 4em;">\n', info['vol'].join(('<p class="tilh em15 bold">',  '</p>\n')) if info['vol'] else '', '</div>\n<div class="center">\n<p class="tilh em07 bold">作者</p>\n<p class="tilh em11 bold" style="margin:0.2em 0 0.75em;">', info['writer'], '</p>\n<p class="tilh em07 bold">插畫</p>\n<p class="tilh bold" style="margin:0.15em 0 0;">', info['painter'], '</p>\n</div>\n</div>\n</body>\n</html>'))), build(bk, 'message.xhtml', ''.join(('<div class="message">\n<div>\n<div class="meg">\n<p>製 作 信 息</p>\n</div>\n<div class="meghr"/>\n<div class="creator">\n<p>作者</p>\n</div>\n<div>\n<p>', info['writer'], '</p>\n</div>\n<div class="creator">\n<p>插畫</p>\n</div>\n<div>\n<p>', info['painter'], '</p>\n</div>\n<div class="creator">\n<p>譯者</p>\n</div>\n<div>\n<p>', info[
@@ -170,17 +177,11 @@ def buildtem(bk, info=None):
             ('/*虚空文学旅团STERAePub++*/\n', '\n/*虚空文学旅团STERAePub++*/'))) if css else print('　-无有效样式表')
 
 
-def build(bk, bsn, data, mime=None, prop=None):
-    mid = bsn
-    try:
-        bk.addfile(bsn, bsn, data, mime, prop)
-        print('　+生成：【', bsn, '】', sep='')
-    except:
-        try:
-            bk.writefile(bsn, data)
-        except:
-            mid = bk.basename_to_id(bsn)
-            bk.writefile(mid, data)
-            bsn = getbsn(bk.id_to_href(mid))
-        print('　-覆盖：【', bsn, '】', sep='')
-    return mid
+def build(bk: book, bsn: str, data: str | bytes):
+    ele = bk.get(bsn=bsn)
+    if ele:
+        print('　-覆盖：【', ele.write(data).bsn, '】', sep='')
+    else:
+        ele = bk.set(bk.add(bsn, data))
+        print('　+生成：【', ele.bsn, '】', sep='')
+    return ele

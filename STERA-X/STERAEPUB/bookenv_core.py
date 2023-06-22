@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from regex import compile, sub, Match
+from lxml.etree import fromstring, tostring
 from os import path, walk
 from time import time
 from html import unescape
 from copy import copy
+from types import MethodType
 from collections.abc import Generator
-from regex import compile, sub, Match
-from lxml.etree import fromstring, tostring
 try:
     from .epubio_core import pjoin, elem, InvalidEpubError
+    from .epubio_dict import extinfo
 except ImportError:
     from epubio_core import pjoin, elem, InvalidEpubError
+    from epubio_dict import extinfo
 
 # EPUB解析
 linkpath, navmap, ol1, ol2, navpoint, navlabel = compile(r'(?<=url\(|url\([\'\"]|href=[\'\"]|[^-]src=[\'\"]|@import [\'\"])[^)\'\"#:]+?(?=[)\'\"#])'), compile(r'(?i)[\s\S]*<navMap>([\s\S]*)</navMap>[\s\S]*'), compile(
@@ -18,6 +21,10 @@ linkpath, navmap, ol1, ol2, navpoint, navlabel = compile(r'(?<=url\(|url\([\'\"]
 
 
 def extlower(bsn: str) -> str:
+    '''
+    将文件名的扩展名转换为小写后返回完整文件名。\n
+    bsn -> 原完整文件名
+    '''
     name, ext = path.splitext(bsn)
     return name+ext.lower()
 
@@ -111,7 +118,7 @@ class book:
         stdmeta = '<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:opf="http://www.idpf.org/2007/opf">'
         for meta in opftree.xpath('//ns:metadata', namespaces=ns):
             self.metadata = sub(
-                r'<metadata[^>]*?>', stdmeta, unescape(tostring(meta).decode()))
+                r'<metadata[^>]*?>', stdmeta, unescape(tostring(meta, encoding='unicode')))
             break
         else:
             self.metadata = stdmeta+'\n</metadata>'
@@ -150,35 +157,63 @@ class book:
             if ele.form in form:
                 yield ele
 
-    def add(self, bsn: str, data: str | bytes, manifest: bool = True):
+    def add(self, bsn: str, data: str | bytes):
         '''
-        通过新文件的完整文件名和文件内容向EPUB添加文件，当重名时将自动重命名，返回新文件的elem对象。\n
+        通过新文件的完整文件名和文件内容向EPUB添加文件并根据文件类型决定是否添加OPF条目（manifest和spine），重名时将自动重命名，返回新文件的elem对象。\n
         bsn -> 新文件的完整文件名\n
-        data -> 新文件的文件内容\n
-        manifest -> 是否为新文件新增OPF条目（manifest和spine）
+        data -> 新文件的文件内容
         '''
-        fp = pjoin(self.metainf, bsn)
-        new = elem(fp).write(data)
-        name, ext, group = new.name, new.ext.lower(), new.group
-        while name+ext in self.bsn2ele:
+        name, ext = path.splitext(bsn)
+        ext = ext.lower()
+        bsn = name+ext
+        while bsn in self.bsn2ele:
             name += '_'
-        nbsn = name+ext
-        self.fp2ele[fp], self.bsn2ele[nbsn] = new, new
+            bsn = name+ext
+        fp = pjoin(self.oebps, extinfo[ext], bsn) if ext in extinfo else pjoin(
+            self.metainf, bsn)
+        new = elem(fp).write(data)
+        self.fp2ele[fp], self.bsn2ele[bsn] = new, new
         self.elems.add(new)
-        if manifest:
-            if not group:
-                raise InvalidEpubError('不支持的文件类型')
-            new.move(pjoin(self.oebps, group, nbsn))
-            while nbsn in self.mid2ele:
-                nbsn += '_'
-            new.mid = nbsn
-            self.mid2ele[nbsn], self.href2ele[new.href] = new, new
-            if new.form == 'text':
-                self.spine.append(new)
-            self.stdopf()
-        elif nbsn != bsn:
-            new.rename(nbsn)
         return new
+
+    def set(self, ele: elem, prop: str | None = None, spineLinear: str | None = None, spineProp: str | None = None, guideType: str | None = None, guideTitle: str | None = None):
+        '''
+        设置elem对象对应文件在OPF中的各属性值，无传入值时对应属性不作处理，相应属性或包含属性的条目（manifest、spine和guide）不在OPF中则自动新建，返回处理后的elem对象。\n
+        ele -> 文件的elem对象\n
+        prop -> 文件在manifest中的properties属性值\n
+        spineLinear -> 文件在spine中的linear属性值\n
+        spineProp -> 文件在spine中的properties属性值\n
+        guideType -> 文件在guide中的type属性值\n
+        guideTitle -> 文件在guide中的title属性值
+        '''
+        if ele.group is None:
+            raise InvalidEpubError('不支持的文件类型')
+        state = 0
+        if not ele.mid:
+            mid, state = ele.bsn, 1
+            while mid in self.mid2ele:
+                mid += '_'
+            ele.mid = mid
+            self.mid2ele[mid], self.href2ele[ele.href] = ele, ele
+        if prop:
+            ele.prop, state = prop, 1
+        if spineLinear:
+            ele.spineLinear, state = spineLinear, 1
+        if spineProp:
+            ele.spineProp, state = spineProp, 1
+        if ele not in self.spine and (ele.form == 'text' or spineLinear or spineProp):
+            state = 1
+            self.spine.append(ele)
+        if guideType:
+            ele.guideType, state = guideType, 1
+        if guideTitle:
+            ele.guideTitle, state = guideTitle, 1
+        if ele not in self.guide and (guideType or guideTitle):
+            state = 1
+            self.guide.append(ele)
+        if state:
+            self.stdopf()
+        return ele
 
     def delete(self, ele: elem, delfile: bool = True):
         '''
@@ -194,6 +229,8 @@ class book:
         if mid:
             if ele in self.spine:
                 self.spine.remove(mid)
+            if ele in self.guide:
+                self.guide.remove(mid)
             self.stdopf()
         return ele.remove() if delfile else ele
 
