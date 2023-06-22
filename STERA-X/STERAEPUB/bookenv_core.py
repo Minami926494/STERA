@@ -240,8 +240,6 @@ class book:
         '''
         生成新的OPF并覆盖旧的OPF，返回OPF的elem对象。
         '''
-        a = '\n'.join(('<spine%s%s>' % (' page-progression-direction="'+self.ppd +
-                      '"' if self.ppd else '', ' toc="'+self.ncx.mid+'"' if self.ncx else '')))
         return self.opf.write('\n'.join(('<?xml version="1.0" encoding="utf-8"?>\n<package version="3.0" unique-identifier="BookId" prefix="rendition: http://www.idpf.org/vocab/rendition/#" xmlns="http://www.idpf.org/2007/opf">', self.metadata, *('<item id="%s" href="%s" media-type="%s"/>' % (mid, ele.href, ele.mime+'" properties="'+ele.prop if ele.prop else ele.mime) for mid, ele in self.mid2ele.items()), '<spine%s%s>' % (' page-progression-direction="'+self.ppd+'"' if self.ppd else '', ' toc="'+self.ncx.mid+'"' if self.ncx else ''), *('<itemref idref="%s"%s%s/>' % (ele.mid, ' linear="'+ele.spineLinear+'"' if ele.spineLinear else '', ' properties="'+ele.spineProp+'"' if ele.spineProp else '') for ele in self.spine), '</spine>\n<guide>', *('<reference type="'+ele.guideType+'" title="'+ele.guideTitle+'" href="'+ele.href+'"/>' for ele in self.guide), '</guide>\n</package>')))
 
     def save(self, dst: str, done: bool = False):
