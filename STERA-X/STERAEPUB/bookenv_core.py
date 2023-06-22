@@ -6,7 +6,6 @@ from os import path, walk
 from time import time
 from html import unescape
 from copy import copy
-from types import MethodType
 from collections.abc import Generator
 try:
     from .epubio_core import pjoin, elem, InvalidEpubError
