@@ -3,7 +3,10 @@
 from os import path, makedirs, walk, remove, rename, listdir, rmdir
 from shutil import rmtree, copyfile, copytree, move
 from zipfile import ZipFile, ZIP_DEFLATED
-from epubio_dict import extinfo
+try:
+    from .epubio_dict import extinfo
+except ImportError:
+    from epubio_dict import extinfo
 
 
 # 基础文件读写
