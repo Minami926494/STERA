@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from os import path, makedirs, walk, remove, rename
+from os import path, makedirs, walk, remove, rename, listdir, rmdir
 from shutil import rmtree, copyfile, copytree, move
 from zipfile import ZipFile, ZIP_DEFLATED
 from epubio_dict import extinfo
@@ -9,6 +9,13 @@ from epubio_dict import extinfo
 # 基础文件读写
 def pjoin(*p: str):
     return '/'.join(p)
+
+
+def dclear(fp):
+    fp = path.dirname(fp)
+    if not listdir(fp):
+        rmdir(fp)
+        dclear(fp)
 
 
 class InvalidEpubError(Exception):
@@ -52,7 +59,7 @@ class elem:
 
     def copy(self, dst: str, clear: bool = False):
         if clear and path.exists(dst):
-            rmtree(dst) if path.isdir(dst) else remove(dst)
+            self.remove(dst)
         try:
             return elem(copytree(self.fp, dst, dirs_exist_ok=True) if self.isdir else copyfile(self.fp, dst))
         except FileExistsError:
@@ -62,20 +69,20 @@ class elem:
 
     def move(self, dst: str, clear: bool = False):
         if clear and path.exists(dst):
-            rmtree(dst) if path.isdir(dst) else remove(dst)
+            self.remove(dst)
         makedirs(path.dirname(dst), exist_ok=True)
+        fp = self.fp
         try:
-            self.__init__(move(self.fp, dst))
+            self.__init__(move(fp, dst))
         except FileExistsError:
             raise FileExistsError('目标路径存在重名文件')
         except FileNotFoundError:
             raise FileNotFoundError('源路径不存在')
+        dclear(fp)
         return self
 
-    def rename(self, nbsn: str, clear: bool = False):
+    def rename(self, nbsn: str):
         dst = pjoin(path.dirname(self.fp), nbsn)
-        if clear and path.exists(dst):
-            rmtree(dst) if path.isdir(dst) else remove(dst)
         try:
             rename(self.fp, dst)
             self.__init__(dst)
@@ -89,7 +96,7 @@ class elem:
         if not self.fp.lower().endswith('.epub'):
             raise InvalidEpubError('不是有效的EPUB文件')
         elif clear and path.exists(dst):
-            rmtree(dst) if path.isdir(dst) else remove(dst)
+            self.remove(dst)
         with ZipFile(self.fp) as zip:
             zip.extractall(dst)
         return elem(dst)
@@ -98,7 +105,7 @@ class elem:
         if not dst.lower().endswith('.epub'):
             raise InvalidEpubError('不是有效的EPUB文件')
         elif clear and path.exists(dst):
-            rmtree(dst) if path.isdir(dst) else remove(dst)
+            self.remove(dst)
         with ZipFile(dst, 'w', ZIP_DEFLATED) as zip:
             for r, d, f in walk(self.fp):
                 for n in f:
@@ -109,8 +116,12 @@ class elem:
         return elem(dst)
 
     def remove(self):
+        fp = self.fp
         try:
-            rmtree(self.fp) if self.isdir else remove(self.fp)
+            if self.isdir:
+                rmtree(fp)
+            else:
+                remove(fp)
+                dclear(fp)
         except FileNotFoundError:
             raise FileNotFoundError('源路径不存在')
-        del self

@@ -256,11 +256,3 @@ class book:
             return self
         outdir.remove()
         del self
-
-
-bk = book('D:\\QQ浏览器\\左右兩邊都是妹妹，哥哥想選的是誰？(01).epub')
-for i in bk.iter('css'):
-    print(i.mid)
-    bk.delete(i)
-bk.add('1.txt', '666')
-bk.ref().get(bsn='1.txt').write('888')
