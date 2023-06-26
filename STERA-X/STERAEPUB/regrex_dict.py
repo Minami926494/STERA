@@ -157,7 +157,7 @@ XH = (('样式整理', r'(?<!ctt )class="(?:(?!ctt).)*?"',
            r'<h7>(.*)</h7>': r'<h3>\1</h3>'})),
       ('注释生成', '',
        ('行内注释', {
-           r'(*)([\s　]*<span[^>\n]*?>)?[\s　]*（[※﹡*\s　]*[譯译編编]?[註注][\s　]*\d*[\s　：]+((?:[^（）\n]*?（(?:(?!）).)*）)*[^（）\n]+)）[\s　]*(?(1)</span>[\s　]*)(.*(?:\s*<aside>.*?</aside>)*)': r'<sup/>\3\n<aside>\2</aside>',
+           r'(*)([\s　]*<span[^>\n]*?>)?[\s　]*（([\s　]*<span[^>\n]*?>)?[※﹡*\s　]*[譯译編编]?[註注][\s　]*\d*[\s　：]+((?:[^（）\n]*?（(?:(?!）).)*）)*[^（）\n]+)(?(2)</span>[\s　]*)）[\s　]*(?(1)</span>[\s　]*)(.*(?:\s*<aside>.*?</aside>)*)': r'<sup/>\4\n<aside>\3</aside>',
            r'(*)(</[A-z\d]+>\s*)^^<[A-z\d]+[^>\n]*?>([^一-龥あ-ヶー\n]*<sup/>)[^一-龥あ-ヶー\n]*$$': r'\2\1'}),
        ('页尾注释', {
            r'(*)(?:[\s　]*<(span|sup)[^>\n]*?>)?[\s　]*(?:<a[^>\n]*?href="[^"\n]*?#([^"\n]*?)\s*"[^>\n]*?>[\s　]*)?（(?:[\s　]*<a[^>\n]*?href="[^"\n]*?#([^"\n]*?)\s*"[^>\n]*?>)?[※﹡*\s　]*[譯译編编]?[註注](?:[\s　]*<a[^>\n]*?href="[^"\n]*?#([^"\n]*?)\s*"[^>\n]*?>)?[\s　]*\d*[\s　]*(?:</a>[\s　]*)?）[\s　]*(?:</a>[\s　]*)?(?(1)</\1>[\s　]*)(.*(?:\s*<aside>.*?</aside>)*)([\s\S]*?)^^(.*?<([A-z\d]+)[^>\n]*?id="\s*(?:\2|\3|\4)\s*"[^>\n]*?>(?:[^<>]*?(?:<(?P<tag>[A-z\d]+)[^>\n]*?>(?:(?!</(?P=tag)>)[\s\S])*</(?P=tag)>|<[^>\n]*?/>))*[^<>]*</\8>.*)$$': r'<sup/>\5\n<aside>\7</aside>\6\7',
@@ -170,8 +170,7 @@ XH = (('样式整理', r'(?<!ctt )class="(?:(?!ctt).)*?"',
            r'<aside>[※﹡*\s　]*([譯译編编]?[註注])[\s　]*(\d*)[\s　：]*(.*?</aside>)': r'<aside>\1\2：\3',
            r'<aside>((?:(?!：).)*</aside>)': r'<aside>註：\1'}),
        ('弹注生成', {
-           r'(*)^([\s\S]*?)<sup/>([\s\S]*?)<aside>(.*?)(?=</aside>)': r'\1<sup><a class="duokan-footnote" epub:type="noteref" href="#note*" id="note_ref*"><img alt="note" class="zhangyue-footnote" src="../Images/note.png" zy-footnote="\3"/></a></sup>\2<aside epub:type="footnote" id="note*">\n<a href="#note_ref*">\n<ol class="duokan-footnote-content">\n<li class="duokan-footnote-item" id="note*" value="*">\n<p>\3</p>\n</li>\n</ol>\n</a>\n',
-           r'(*)<sup[^>\n]*?>(?:(?!</sup>|<img).)*?</sup>(.*?)<sup[^>\n]*?>((?:(?!</sup>|<img).)*?<img(?:(?!</sup>|<img).)*?</sup>)': r'<sup type="check">\2\1'})),
+           r'(*)^([\s\S]*?)<sup/>([\s\S]*?)<aside>(.*?)(?=</aside>)': r'\1<sup type="check"><a class="duokan-footnote" epub:type="noteref" href="#note*" id="note_ref*"><img alt="note" class="zhangyue-footnote" src="../Images/note.png" zy-footnote="\3"/></a></sup>\2<aside epub:type="footnote" id="note*">\n<a href="#note_ref*">\n<ol class="duokan-footnote-content">\n<li class="duokan-footnote-item" id="note*" value="*">\n<p>\3</p>\n</li>\n</ol>\n</a>\n'})),
       ('图片版式', r'(?s)<page.*?/page>',
        ('SVG处理', {
            r'(?:<p.*?><br/></p>\s*|<div.*?>\s*)*<svg.*?>(?:(?!</svg>)[\s\S])*?<image[^>\n]*?href="[^"\n]*/cover\.(jpe?g|webp)"/>(?:(?!</svg>)[\s\S])*?</svg>(?:\s*<p.*?><br/></p>|\s*</div>)*': r'<div class="cover duokan-image-single">\n<img alt="cover" src="../Images/cover.\1" zy-enlarge-src="self"/>\n</div>',
@@ -198,4 +197,5 @@ XH = (('样式整理', r'(?<!ctt )class="(?:(?!ctt).)*?"',
            r'(?<=<body>)\s*(?=<p)': r'\n<p><br/></p>\n',
            r'(?<=href=")([^"\n]+)#[^"\n]*?(?=")': r'\1',
            r'(*)(<page.*?href="(.*?)"[\s\S]*?href=")(?=#)': r'\1\2',
-           r'(<[A-z\d]+)((?:(?!type="check")[^>\n])*?>[^\n\dA-zΑ-ω一-龥あ-ヶー`~～\[\](){},.\\/;·！…（）—｛｝《》〈〉？：“”【】；‘\'，。、『』「」<>]+)': r'\1 type="check"\2'})))
+           r'(<[A-z\d]+)((?:(?!type="check")[^>\n])*?>[^\n\dA-zΑ-ω一-龥あ-ヶー`~～\[\](){},.\\/;·！…（）—｛｝《》〈〉？：“”【】；‘\'，。、『』「」<>]+)': r'\1 type="check"\2',
+           r'(<[A-z\d]+)(((?:(?!type="check")[^>\n])*?>[^<>\n]*?)[1①ⅰⅠiI一壹壱](?:(?!href=)[\s\S])*?\1\3(?:[2②ⅱⅡ二贰貳弐]|[iI]{2}))': r'\1 type="check"\2'})))

@@ -1,22 +1,41 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from regex import compile, sub, Match
+from regex import compile, sub
 from lxml.etree import fromstring, tostring
-from os import path, walk
+from os import path, makedirs, walk, remove, rename, listdir, rmdir
+from shutil import rmtree, copyfile, copytree, move
+from zipfile import ZipFile, ZIP_DEFLATED
 from time import time
 from html import unescape
 from copy import copy
-from collections.abc import Generator
+from collections.abc import Iterable, Generator
 try:
-    from .epubio_core import pjoin, elem, InvalidEpubError
-    from .epubio_dict import extinfo
+    from .bookenv_dict import extinfo
 except ImportError:
-    from epubio_core import pjoin, elem, InvalidEpubError
-    from epubio_dict import extinfo
+    from bookenv_dict import extinfo
 
 # EPUB解析
-linkpath, navmap, ol1, ol2, navpoint, navlabel = compile(r'(?<=url\(|url\([\'\"]|href=[\'\"]|[^-]src=[\'\"]|@import [\'\"])[^)\'\"#:]+?(?=[)\'\"#])'), compile(r'(?i)[\s\S]*<navMap>([\s\S]*)</navMap>[\s\S]*'), compile(
+linkpath, navmap, ol1, ol2, navpoint, navlabel = compile(r'(?<=url\(|url\([\'\"]|href=[\'\"]|[^-]src=[\'\"]|@import [\'\"])[^)\'\"#:;]+?(?=[)\'\"#;])'), compile(r'(?i)[\s\S]*<navMap>([\s\S]*)</navMap>[\s\S]*'), compile(
     r'</li>\s*(?=</li>)'), compile(r'(<li>(?:(?!</li>)[\s\S])*?)(?=<li>)'), compile(r'(?i)<(/)?navPoint[^>]*?>'), compile(r'(?i)<navLabel[^>]*?>\s*<text[^>]*?>([^<]*?)</text>\s*</navLabel>\s*<content[^>]*?src="[^"]*?([^"/]+)"[^>]*?/>')
+
+
+def pjoin(*p: str):
+    '''
+    使用'/'连接路径。\n
+    p -> 要连接的路径
+    '''
+    return '/'.join(p)
+
+
+def dclear(fp):
+    '''
+    检查目标路径所在文件夹是否为空文件夹，是则删除。\n
+    fp -> 要检查的目标路径
+    '''
+    fp = path.dirname(fp)
+    if not listdir(fp):
+        rmdir(fp)
+        dclear(fp)
 
 
 def extlower(bsn: str) -> str:
@@ -28,32 +47,203 @@ def extlower(bsn: str) -> str:
     return name+ext.lower()
 
 
+def first(group: Iterable):
+    '''
+    返回传入的可迭代对象的不可迭代或字符串首项。\n
+    group -> 可迭代对象
+    '''
+    while not isinstance(group, str) and isinstance(group, Iterable):
+        group = tuple(group)[0]
+    return group
+
+
+def getbsn(p: str) -> str | Generator[str]:
+    '''
+    查找文本中的完整文件名，返回文件名或包含所有文件名的生成器。\n
+    p -> 需查找文本\n
+    whole -> 是否返回所有文件名，否则仅返回首项
+    '''
+    res = linkpath.findall(p)
+    if not res:
+        yield ''
+    for i in res:
+        yield path.basename(i).strip()
+
+
+class InvalidEpubError(Exception):
+    pass
+
+
 class book:
+    class elem:
+        def __init__(self, fp: str):
+            '''
+            传入文件路径，初始化elem对象。\n
+            fp -> 文件的完整路径
+            '''
+            self.fp = fp.rsplit('#', 1)[0].replace('\\', '/').strip()
+            bsn = self.bsn = path.basename(fp)
+            isdir = self.isdir = path.isdir(fp)
+            if not isdir:
+                self.name, self.ext = path.splitext(bsn)
+                self.mid = self.href = self.prop = self.mime = self.form = self.group = self.spineLinear = self.spineProp = self.guideType = self.guideTitle = None
+                if '.' in bsn:
+                    ext = self.ext.lower()
+                    if ext in extinfo:
+                        self.mime, self.form, self.group = extinfo[ext]
+                        self.href = pjoin(self.group, bsn)
+                    elif ext == 'xml':
+                        self.form = 'other'
+
+        def read(self, utf8: bool = False):
+            '''
+            读取并返回elem对象的文件内容。\n
+            utf8 -> 是否返回UTF-8，否则返回Unicode
+            '''
+            try:
+                with open(self.fp, 'rb') as fp:
+                    data = fp.read()
+            except IsADirectoryError:
+                raise IsADirectoryError('文件夹不能作为读取对象')
+            except FileNotFoundError:
+                raise FileNotFoundError('源路径不存在')
+            return data if utf8 else data.decode()
+
+        def write(self, data: str | bytes):
+            '''
+            写入elem对象的文件内容，返回elem对象，将自动创建路径中不存在的文件夹。\n
+            data -> 写入的字符串或字节序列
+            '''
+            makedirs(path.dirname(self.fp), exist_ok=True)
+            with open(self.fp, 'wb') as fp:
+                fp.write(data.encode() if isinstance(data, str) else data)
+            return self
+
+        def copy(self, dst: str, clear: bool = False):
+            '''
+            复制elem对象对应文件到目标路径，返回复制后的新elem对象，将自动创建路径中不存在的文件夹。\n
+            dst -> 复制的目标路径\n
+            clear -> 是否删除目标路径中已存在的文件（夹）
+            '''
+            if clear and path.exists(dst):
+                self.remove(dst)
+            makedirs(path.dirname(dst), exist_ok=True)
+            try:
+                return self.elem(copytree(self.fp, dst, dirs_exist_ok=True) if self.isdir else copyfile(self.fp, dst))
+            except FileExistsError:
+                raise FileExistsError('目标路径存在重名文件')
+            except FileNotFoundError:
+                raise FileNotFoundError('源路径不存在')
+
+        def move(self, dst: str, clear: bool = False):
+            '''
+            移动elem对象的文件到目标路径，返回elem对象，将自动创建路径中不存在的文件夹。\n
+            dst -> 移动的目标路径\n
+            clear -> 是否删除目标路径中已存在的文件（夹）
+            '''
+            if clear and path.exists(dst):
+                self.remove(dst)
+            makedirs(path.dirname(dst), exist_ok=True)
+            fp = self.fp
+            try:
+                self.__init__(move(fp, dst))
+            except FileExistsError:
+                raise FileExistsError('目标路径存在重名文件')
+            except FileNotFoundError:
+                raise FileNotFoundError('源路径不存在')
+            dclear(fp)
+            return self
+
+        def rename(self, nbsn: str, clear: bool = False):
+            '''
+            重命名elem对象对应文件，返回elem对象。\n
+            nbsn -> 新的完整文件名\n
+            clear -> 是否删除重名的文件（夹）
+            '''
+            dst = pjoin(path.dirname(self.fp), nbsn)
+            if clear and path.exists(dst):
+                self.remove(dst)
+            try:
+                rename(self.fp, dst)
+                self.__init__(dst)
+            except FileExistsError:
+                raise FileExistsError('目标路径存在重名文件')
+            except FileNotFoundError:
+                raise FileNotFoundError('源路径不存在')
+            return self
+
+        def extract(self, dst: str, clear: bool = False):
+            '''
+            解压EPUB文件到目标路径，返回解压后目录对应的elem对象。\n
+            dst -> 解压的目标路径\n
+            clear -> 是否删除目标路径中已存在的文件（夹）
+            '''
+            if not self.fp.lower().endswith('.epub'):
+                raise InvalidEpubError('不是有效的EPUB文件')
+            elif clear and path.exists(dst):
+                self.remove(dst)
+            with ZipFile(self.fp) as zip:
+                zip.extractall(dst)
+            return self.elem(dst)
+
+        def create(self, dst: str, clear: bool = False):
+            '''
+            压缩文件夹并生成EPUB文件到目标路径，返回EPUB文件的elem对象。\n
+            dst -> 压缩的目标路径\n
+            clear -> 是否删除目标路径中已存在的文件（夹）
+            '''
+            if not dst.lower().endswith('.epub'):
+                raise InvalidEpubError('不是有效的EPUB文件')
+            elif clear and path.exists(dst):
+                self.remove(dst)
+            with ZipFile(dst, 'w', ZIP_DEFLATED) as zip:
+                for r, d, f in walk(self.fp):
+                    for n in f:
+                        absdir = pjoin(r, n)
+                        with open(absdir, 'rb') as fp:
+                            zip.writestr(path.relpath(absdir, self.fp),
+                                         fp.read(), ZIP_DEFLATED)
+            return self.elem(dst)
+
+        def remove(self):
+            '''
+            删除elem对象及对应的文件，递归清除删除产生的空文件夹。
+            '''
+            fp = self.fp
+            try:
+                if self.isdir:
+                    rmtree(fp)
+                else:
+                    remove(fp)
+                    dclear(fp)
+            except FileNotFoundError:
+                raise FileNotFoundError('源路径不存在')
+
     def __init__(self, src: str, runInSigil: bool = False):
         '''
         传入源EPUB以初始化book对象并执行规范化，将在系统的用户文件夹下建立工作区。\n
         src -> 源EPUB文件（夹）路径\n
-        runInSigil -> 是否在Sigil中作为插件运行
+        runInSigil -> 是否作为插件在Sigil中运行
         '''
-        self.runInSigil, norepeat = runInSigil, {'container.xml', 'mimetype'}
+        self.runInSigil, self.sdir, epub, norepeat = runInSigil, path.dirname(
+            __file__), self.elem(src), {'container.xml', 'mimetype'}
         outdir = self.outdir = pjoin(path.expanduser('~').replace(
             '\\', '/'), 'STERAEPUB', str(time()).replace('.', '-'))
+        epub.copy(outdir, True) if epub.isdir else epub.extract(outdir, True)
         oebps = self.oebps = pjoin(outdir, 'OEBPS')
         metainf = self.metainf = pjoin(outdir, 'META-INF')
         stdopfpath, stdncxpath = pjoin(
             oebps, 'content.opf'), pjoin(oebps, 'toc.ncx')
         opfpath = ncxpath = None
-        elem(src).copy(outdir, True) if runInSigil == 'sigil' else elem(
-            src).extract(outdir, True)
-        elems = self.elems = {elem(pjoin(metainf, 'container.xml')).write(
-            '<?xml version="1.0" encoding="UTF-8"?>\n<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">\n<rootfiles>\n<rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/>\n</rootfiles>\n</container>'), elem(pjoin(outdir, 'mimetype')).write('application/epub+zip')}
+        elems = self.elems = {self.elem(pjoin(metainf, 'container.xml')).write(
+            '<?xml version="1.0" encoding="UTF-8"?>\n<container version="1.0" xmlns="urn:oasis:names:tc:opendocument:xmlns:container">\n<rootfiles>\n<rootfile full-path="OEBPS/content.opf" media-type="application/oebps-package+xml"/>\n</rootfiles>\n</container>'), self.elem(pjoin(outdir, 'mimetype')).write('application/epub+zip')}
         mid2ele = self.mid2ele = {}
         href2ele = self.href2ele = {}
         fp2ele = self.fp2ele = {}
         bsn2ele = self.bsn2ele = {}
         for r, d, f in walk(outdir):
             for n in f:
-                ele, stdpath = elem(pjoin(r, n)), None
+                ele, stdpath = self.elem(pjoin(r, n)), None
                 fp, ext, group = ele.fp, ele.ext, ele.group
                 if ext != ext.lower():
                     n = extlower(n)
@@ -86,7 +276,7 @@ class book:
         for item in opftree.xpath('//ns:item[@id and @href]', namespaces=ns):
             mid, href, prop = item.get('id'), item.get(
                 'href'), item.get('properties')
-            ele = bsn2ele.get(extlower(path.basename(href)))
+            ele = bsn2ele.get(extlower(first(getbsn(href))))
             if ele:
                 ele.mid, ele.prop = mid, prop if prop else None
                 if prop == 'nav':
@@ -110,7 +300,7 @@ class book:
         for reference in opftree.xpath('//ns:reference[@href and @type and @title]', namespaces=ns):
             href, type_, title = reference.get(
                 'href'), reference.get('type'), itemref.get('title')
-            ele = self.get(bsn=extlower(path.basename(href)))
+            ele = self.get(bsn=extlower(first(getbsn(href))))
             if ele:
                 ele.guideType, ele.guideTitle = type_, title if title else ''
                 guide.append(ele)
@@ -170,7 +360,7 @@ class book:
             bsn = name+ext
         fp = pjoin(self.oebps, extinfo[ext], bsn) if ext in extinfo else pjoin(
             self.metainf, bsn)
-        new = elem(fp).write(data)
+        new = self.elem(fp).write(data)
         self.fp2ele[fp], self.bsn2ele[bsn] = new, new
         self.elems.add(new)
         return new
@@ -238,24 +428,22 @@ class book:
         重定向类型参数所对应文件内容中存在的无效超链接地址，返回book对象，多个参数时可匹配多类型文件。\n
         form -> 文件类型参数（'text'：HTML类文档 | 'css'：CSS样式表 | 'font'：字体文件 | 'audio'：音频文件 | 'video'：视频文件 | 'ncx'：NCX文件 | 'other'：META-INF中的XML文件 | 'misc'：其他常见类型文件）
         '''
+        def __ref(match, form):
+            match = match.group(0)
+            ele = self.bsn2ele.get(first(getbsn(match)))
+            if not ele:
+                return match
+            elif form == 'ncx':
+                return ele.href
+            elif ele.form == form:
+                return ele.bsn
+            else:
+                return '../'+ele.href
         for ele in self.iter(*form):
             data = ele.read()
             if linkpath.search(data):
-                ele.write(linkpath.sub(
-                    lambda x: self.__ref(x, ele.form), data))
+                ele.write(linkpath.sub(lambda x: __ref(x, ele.form), data))
         return self
-
-    def __ref(self, match: Match[str], form: str) -> str:
-        match = match.group(0)
-        ele = self.bsn2ele.get(path.basename(match))
-        if not ele:
-            return match
-        elif form == 'ncx':
-            return ele.href
-        elif ele.form == form:
-            return ele.bsn
-        else:
-            return '../'+ele.href
 
     def newnav(self, cover: bool = True) -> elem:
         '''
@@ -284,7 +472,7 @@ class book:
         dst -> EPUB文件输出路径\n
         done -> 是否已经完成处理，若完成将删除工作区和book对象
         '''
-        outdir = elem(self.outdir)
+        outdir = self.elem(self.outdir)
         outdir.create(dst, True)
         if not done:
             return self

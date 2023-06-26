@@ -26,13 +26,13 @@ def start(bk):
                 buildtem(bk)
             if para['flow_title']:
                 buildtoc(bk, mode='ctt')
-            dom(bk, para['chk'])(para['flow_class'],
-                                 para['flow_tag'],
-                                 para['flow_text'],
-                                 para['flow_title'],
-                                 para['flow_note'],
-                                 para['flow_image'],
-                                 para['flow_page'])
+            del dom(bk, para['chk'])(para['flow_class'],
+                                     para['flow_tag'],
+                                     para['flow_text'],
+                                     para['flow_title'],
+                                     para['flow_note'],
+                                     para['flow_image'],
+                                     para['flow_page'])
             if para['del']:
                 clear(bk, mode='page')
             if para['tem']:

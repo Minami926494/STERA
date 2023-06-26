@@ -1,21 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from regex import compile
+from PIL import Image
 from io import BytesIO
 from multiprocessing import Pool
-from PIL import Image
-from .clear_core import getbsn
+try:
+    from .bookenv_core import book, getbsn
+except ImportError:
+    from bookenv_core import book, getbsn
 
 # 图片压缩
 catchimg = compile(
-    r'<body[^一-龥あ-ヶー]*?<ima?ge?[^>]*?(?:src|href)="[^"]*?([^"/]+)"[^>]*?/>(?:(?!<img|<image)[^一-龥あ-ヶー])*?/body>')
+    r'<body[^一-龥あ-ヶー]*?<ima?ge?[^>]*?(?:[^-]src|href)="[^"]*?([^"/]+)"[^>]*?/>(?:(?!<img|<image)[^一-龥あ-ヶー])*?/body>')
 
 
-def getpic(bk):
-    for i in bk.text_iter():
-        catch = catchimg.search(bk.readfile(i[0]))
+def getpic(bk: book):
+    for ele in bk.iter('text'):
+        catch = catchimg.search(ele.read())
         if catch:
-            yield i[0], bk.basename_to_id(catch.group(1))
+            pic = bk.get(bsn=getbsn(catch.group(1)))
+            if pic:
+                yield ele, pic
 
 
 def cpsimg(bk):
@@ -23,7 +28,7 @@ def cpsimg(bk):
     PIC, IMG, pool = {}, {}, Pool()
     for i in bk.image_iter():
         bsn = getbsn(i[1])
-        if i[0] == tuple(getpic(bk))[0][1]:
+        if i[0] == getpic(bk)[1]:
             PIC[(i[0], bsn, True)] = pool.apply_async(cps, args=(
                 bk.readfile(i[0]), bsn.rsplit('.', 1)[-1], 'jpeg'))
         else:

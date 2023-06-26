@@ -1,21 +1,17 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from regex import compile
+try:
+    from .bookenv_core import book, getbsn
+except ImportError:
+    from bookenv_core import book, getbsn
 
 # 清理多余文件
-tourl, expg = compile(r'(?:url[(\'\"\s]+([^)\'\":\s]+)[)\'\"\s]+|[^-](?:href|src)[:=\'\"\s]+([^()\'\":\s]+)[\'\"\s]+)'), compile(
+expg = compile(
     r'(?i)(?:<title></title>|colophon|logo[-_]|bookwalker[^"\n]*?\.)')
 
 
-def getbsn(p, completily=False):
-    if not completily:
-        res = tourl.findall(p)
-        return ''.join(res[0]).rsplit('/', 1)[-1].rsplit('#', 1)[0] if res else p.rsplit('/', 1)[-1].rsplit('#', 1)[0].strip('\'\" ')
-    else:
-        return {''.join(i).rsplit('/', 1)[-1].rsplit('#', 1)[0] for i in tourl.findall(p)}
-
-
-def clear(bk, mode='unused'):
+def clear(bk: book, mode: str = 'unused'):
     delitem = False
     if mode == 'misc':
         print('\n清理杂项文件……')
