@@ -8,7 +8,7 @@ from zipfile import ZipFile, ZIP_DEFLATED
 from time import time
 from html import unescape
 from copy import copy
-from collections.abc import Iterable, Generator
+from collections.abc import Iterable
 try:
     from .bookenv_dict import extinfo
 except ImportError:
@@ -57,11 +57,10 @@ def first(group: Iterable):
     return group
 
 
-def getbsn(p: str) -> str | Generator[str]:
+def getbsn(p: str) :
     '''
-    查找文本中的完整文件名，返回文件名或包含所有文件名的生成器。\n
-    p -> 需查找文本\n
-    whole -> 是否返回所有文件名，否则仅返回首项
+    查找文本中的完整文件名，返回包含所有文件名的生成器。\n
+    p -> 需查找文本
     '''
     res = linkpath.findall(p)
     if not res:
@@ -337,13 +336,13 @@ class book:
         elif bsn and bsn in self.bsn2ele:
             return self.bsn2ele[bsn]
 
-    def iter(self, *form: str) -> Generator[elem] | None:
+    def iter(self, *form: str):
         '''
-        通过类型参数返回包含所有该类型文件elem对象的迭代器，多个参数时可匹配多类型文件。\n
+        通过类型参数返回包含所有该类型文件elem对象的生成器，无参数时匹配所有类型，多个参数时可匹配多类型文件。\n
         form -> 文件类型参数（'text'：HTML类文档 | 'css'：CSS样式表 | 'font'：字体文件 | 'audio'：音频文件 | 'video'：视频文件 | 'ncx'：NCX文件 | 'other'：META-INF中的XML文件 | 'misc'：其他常见类型文件）
         '''
         for ele in copy(self.elems):
-            if ele.form in form:
+            if not form or ele.form in form:
                 yield ele
 
     def add(self, bsn: str, data: str | bytes):

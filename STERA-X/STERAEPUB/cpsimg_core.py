@@ -23,13 +23,13 @@ def getpic(bk: book):
                 yield ele, pic
 
 
-def cpsimg(bk):
+def cpsimg(bk:book):
     print('\n图片压缩……')
     PIC, IMG, pool = {}, {}, Pool()
-    for i in bk.image_iter():
-        bsn = getbsn(i[1])
-        if i[0] == getpic(bk)[1]:
-            PIC[(i[0], bsn, True)] = pool.apply_async(cps, args=(
+    for ele in bk.iter('image'):
+        bsn = ele.bsn
+        if ele[0] == getpic(bk)[1]:
+            PIC[(ele[0], bsn, True)] = pool.apply_async(cps, args=(
                 bk.readfile(i[0]), bsn.rsplit('.', 1)[-1], 'jpeg'))
         else:
             PIC[(i[0], bsn, False)] = pool.apply_async(

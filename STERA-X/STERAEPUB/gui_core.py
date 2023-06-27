@@ -5,18 +5,23 @@ from regex import compile
 from os import path, remove
 from sys import argv
 from json import loads, dumps
-from .userpanel_ui import Ui_panel
 try:
     from os import startfile
-except:
+except ImportError:
     from subprocess import call
+try:
+    from .bookenv_core import book
+    from .userpanel_ui import Ui_panel
+except ImportError:
+    from bookenv_core import book
+    from userpanel_ui import Ui_panel
 
 # 用户面板UI
 f2p, gettit, getisbn, getsub, getvol, getsum, setsum, chkisbn = compile(r'[ａ-ｚＡ-Ｚ０-９]'), compile(r'<dc:title.*?>\s*([^<>]*?)\s*</dc:title>'), compile(r'(?i)<dc:identifier.*?>[^<>]*?isbn[^<>]*?([\d\s-]+)</dc:identifier>'), compile(
     r'[~～\s](\S*?[^\d\sA-z]\S*?)(?:[~～\s]|$)'), compile(r'([(（【〈-])?(\d+)(?(1)[)）】〉]|(?:[\s.-]|$))'), compile(r'(?:^[\s\S]+<body.*?>\s*|\s*</body>[\s\S]+$)|(?<=<p)[^>]+|(?<=<br)[^/]+'), compile(r'<[^>]+>'), compile(r'\D+')
 
 
-def launch(bk):
+def launch(bk:book):
     app, win = QtWidgets.QApplication(argv), QtWidgets.QMainWindow()
     ui = UI(win, bk)
     app.exec_()

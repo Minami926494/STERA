@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 from regex import compile
 from os import path, walk
-from collections.abc import Generator
 try:
     from .bookenv_core import book, InvalidEpubError, getbsn, first
     from .regrex_core import bs, reg, overwrite
@@ -13,7 +12,8 @@ except ImportError:
     from cpsimg_core import getpic
 
 # EPUB重构
-spanclear, olwrap, tunwrap, tit, bookid = compile(r'</?span[^>]*?>'), compile(r'(?s)<ol>\s*(.*?)\s*</ol>$'), compile(
+
+expg, spanclear, olwrap, tunwrap, tit, bookid = compile(r'(?i)(?:<title></title>|colophon|logo[-_]|bookwalker[^"\n]*?\.)'), compile(r'</?span[^>]*?>'), compile(r'(?s)<ol>\s*(.*?)\s*</ol>$'), compile(
     r'(?:[\n\r]+ *(?=[^< ])|\s*\\?(?= )|\s*(?=</a>))'), compile(r'<dc:title.*?>(.*?)</dc:title>'), compile(r'<dc:identifier.*?id="BookId".*?>(.*?)</dc:identifier>')
 fixnav = ('', '', ('', {
           r'</li>((?:\s*<li>\s*<a[^>]*?>　[^<]*?</a>\s*</li>)+)': r'\n<ol>\1\n</ol>\n</li>', r'(<a[^>]*?>)　': r'\1'}))
@@ -135,7 +135,7 @@ def buildtem(bk: book, info=None):
             line[cttpg], cttpg.guideTitle = 4, '目錄'
         bk.metadata, bk.ppd = '\n'.join(('<metadata xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:opf="http://www.idpf.org/2007/opf">\n<dc:identifier id="BookId">urn:isbn:'+info['isbn']+'</dc:identifier>\n<dc:title id="title">'+title+'</dc:title>', '<meta property="belongs-to-collection" id="num">'+info['tit']+'</meta>\n<meta refines="#num" property="collection-type">series</meta>\n<meta refines="#num" property="group-position">'+info['vol']+'</meta>\n<dc:creator id="create">'+info['writer']+'</dc:creator>\n<dc:contributor>'+info['epuber']+'</dc:contributor>' if info['vol'] else '<dc:contributor>'+info[
                                         'epuber']+'</dc:contributor>', '<meta property="file-as" refines="#create">明日✿咲葉</meta>\n<dc:subject>lightnovel</dc:subject>\n<dc:rights>voidlord</dc:rights>\n<dc:language>zh</dc:language>\n<meta property="ibooks:specified-fonts">true</meta>\n<meta property="ibooks:binding">true</meta>\n<dc:identifier id="duokan-book-id">none</dc:identifier>\n<meta property="opf:scheme" refines="#duokan-book-id">DKID</meta>\n<dc:identifier id="zhangyue-book-id">none</dc:identifier>\n<meta property="opf:scheme" refines="#zhangyue-book-id">ZYID</meta>\n<meta name="cover" content="'+cover.mid+'"/>\n</metadata>')), 'ltr'
-        for ele in bk.elems:
+        for ele in bk.iter():
             if ele.prop == 'nav':
                 if not bk.nav:
                     bk.nav = ele
@@ -186,3 +186,34 @@ def buildtem(bk: book, info=None):
         css = tuple(i.bsn.join(('@import "', '";')) for i in bk.iter('css'))
         overwrite(bk, 'stylesheet.css', '\n'.join(css).join(
             ('/*虚空文学旅团STERAePub++*/\n', '\n/*虚空文学旅团STERAePub++*/'))) if css else print('　-无有效样式表')
+
+
+def clear(bk: book, mode: str = 'unused'):
+    delitem = 0
+    if mode == 'misc':
+        print('\n清理杂项文件……')
+        for ele in bk.iter('css', 'font', 'other', 'misc'):
+            if ele.bsn != 'container.xml':
+                print('　-删除：【', ele.bsn, '】', sep='')
+                bk.delete(ele)
+                delitem = 1
+    elif mode == 'page':
+        print('\n清理多余文档页……')
+        for ele in bk.iter('text'):
+            if ele is not bk.nav and expg.search(ele.read()):
+                print('　-删除：【', ele.bsn, '】', sep='')
+                bk.delete(ele)
+                delitem = 1
+    elif mode == 'unused':
+        print('\n清理未使用的文件……')
+        UNUSED = {ele for ele in bk.iter(
+            'css', 'font', 'audio', 'video', 'misc')}
+        for ele in bk.iter('text', 'css'):
+            for used in getbsn(ele.read()):
+                UNUSED.discard(used)
+        for ele in UNUSED:
+            print('　-删除：【', ele.bsn, '】', sep='')
+            bk.delete(ele)
+            delitem = 1
+    if not delitem:
+        print('　+无多余文件')

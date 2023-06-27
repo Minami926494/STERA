@@ -8,14 +8,17 @@ from regex import compile
 from multiprocessing import Pool
 from io import BytesIO
 from html import unescape
-from .clear_core import getbsn
+try:
+    from .bookenv_core import book, getbsn
+except ImportError:
+    from bookenv_core import book, getbsn
 
 # 字体子集化
 white_clear, html_clear, css_clear, css_import, css_link, style_font, line_font, css_clssel, css_idsel, css_regsel, font_split = compile(r'[\s　]+'), compile(r'(?s)(?:<!--(?:(?!-->).)+-->|<script(?:(?!</script>).)*?</script>|<style(?:(?!</style>).)*?</style>)'), compile(r'(?:/\*(?:(?!\*/)[\s\S])+\*/|[^{}\n\r]+\{((?!font-family)[^{}])*?\}|@char.+[\n\r]+)'), compile(
     r'@import\s*(.+?)(?:;|$)'), compile(r'<link[^>]*?href="([^"]+)"'), compile(r'<style[^>]*?>((?:(?!</style>).)*?)</style>'), compile(r'font-family:\s*([^;\"\']+?)\s*(!important)?\s*(?:[;\"\']|$)'), compile(r'\.[A-Za-z\d*]+\s*$'), compile(r'#[A-Za-z\d*]+\s*$'), compile(r'\]\s*$'), compile(r'[\s,]+')
 
 
-def subfont(bk):
+def subfont(bk:book):
     print('\n字体子集化……')
     SHEET, CSS, ID2FML, FML2ID, GLYPH, ELEM, FONT, CHANGED = CSSStyleSheet(), {}, {
     }, {}, {}, {}, {}, {}
