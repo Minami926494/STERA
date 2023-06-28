@@ -5,9 +5,9 @@ from PIL import Image
 from io import BytesIO
 from multiprocessing import Pool
 try:
-    from .bookenv_core import book, getbsn
+    from .bookenv_core import book, InvalidEpubError, getbsn
 except ImportError:
-    from bookenv_core import book, getbsn
+    from bookenv_core import book, InvalidEpubError, getbsn
 
 # 图片压缩
 catchimg = compile(
@@ -15,6 +15,10 @@ catchimg = compile(
 
 
 def getpic(bk: book):
+    '''
+    传入book对象，返回包含HTML文档中所有图片独占页及对应图片的elem对象的生成器。\n
+    bk -> EPUB的book对象
+    '''
     for ele in bk.iter('text'):
         catch = catchimg.search(ele.read())
         if catch:
@@ -23,52 +27,56 @@ def getpic(bk: book):
                 yield ele, pic
 
 
-def cpsimg(bk:book):
+def cpsimg(bk: book):
+    '''
+    传入book对象，对HTML文档中使用的图片文件进行压缩，将封面压缩为jpg格式，其余压缩为webp格式，并修改文中的对应链接。\n
+    bk -> EPUB的book对象
+    '''
     print('\n图片压缩……')
     PIC, IMG, pool = {}, {}, Pool()
+    for ele, pic in getpic(bk):
+        cover = pic
+        break
+    else:
+        raise InvalidEpubError('未找到有效的封面图片')
     for ele in bk.iter('image'):
-        bsn = ele.bsn
-        if ele[0] == getpic(bk)[1]:
-            PIC[(ele[0], bsn, True)] = pool.apply_async(cps, args=(
-                bk.readfile(i[0]), bsn.rsplit('.', 1)[-1], 'jpeg'))
-        else:
-            PIC[(i[0], bsn, False)] = pool.apply_async(
-                cps, args=(bk.readfile(i[0]), bsn.rsplit('.', 1)[-1]))
+        PIC[ele] = pool.apply_async(cps, args=(
+            ele, 'jpeg' if ele is cover else 'webp'))
     pool.close(), pool.join()
-    for (pid, bsn, cover), img in PIC.items():
-        img, (ext, mime) = img.get(), ('jpg',
-                                       'image/jpeg') if cover else ('webp', 'image/webp')
+    for ele, img in PIC.items():
+        img, bsn, stdext = img.get(), ele.bsn, '.jpg' if ele is cover else '.webp'
         if img:
             print('　+压缩：【', bsn, '】', sep='')
         else:
             print('　-未压缩：【', bsn, '】', sep='')
             continue
-        if bsn.endswith(ext):
-            bk.writefile(pid, img)
+        if bsn.endswith(stdext):
+            ele.write(img)
         else:
-            bk.deletefile(pid)
-            n = bsn.rsplit('.', 1)[0]
-            while 1:
-                name = '.'.join((n, ext))
-                try:
-                    bk.addfile(pid, name, img, mime)
-                    IMG[bsn] = name
-                    break
-                except:
-                    n += '_'
-    for i in sorted(IMG, reverse=True, key=len):
-        for j in bk.manifest_iter():
-            if j[2].endswith(('xhtml+xml', 'css')):
-                bk.writefile(j[0], bk.readfile(j[0]).replace(i, IMG[i]))
+            stdbsn = ele.name+stdext
+            IMG[bsn] = stdbsn
+            bk.delete(ele)
+            bk.set(bk.add(stdbsn, img))
+    changed = sorted(IMG, reverse=True, key=len)
+    for ele in bk.iter('text', 'css'):
+        data = ele.read()
+        for i in changed:
+            if i in data:
+                ele.write(data.replace(i, IMG[i]))
 
 
-def cps(img, fm=None, tofm='webp'):
-    pic, bsize = Image.open(BytesIO(img)), len(img)
-    size, img = pic.size, BytesIO()
+def cps(img: book.elem, tofm: str = 'webp'):
+    '''
+    通过传入图片的elem对象和目标格式对图片进行压缩，使图片长边不超过2048px，并根据体积是否超过100kb将图片质量压缩为80/90。\n
+    img -> 目标图片的elem对象\n
+    tofm -> 图片的目标格式，默认为webp
+    '''
+    pic, fm, res = Image.open(img.fp), img.ext[1:], BytesIO()
+    size, bsize = pic.size, len(img)
     if max(size) > 2048:
         pic.resize((2048, int(size[1]*2048/size[0])) if size[0]
                    >= size[1] else (int(size[0]*2048/size[1]), 2048))
-    pic.save(img, tofm, optimize=True, quality=80 if bsize > 100000 else 90)
-    image = img.getvalue()
-    img.close()
+    pic.save(res, tofm, optimize=True, quality=80 if bsize > 100000 else 90)
+    image = res.getvalue()
+    res.close()
     return image if bsize/len(image) >= 1.1 or (fm != 'webp' if tofm == 'webp' else fm != 'jpg') else None

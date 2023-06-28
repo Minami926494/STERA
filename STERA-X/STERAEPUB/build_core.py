@@ -38,6 +38,11 @@ def gettype(bk: book, *etype: str):
 
 
 def buildtoc(bk: book, mode: str = 'ncx'):
+    '''
+    在不同模式下覆盖生成不同位置的目录，默认生成NCX与OPF的guide。\n
+    bk -> EPUB的book对象\n
+    mode -> 生成模式，'ncx'模式下通过NAV生成NCX与OPF的guide；'ctt'模式下通过NAV生成HTML目录页；'nav'模式下通过NCX生成NAV
+    '''
     NAV = bk.nav.read()
     while '>　' in NAV:
         NAV = reg(NAV, fixnav, False)
@@ -108,7 +113,12 @@ def buildtoc(bk: book, mode: str = 'ncx'):
         bk.stdopf()
 
 
-def buildtem(bk: book, info=None):
+def buildtem(bk: book, info: dict = None):
+    '''
+    根据传入信息构建标准模板，无信息时进行素材导入。\n
+    bk -> EPUB的book对象\n
+    info -> 包含书籍信息的字典
+    '''
     if info:
         print('\n生成信息页……')
         titpg, mespg, sumpg = overwrite(bk, 'title.xhtml', '\n'.join(('<?xml version="1.0" encoding="utf-8" standalone="no"?>\n<!DOCTYPE html>\n<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh" xmlns:epub="http://www.idpf.org/2007/ops" xmlns:xml="http://www.w3.org/XML/1998/namespace">\n<head>\n<title>標題</title>\n<link href="../Styles/stylesheet.css" type="text/css" rel="stylesheet"/>\n<script type="text/javascript" src="../Misc/script.js"></script>\n</head>\n<body>\n<div class="title">\n<div class="center" style="margin:4em auto 0;">\n<p class="tilh em18 bold">'+info['tit']+'</p>', '<p class="tilh em09 bold" style="margin:1em 0 0;">～'+info['stit']+'～</p>\n</div>' if info['stit'] else '</div>', '<div class="center" style="margin:3em auto 4em;">', '<p class="tilh em15 bold">'+info['vol']+'</p>\n</div>' if info['vol'] else '</div>', '<div class="center">\n<p class="tilh em07 bold">作者</p>\n<p class="tilh em11 bold" style="margin:0.2em 0 0.75em;">'+info['writer']+'</p>\n<p class="tilh em07 bold">插畫</p>\n<p class="tilh bold" style="margin:0.15em 0 0;">'+info['painter']+'</p>\n</div>\n</div>\n</body>\n</html>'))), overwrite(bk, 'message.xhtml', ''.join(
@@ -189,6 +199,11 @@ def buildtem(bk: book, info=None):
 
 
 def clear(bk: book, mode: str = 'unused'):
+    '''
+    在不同模式下清理EPUB中不同位置的多余文件，默认清理未使用的媒体文件。
+    bk -> EPUB的book对象\n
+    mode -> 清理模式，'misc'模式清理与书籍内容无关的杂项文件；'page'模式清理不需要的多余文档页；'unused'模式清理未使用的媒体文件
+    '''
     delitem = 0
     if mode == 'misc':
         print('\n清理杂项文件……')

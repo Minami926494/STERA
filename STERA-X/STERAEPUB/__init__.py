@@ -2,10 +2,10 @@
 # -*- coding: utf-8 -*-
 from time import time
 from logging import disable
+from .bookenv_core import book
 from .gui_core import launch
-from .build_core import buildtoc, buildtem
+from .build_core import buildtoc, buildtem, clear
 from .regrex_core import dom
-from .clear_core import clear
 from .t2stext_core import t2stext
 from .cpsimg_core import cpsimg
 from .subfont_core import subfont
