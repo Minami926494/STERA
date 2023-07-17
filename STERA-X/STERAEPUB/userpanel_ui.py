@@ -17,7 +17,8 @@ class Ui_panel(object):
         panel.setWindowModality(QtCore.Qt.ApplicationModal)
         panel.setEnabled(True)
         panel.resize(500, 310)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(panel.sizePolicy().hasHeightForWidth())
@@ -26,79 +27,96 @@ class Ui_panel(object):
         self.func_option = QtWidgets.QGroupBox(panel)
         self.func_option.setEnabled(True)
         self.func_option.setGeometry(QtCore.QRect(20, 20, 340, 100))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.func_option.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.func_option.sizePolicy().hasHeightForWidth())
         self.func_option.setSizePolicy(sizePolicy)
-        self.func_option.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        self.func_option.setAlignment(
+            QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.func_option.setFlat(False)
         self.func_option.setObjectName("func_option")
         self.t2s_check = QtWidgets.QCheckBox(self.func_option)
         self.t2s_check.setEnabled(True)
         self.t2s_check.setGeometry(QtCore.QRect(125, 25, 100, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.t2s_check.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.t2s_check.sizePolicy().hasHeightForWidth())
         self.t2s_check.setSizePolicy(sizePolicy)
         self.t2s_check.setChecked(True)
         self.t2s_check.setObjectName("t2s_check")
         self.cps_check = QtWidgets.QCheckBox(self.func_option)
         self.cps_check.setEnabled(True)
         self.cps_check.setGeometry(QtCore.QRect(125, 60, 100, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.cps_check.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.cps_check.sizePolicy().hasHeightForWidth())
         self.cps_check.setSizePolicy(sizePolicy)
         self.cps_check.setChecked(True)
         self.cps_check.setObjectName("cps_check")
         self.sub_check = QtWidgets.QCheckBox(self.func_option)
         self.sub_check.setEnabled(True)
         self.sub_check.setGeometry(QtCore.QRect(20, 60, 100, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.sub_check.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.sub_check.sizePolicy().hasHeightForWidth())
         self.sub_check.setSizePolicy(sizePolicy)
         self.sub_check.setChecked(True)
         self.sub_check.setObjectName("sub_check")
         self.auto_check = QtWidgets.QCheckBox(self.func_option)
         self.auto_check.setEnabled(True)
         self.auto_check.setGeometry(QtCore.QRect(20, 25, 100, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.auto_check.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.auto_check.sizePolicy().hasHeightForWidth())
         self.auto_check.setSizePolicy(sizePolicy)
         self.auto_check.setChecked(True)
         self.auto_check.setObjectName("auto_check")
         self.to_github = QtWidgets.QPushButton(self.func_option)
         self.to_github.setEnabled(True)
         self.to_github.setGeometry(QtCore.QRect(230, 55, 90, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.to_github.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.to_github.sizePolicy().hasHeightForWidth())
         self.to_github.setSizePolicy(sizePolicy)
         self.to_github.setObjectName("to_github")
         self.to_content = QtWidgets.QPushButton(self.func_option)
         self.to_content.setEnabled(True)
         self.to_content.setGeometry(QtCore.QRect(230, 20, 90, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.to_content.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.to_content.sizePolicy().hasHeightForWidth())
         self.to_content.setSizePolicy(sizePolicy)
         self.to_content.setObjectName("to_content")
         self.info_inputer = QtWidgets.QTabWidget(panel)
         self.info_inputer.setEnabled(True)
         self.info_inputer.setGeometry(QtCore.QRect(20, 135, 460, 165))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.info_inputer.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.info_inputer.sizePolicy().hasHeightForWidth())
         self.info_inputer.setSizePolicy(sizePolicy)
         self.info_inputer.setIconSize(QtCore.QSize(15, 15))
         self.info_inputer.setDocumentMode(True)
@@ -108,195 +126,240 @@ class Ui_panel(object):
         self.auto_option.setObjectName("auto_option")
         self.auto_flow = QtWidgets.QGroupBox(self.auto_option)
         self.auto_flow.setGeometry(QtCore.QRect(0, 10, 270, 115))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.auto_flow.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.auto_flow.sizePolicy().hasHeightForWidth())
         self.auto_flow.setSizePolicy(sizePolicy)
         self.auto_flow.setFlat(True)
         self.auto_flow.setObjectName("auto_flow")
         self.flow_class = QtWidgets.QCheckBox(self.auto_flow)
         self.flow_class.setEnabled(True)
         self.flow_class.setGeometry(QtCore.QRect(25, 20, 20, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.flow_class.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.flow_class.sizePolicy().hasHeightForWidth())
         self.flow_class.setSizePolicy(sizePolicy)
         self.flow_class.setChecked(True)
         self.flow_class.setObjectName("flow_class")
         self.flow_tag = QtWidgets.QCheckBox(self.auto_flow)
         self.flow_tag.setEnabled(True)
         self.flow_tag.setGeometry(QtCore.QRect(60, 20, 20, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.flow_tag.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.flow_tag.sizePolicy().hasHeightForWidth())
         self.flow_tag.setSizePolicy(sizePolicy)
         self.flow_tag.setChecked(True)
         self.flow_tag.setObjectName("flow_tag")
         self.flow_text = QtWidgets.QCheckBox(self.auto_flow)
         self.flow_text.setEnabled(True)
         self.flow_text.setGeometry(QtCore.QRect(95, 20, 20, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.flow_text.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.flow_text.sizePolicy().hasHeightForWidth())
         self.flow_text.setSizePolicy(sizePolicy)
         self.flow_text.setChecked(True)
         self.flow_text.setObjectName("flow_text")
         self.flow_title = QtWidgets.QCheckBox(self.auto_flow)
         self.flow_title.setEnabled(True)
         self.flow_title.setGeometry(QtCore.QRect(130, 20, 20, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.flow_title.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.flow_title.sizePolicy().hasHeightForWidth())
         self.flow_title.setSizePolicy(sizePolicy)
         self.flow_title.setChecked(True)
         self.flow_title.setObjectName("flow_title")
         self.flow_note = QtWidgets.QCheckBox(self.auto_flow)
         self.flow_note.setEnabled(True)
         self.flow_note.setGeometry(QtCore.QRect(165, 20, 20, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.flow_note.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.flow_note.sizePolicy().hasHeightForWidth())
         self.flow_note.setSizePolicy(sizePolicy)
         self.flow_note.setChecked(True)
         self.flow_note.setObjectName("flow_note")
         self.flow_image = QtWidgets.QCheckBox(self.auto_flow)
         self.flow_image.setEnabled(True)
         self.flow_image.setGeometry(QtCore.QRect(200, 20, 20, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.flow_image.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.flow_image.sizePolicy().hasHeightForWidth())
         self.flow_image.setSizePolicy(sizePolicy)
         self.flow_image.setChecked(True)
         self.flow_image.setObjectName("flow_image")
         self.flow_page = QtWidgets.QCheckBox(self.auto_flow)
         self.flow_page.setEnabled(True)
         self.flow_page.setGeometry(QtCore.QRect(235, 20, 20, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.flow_page.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.flow_page.sizePolicy().hasHeightForWidth())
         self.flow_page.setSizePolicy(sizePolicy)
         self.flow_page.setChecked(True)
         self.flow_page.setObjectName("flow_page")
         self.label_class = QtWidgets.QLabel(self.auto_flow)
         self.label_class.setGeometry(QtCore.QRect(25, 40, 20, 70))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_class.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.label_class.sizePolicy().hasHeightForWidth())
         self.label_class.setSizePolicy(sizePolicy)
         self.label_class.setInputMethodHints(QtCore.Qt.ImhMultiLine)
         self.label_class.setTextFormat(QtCore.Qt.PlainText)
-        self.label_class.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_class.setAlignment(
+            QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.label_class.setObjectName("label_class")
         self.label_text = QtWidgets.QLabel(self.auto_flow)
         self.label_text.setGeometry(QtCore.QRect(95, 40, 20, 70))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_text.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.label_text.sizePolicy().hasHeightForWidth())
         self.label_text.setSizePolicy(sizePolicy)
         self.label_text.setInputMethodHints(QtCore.Qt.ImhMultiLine)
         self.label_text.setTextFormat(QtCore.Qt.PlainText)
-        self.label_text.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_text.setAlignment(
+            QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.label_text.setObjectName("label_text")
         self.label_page = QtWidgets.QLabel(self.auto_flow)
         self.label_page.setGeometry(QtCore.QRect(235, 40, 20, 70))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_page.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.label_page.sizePolicy().hasHeightForWidth())
         self.label_page.setSizePolicy(sizePolicy)
         self.label_page.setInputMethodHints(QtCore.Qt.ImhMultiLine)
         self.label_page.setTextFormat(QtCore.Qt.PlainText)
-        self.label_page.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_page.setAlignment(
+            QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.label_page.setObjectName("label_page")
         self.label_image = QtWidgets.QLabel(self.auto_flow)
         self.label_image.setGeometry(QtCore.QRect(200, 40, 20, 70))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_image.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.label_image.sizePolicy().hasHeightForWidth())
         self.label_image.setSizePolicy(sizePolicy)
         self.label_image.setInputMethodHints(QtCore.Qt.ImhMultiLine)
         self.label_image.setTextFormat(QtCore.Qt.PlainText)
-        self.label_image.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_image.setAlignment(
+            QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.label_image.setObjectName("label_image")
         self.label_note = QtWidgets.QLabel(self.auto_flow)
         self.label_note.setGeometry(QtCore.QRect(165, 40, 20, 70))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_note.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.label_note.sizePolicy().hasHeightForWidth())
         self.label_note.setSizePolicy(sizePolicy)
         self.label_note.setInputMethodHints(QtCore.Qt.ImhMultiLine)
         self.label_note.setTextFormat(QtCore.Qt.PlainText)
-        self.label_note.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_note.setAlignment(
+            QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.label_note.setObjectName("label_note")
         self.label_title = QtWidgets.QLabel(self.auto_flow)
         self.label_title.setGeometry(QtCore.QRect(130, 40, 20, 70))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_title.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.label_title.sizePolicy().hasHeightForWidth())
         self.label_title.setSizePolicy(sizePolicy)
         self.label_title.setInputMethodHints(QtCore.Qt.ImhMultiLine)
         self.label_title.setTextFormat(QtCore.Qt.PlainText)
-        self.label_title.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_title.setAlignment(
+            QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.label_title.setObjectName("label_title")
         self.label_tag = QtWidgets.QLabel(self.auto_flow)
         self.label_tag.setGeometry(QtCore.QRect(60, 40, 20, 70))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.label_tag.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.label_tag.sizePolicy().hasHeightForWidth())
         self.label_tag.setSizePolicy(sizePolicy)
         self.label_tag.setInputMethodHints(QtCore.Qt.ImhMultiLine)
         self.label_tag.setTextFormat(QtCore.Qt.PlainText)
-        self.label_tag.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
+        self.label_tag.setAlignment(
+            QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
         self.label_tag.setObjectName("label_tag")
         self.auto_func = QtWidgets.QGroupBox(self.auto_option)
         self.auto_func.setGeometry(QtCore.QRect(295, 10, 146, 115))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.auto_func.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.auto_func.sizePolicy().hasHeightForWidth())
         self.auto_func.setSizePolicy(sizePolicy)
         self.auto_func.setObjectName("auto_func")
         self.chk_check = QtWidgets.QCheckBox(self.auto_func)
         self.chk_check.setEnabled(True)
         self.chk_check.setGeometry(QtCore.QRect(20, 20, 100, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.chk_check.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.chk_check.sizePolicy().hasHeightForWidth())
         self.chk_check.setSizePolicy(sizePolicy)
         self.chk_check.setChecked(True)
         self.chk_check.setObjectName("chk_check")
         self.tem_check = QtWidgets.QCheckBox(self.auto_func)
         self.tem_check.setEnabled(True)
         self.tem_check.setGeometry(QtCore.QRect(20, 50, 120, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.tem_check.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.tem_check.sizePolicy().hasHeightForWidth())
         self.tem_check.setSizePolicy(sizePolicy)
         self.tem_check.setChecked(True)
         self.tem_check.setObjectName("tem_check")
         self.del_check = QtWidgets.QCheckBox(self.auto_func)
         self.del_check.setEnabled(True)
         self.del_check.setGeometry(QtCore.QRect(20, 80, 120, 20))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.del_check.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.del_check.sizePolicy().hasHeightForWidth())
         self.del_check.setSizePolicy(sizePolicy)
         self.del_check.setChecked(True)
         self.del_check.setObjectName("del_check")
@@ -305,24 +368,29 @@ class Ui_panel(object):
         self.book_info.setObjectName("book_info")
         self.subtitle = QtWidgets.QLineEdit(self.book_info)
         self.subtitle.setGeometry(QtCore.QRect(65, 55, 375, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.subtitle.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.subtitle.sizePolicy().hasHeightForWidth())
         self.subtitle.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.subtitle.setFont(font)
-        self.subtitle.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        self.subtitle.setAlignment(
+            QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.subtitle.setClearButtonEnabled(True)
         self.subtitle.setObjectName("subtitle")
         self.lable_title = QtWidgets.QLabel(self.book_info)
         self.lable_title.setEnabled(True)
         self.lable_title.setGeometry(QtCore.QRect(5, 15, 60, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lable_title.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.lable_title.sizePolicy().hasHeightForWidth())
         self.lable_title.setSizePolicy(sizePolicy)
         self.lable_title.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
@@ -335,24 +403,29 @@ class Ui_panel(object):
         self.lable_title.setObjectName("lable_title")
         self.title = QtWidgets.QLineEdit(self.book_info)
         self.title.setGeometry(QtCore.QRect(65, 15, 280, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.title.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.title.sizePolicy().hasHeightForWidth())
         self.title.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.title.setFont(font)
-        self.title.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        self.title.setAlignment(QtCore.Qt.AlignJustify |
+                                QtCore.Qt.AlignVCenter)
         self.title.setClearButtonEnabled(True)
         self.title.setObjectName("title")
         self.lable_isbn = QtWidgets.QLabel(self.book_info)
         self.lable_isbn.setEnabled(True)
         self.lable_isbn.setGeometry(QtCore.QRect(5, 95, 60, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lable_isbn.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.lable_isbn.sizePolicy().hasHeightForWidth())
         self.lable_isbn.setSizePolicy(sizePolicy)
         self.lable_isbn.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
@@ -365,37 +438,45 @@ class Ui_panel(object):
         self.lable_isbn.setObjectName("lable_isbn")
         self.volume = QtWidgets.QLineEdit(self.book_info)
         self.volume.setGeometry(QtCore.QRect(350, 15, 90, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.volume.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.volume.sizePolicy().hasHeightForWidth())
         self.volume.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.volume.setFont(font)
-        self.volume.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        self.volume.setAlignment(
+            QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.volume.setClearButtonEnabled(True)
         self.volume.setObjectName("volume")
         self.isbn = QtWidgets.QLineEdit(self.book_info)
         self.isbn.setGeometry(QtCore.QRect(65, 95, 190, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.isbn.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.isbn.sizePolicy().hasHeightForWidth())
         self.isbn.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.isbn.setFont(font)
-        self.isbn.setInputMethodHints(QtCore.Qt.ImhDigitsOnly|QtCore.Qt.ImhPreferNumbers)
-        self.isbn.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        self.isbn.setInputMethodHints(
+            QtCore.Qt.ImhDigitsOnly | QtCore.Qt.ImhPreferNumbers)
+        self.isbn.setAlignment(QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.isbn.setClearButtonEnabled(True)
         self.isbn.setObjectName("isbn")
         self.from_opf = QtWidgets.QPushButton(self.book_info)
         self.from_opf.setGeometry(QtCore.QRect(260, 95, 180, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.from_opf.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.from_opf.sizePolicy().hasHeightForWidth())
         self.from_opf.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -407,10 +488,12 @@ class Ui_panel(object):
         self.lable_writer = QtWidgets.QLabel(self.edit_info)
         self.lable_writer.setEnabled(True)
         self.lable_writer.setGeometry(QtCore.QRect(5, 15, 60, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lable_writer.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.lable_writer.sizePolicy().hasHeightForWidth())
         self.lable_writer.setSizePolicy(sizePolicy)
         self.lable_writer.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
@@ -423,63 +506,77 @@ class Ui_panel(object):
         self.lable_writer.setObjectName("lable_writer")
         self.writer = QtWidgets.QLineEdit(self.edit_info)
         self.writer.setGeometry(QtCore.QRect(65, 15, 160, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.writer.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.writer.sizePolicy().hasHeightForWidth())
         self.writer.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.writer.setFont(font)
-        self.writer.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        self.writer.setAlignment(
+            QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.writer.setClearButtonEnabled(True)
         self.writer.setObjectName("writer")
         self.introducer = QtWidgets.QLineEdit(self.edit_info)
         self.introducer.setGeometry(QtCore.QRect(285, 55, 160, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.introducer.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.introducer.sizePolicy().hasHeightForWidth())
         self.introducer.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.introducer.setFont(font)
-        self.introducer.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        self.introducer.setAlignment(
+            QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.introducer.setClearButtonEnabled(True)
         self.introducer.setObjectName("introducer")
         self.painter = QtWidgets.QLineEdit(self.edit_info)
         self.painter.setGeometry(QtCore.QRect(285, 15, 160, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.painter.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.painter.sizePolicy().hasHeightForWidth())
         self.painter.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.painter.setFont(font)
-        self.painter.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        self.painter.setAlignment(
+            QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.painter.setClearButtonEnabled(True)
         self.painter.setObjectName("painter")
         self.translator = QtWidgets.QLineEdit(self.edit_info)
         self.translator.setGeometry(QtCore.QRect(65, 55, 160, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.translator.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.translator.sizePolicy().hasHeightForWidth())
         self.translator.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.translator.setFont(font)
-        self.translator.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        self.translator.setAlignment(
+            QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.translator.setClearButtonEnabled(True)
         self.translator.setObjectName("translator")
         self.lable_epuber = QtWidgets.QLabel(self.edit_info)
         self.lable_epuber.setEnabled(True)
         self.lable_epuber.setGeometry(QtCore.QRect(225, 95, 60, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lable_epuber.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.lable_epuber.sizePolicy().hasHeightForWidth())
         self.lable_epuber.setSizePolicy(sizePolicy)
         self.lable_epuber.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
@@ -493,10 +590,12 @@ class Ui_panel(object):
         self.lable_painter = QtWidgets.QLabel(self.edit_info)
         self.lable_painter.setEnabled(True)
         self.lable_painter.setGeometry(QtCore.QRect(225, 15, 60, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lable_painter.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.lable_painter.sizePolicy().hasHeightForWidth())
         self.lable_painter.setSizePolicy(sizePolicy)
         self.lable_painter.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
@@ -509,37 +608,45 @@ class Ui_panel(object):
         self.lable_painter.setObjectName("lable_painter")
         self.epuber = QtWidgets.QLineEdit(self.edit_info)
         self.epuber.setGeometry(QtCore.QRect(285, 95, 160, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.epuber.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.epuber.sizePolicy().hasHeightForWidth())
         self.epuber.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.epuber.setFont(font)
-        self.epuber.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        self.epuber.setAlignment(
+            QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.epuber.setClearButtonEnabled(True)
         self.epuber.setObjectName("epuber")
         self.inputer = QtWidgets.QLineEdit(self.edit_info)
         self.inputer.setGeometry(QtCore.QRect(65, 95, 160, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.inputer.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.inputer.sizePolicy().hasHeightForWidth())
         self.inputer.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         self.inputer.setFont(font)
-        self.inputer.setAlignment(QtCore.Qt.AlignJustify|QtCore.Qt.AlignVCenter)
+        self.inputer.setAlignment(
+            QtCore.Qt.AlignJustify | QtCore.Qt.AlignVCenter)
         self.inputer.setClearButtonEnabled(True)
         self.inputer.setObjectName("inputer")
         self.lable_inputer = QtWidgets.QLabel(self.edit_info)
         self.lable_inputer.setEnabled(True)
         self.lable_inputer.setGeometry(QtCore.QRect(5, 95, 60, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lable_inputer.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.lable_inputer.sizePolicy().hasHeightForWidth())
         self.lable_inputer.setSizePolicy(sizePolicy)
         self.lable_inputer.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
@@ -553,10 +660,12 @@ class Ui_panel(object):
         self.lable_introducer = QtWidgets.QLabel(self.edit_info)
         self.lable_introducer.setEnabled(True)
         self.lable_introducer.setGeometry(QtCore.QRect(225, 55, 60, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lable_introducer.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.lable_introducer.sizePolicy().hasHeightForWidth())
         self.lable_introducer.setSizePolicy(sizePolicy)
         self.lable_introducer.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
@@ -570,10 +679,12 @@ class Ui_panel(object):
         self.lable_translator = QtWidgets.QLabel(self.edit_info)
         self.lable_translator.setEnabled(True)
         self.lable_translator.setGeometry(QtCore.QRect(5, 55, 60, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lable_translator.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.lable_translator.sizePolicy().hasHeightForWidth())
         self.lable_translator.setSizePolicy(sizePolicy)
         self.lable_translator.setSizeIncrement(QtCore.QSize(0, 0))
         font = QtGui.QFont()
@@ -589,17 +700,20 @@ class Ui_panel(object):
         self.summary_inputer.setObjectName("summary_inputer")
         self.summary = QtWidgets.QTextEdit(self.summary_inputer)
         self.summary.setGeometry(QtCore.QRect(15, 15, 430, 110))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.summary.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.summary.sizePolicy().hasHeightForWidth())
         self.summary.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
         font.setBold(False)
         font.setWeight(50)
         self.summary.setFont(font)
-        self.summary.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
+        self.summary.viewport().setProperty(
+            "cursor", QtGui.QCursor(QtCore.Qt.IBeamCursor))
         self.summary.setAcceptDrops(True)
         self.summary.setFrameShape(QtWidgets.QFrame.Box)
         self.summary.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
@@ -611,10 +725,12 @@ class Ui_panel(object):
         self.launch_start = QtWidgets.QPushButton(panel)
         self.launch_start.setEnabled(False)
         self.launch_start.setGeometry(QtCore.QRect(370, 25, 90, 60))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.launch_start.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.launch_start.sizePolicy().hasHeightForWidth())
         self.launch_start.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -622,10 +738,12 @@ class Ui_panel(object):
         self.launch_start.setObjectName("launch_start")
         self.config_reset = QtWidgets.QPushButton(panel)
         self.config_reset.setGeometry(QtCore.QRect(370, 90, 90, 30))
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.config_reset.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.config_reset.sizePolicy().hasHeightForWidth())
         self.config_reset.setSizePolicy(sizePolicy)
         self.config_reset.setObjectName("config_reset")
         self.func_option.raise_()
@@ -635,8 +753,10 @@ class Ui_panel(object):
 
         self.retranslateUi(panel)
         self.info_inputer.setCurrentIndex(0)
-        self.auto_check.toggled['bool'].connect(self.info_inputer.setVisible) # type: ignore
-        self.auto_check.toggled['bool'].connect(self.info_inputer.setEnabled) # type: ignore
+        self.auto_check.toggled['bool'].connect(
+            self.info_inputer.setVisible)  # type: ignore
+        self.auto_check.toggled['bool'].connect(
+            self.info_inputer.setEnabled)  # type: ignore
         QtCore.QMetaObject.connectSlotsByName(panel)
         panel.setTabOrder(self.auto_check, self.t2s_check)
         panel.setTabOrder(self.t2s_check, self.to_content)
@@ -680,38 +800,39 @@ class Ui_panel(object):
         self.to_content.setText(_translate("panel", "打开目录"))
         self.auto_flow.setTitle(_translate("panel", "自动化流程"))
         self.label_class.setText(_translate("panel", "样\n"
-"式\n"
-"整\n"
-"理"))
+                                            "式\n"
+                                            "整\n"
+                                            "理"))
         self.label_text.setText(_translate("panel", "文\n"
-"本\n"
-"处\n"
-"理"))
+                                           "本\n"
+                                           "处\n"
+                                           "理"))
         self.label_page.setText(_translate("panel", "页\n"
-"面\n"
-"复\n"
-"查"))
+                                           "面\n"
+                                           "复\n"
+                                           "查"))
         self.label_image.setText(_translate("panel", "图\n"
-"片\n"
-"版\n"
-"式"))
+                                            "片\n"
+                                            "版\n"
+                                            "式"))
         self.label_note.setText(_translate("panel", "注\n"
-"释\n"
-"生\n"
-"成"))
+                                           "释\n"
+                                           "生\n"
+                                           "成"))
         self.label_title.setText(_translate("panel", "章\n"
-"节\n"
-"重\n"
-"构"))
+                                            "节\n"
+                                            "重\n"
+                                            "构"))
         self.label_tag.setText(_translate("panel", "标\n"
-"签\n"
-"规\n"
-"范"))
+                                          "签\n"
+                                          "规\n"
+                                          "范"))
         self.auto_func.setTitle(_translate("panel", "附加功能"))
         self.chk_check.setText(_translate("panel", "样式检查"))
         self.tem_check.setText(_translate("panel", "生成标准模板"))
         self.del_check.setText(_translate("panel", "清理多余文件"))
-        self.info_inputer.setTabText(self.info_inputer.indexOf(self.auto_option), _translate("panel", "自动化选项"))
+        self.info_inputer.setTabText(self.info_inputer.indexOf(
+            self.auto_option), _translate("panel", "自动化选项"))
         self.subtitle.setPlaceholderText(_translate("panel", "副标题"))
         self.lable_title.setText(_translate("panel", "书名"))
         self.title.setPlaceholderText(_translate("panel", "标题（必填）"))
@@ -719,7 +840,8 @@ class Ui_panel(object):
         self.volume.setPlaceholderText(_translate("panel", "卷号"))
         self.isbn.setPlaceholderText(_translate("panel", "13位数字（必填）"))
         self.from_opf.setText(_translate("panel", "从OPF中获取"))
-        self.info_inputer.setTabText(self.info_inputer.indexOf(self.book_info), _translate("panel", "书籍信息"))
+        self.info_inputer.setTabText(self.info_inputer.indexOf(
+            self.book_info), _translate("panel", "书籍信息"))
         self.lable_writer.setText(_translate("panel", "作者"))
         self.writer.setPlaceholderText(_translate("panel", "（必填）"))
         self.introducer.setPlaceholderText(_translate("panel", "（必填）"))
@@ -732,8 +854,10 @@ class Ui_panel(object):
         self.lable_inputer.setText(_translate("panel", "录入"))
         self.lable_introducer.setText(_translate("panel", "图源"))
         self.lable_translator.setText(_translate("panel", "译者"))
-        self.info_inputer.setTabText(self.info_inputer.indexOf(self.edit_info), _translate("panel", "制作信息"))
+        self.info_inputer.setTabText(self.info_inputer.indexOf(
+            self.edit_info), _translate("panel", "制作信息"))
         self.summary.setPlaceholderText(_translate("panel", "（若留空则不生成简介页）"))
-        self.info_inputer.setTabText(self.info_inputer.indexOf(self.summary_inputer), _translate("panel", "简介文本"))
+        self.info_inputer.setTabText(self.info_inputer.indexOf(
+            self.summary_inputer), _translate("panel", "简介文本"))
         self.launch_start.setText(_translate("panel", "开始"))
         self.config_reset.setText(_translate("panel", "还原配置"))

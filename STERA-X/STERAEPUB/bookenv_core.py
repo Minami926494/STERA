@@ -424,7 +424,7 @@ class book:
 
     def ref(self, *form: str):
         '''
-        重定向类型参数所对应文件内容中存在的无效超链接地址，返回book对象，多个参数时可匹配多类型文件。\n
+        重定向类型参数所对应文件内容中存在的不规范超链接地址，返回book对象，多个参数时可匹配多类型文件。\n
         form -> 文件类型参数（'text'：HTML类文档 | 'css'：CSS样式表 | 'font'：字体文件 | 'audio'：音频文件 | 'video'：视频文件 | 'ncx'：NCX文件 | 'other'：META-INF中的XML文件 | 'misc'：其他常见类型文件）
         '''
         def __ref(match, form):
