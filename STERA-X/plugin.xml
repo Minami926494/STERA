@@ -5,7 +5,7 @@
   <author>明日✿咲葉</author>
   <description>虚空文学旅团STERAePub++自动化书源处理</description>
   <engine>python3.4</engine>
-  <version>1.4.0</version>
+  <version>1.4.0beta1</version>
   <oslist>osx,unx,win</oslist>
   <autostart>true</autostart>
   <autoclose>false</autoclose>

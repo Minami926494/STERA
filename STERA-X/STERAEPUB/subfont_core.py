@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+from turtle import goto
 from fontTools.ttLib import TTFont, TTCollection
 from fontTools.subset import load_font, Subsetter, Options
 from lxml.html import XHTMLParser, document_fromstring
@@ -7,6 +8,7 @@ from css_parser.parse import CSSParser
 from regex import compile
 from os.path import join, dirname
 from multiprocessing import Pool
+from collections.abc import Iterable
 from io import BytesIO
 from html import unescape
 try:
@@ -15,15 +17,15 @@ except ImportError:
     from bookenv_core import book, getbsn, first
 
 # 字体子集化
-white_clear, html_line, css_splitsel, css_clssel, css_idsel, css_regsel = compile(r'[\s　]+'), compile(
-    r'font-family:\s*([^;\"\']+?)\s*(!important)?\s*(?:[;\"\']|$)'), compile(r'[ >]+'), compile(r'\.[A-Za-z\d*]+\s*$'), compile(r'#[A-Za-z\d*]+\s*$'), compile(r'\]\s*$')
+white_clear, html_line, css_splitsel, css_clssel, css_idsel, css_regsel, font_split = compile(r'[\s　]+'), compile(r'font-family:\s*([^;\"\']+?)\s*(!important)?\s*(?:[;\"\']|$)'), compile(
+    r'[ >]+'), compile(r'\.[A-Za-z\d*]+\s*$'), compile(r'#[A-Za-z\d*]+\s*$'), compile(r'\]\s*$'), compile(r'\s*,\s*')
 
 
 def subfont(bk: book):
     print('\n字体子集化……')
-    GLYPH, ELEM, FONT, CHANGED = {}, {}, {}, {}
+    GLYPH = {}
     for ele in bk.iter('css'):
-        sheet, ele.imp, ele.font, ele.sel = CSSParser(
+        sheet, ele.imp, ele.font, style = CSSParser(
             loglevel='CRITICAL', parseComments=False, validate=False).parseString(ele.read()).cssRules, [], {}, {}
         for i in sheet:
             if i.type == 3:
@@ -33,10 +35,15 @@ def subfont(bk: book):
             elif hasattr(i, 'style'):
                 fml = i.style.fontFamily
                 if fml:
+                    fml = fml.strip('\'" ')
                     if i.type == 5:
-                        src = [bk.get(bsn=font) for font in getbsn(i.style.src) if font]
+                        src = []
+                        for bsn in getbsn(i.style.src):
+                            font = bk.get(bsn=bsn)
+                            if font:
+                                src.append(font)
                         if src:
-                            ele.font[fml.strip('\'" ')] = src
+                            ele.font[fml] = src
                     elif i.type == 1:
                         sel = i.selectorText
                         for part in css_splitsel.split(sel):
@@ -47,7 +54,13 @@ def subfont(bk: book):
                                 im += 10
                             if css_idsel.search(part):
                                 im += 100
-                        ele.sel[sel] = (tuple(j.strip() for j in fml.split(',') if '\'' not in j and '"' not in j), im+10000 if i.style.getPropertyPriority('font-family') else im)
+                        style[sel] = (font_split.split(
+                            fml), im+10000 if i.style.getPropertyPriority('font-family') else im)
+        for i, j in style.items():
+            for k in j[0]:
+                if k not in ele.font:
+                    j[0].remove(k)
+        ele.sel = style
     for ele in bk.iter('font'):
         try:
             cmap = set(TTFont(ele.fp).getBestCmap())
@@ -58,21 +71,26 @@ def subfont(bk: book):
             fc.save(fp)
             ele = bk.set(bk.elem(fp))
         ele.cmap = cmap
+    ns = {'ns': 'http://www.w3.org/1999/xhtml'}
     for ele in bk.iter('text'):
-        dom, ele.sel = document_fromstring(ele.read(True), XHTMLParser(remove_comments=True)), {}
-        for i in dom.xpath('//link'):
+        dom, csssel, cssfont, tree = document_fromstring(ele.read(True), XHTMLParser(
+            ns_clean=True, recover=True, remove_comments=True)), {}, {}, {}
+        for i in dom.xpath('//ns:link', namespaces=ns):
             css = bk.get(bsn=first(getbsn(i.get('href'))))
             if css:
                 for imp in css.imp:
-                    ele.sel.update(imp.sel)
-                ele.sel.update(css.sel)
-        for i in dom.xpath('//style'):
-            sheet=CSSParser(loglevel='CRITICAL', parseComments=False,validate=False).parseString(i.text).cssRules
+                    csssel.update(imp.sel)
+                    cssfont.update(imp.font)
+                csssel.update(css.sel)
+                cssfont.update(css.font)
+        for i in dom.xpath('//ns:style', namespaces=ns):
+            sheet = CSSParser(loglevel='CRITICAL', parseComments=False,
+                              validate=False).parseString(i.text).cssRules
             for rule in sheet:
                 if rule.type == 1:
                     fml = rule.style.fontFamily
                     if fml:
-                        sel = rule.selectorText
+                        fml, sel = fml.strip(), rule.selectorText
                         for part in css_splitsel.split(sel):
                             im = 100
                             if part.startswith(tuple('abcdefghijklmnopqrstuvwxyz*')):
@@ -81,41 +99,41 @@ def subfont(bk: book):
                                 im += 10
                             if css_idsel.search(part):
                                 im += 100
-                        if sel not in ele.sel or im>=ele.sel[sel][1]:
-                            ele.sel[sel] = (tuple(f.strip() for f in fml.split(',') if '\'' not in f and '"' not in f), im+10000 if rule.style.getPropertyPriority('font-family') else im)
-        for i in dom.xpath('//*[contains(@style,"font-family")]'):
-            m, n = html_line.search(i.get('style')).groups()
-            ELEM[i] = [{i} | set(i.iterdescendants()), m, 7 if n else 3]
-        for j in STYLE:
-            if css_clssel.search(j[0]) or css_regsel.search(j[0]):
-                im = 1
-            elif css_idsel.search(j[0]):
-                im = 2
-            else:
-                im = 0
-            for k in dom.cssselect(j[0], translator='xhtml'):
-                level = im+4 if j[2] else im
-                if k not in ELEM or ELEM[k][2] <= level:
-                    ELEM[k] = [{k} | set(k.iterdescendants()), j[1], level]
-        for j, (des, fml, im) in ELEM.items():
-            inherit = 'unset'
-            for k in j.iterancestors():
-                if k in ELEM:
-                    if 'inherit' in fml:
-                        inherit = ELEM[k][1]
-                    if ELEM[k][2] < 4 or ELEM[k][2] <= im:
-                        ELEM[k][0] -= des
-            if inherit != 'unset':
-                ELEM[j][1] = fml.replace('inherit', inherit)
-        for j in ELEM:
-            e = tuple(k for k in font_split.split(ELEM[j][1].strip(
-            )) if k in GLYPH and k != 'initial' and k != 'unset' and k != 'inherit')
-            if not e:
-                continue
-            if e not in FONT:
-                FONT[e] = set()
-            FONT[e].update(ord(l) for l in white_clear.sub('', unescape(
-                ''.join(''.join(k.xpath('./text()')) for k in ELEM[j][0]))))
+                        if sel not in csssel or im >= csssel[sel][1]:
+                            font = []
+                            for f in font_split.split(fml):
+                                src = cssfont.get(f)
+                                if src:
+                                    font.extend(src)
+                            if font:
+                                csssel[sel] = (
+                                    font, im+10000 if rule.style.getPropertyPriority('font-family') else im)
+        for i in dom.xpath('//ns:*[contains(@style,"font-family")]', namespaces=ns):
+            (fml, im), font = html_line.search(i.get('style')).groups(), []
+            for f in font_split.split(fml):
+                src = cssfont.get(f)
+                if src:
+                    font.extend(src)
+            tree[i] = (font, 11000 if im else 1000)
+        for sel, style in csssel.items():
+            for i in dom.cssselect(sel, translator='xhtml'):
+                if i not in tree or style[1] > tree[i][1]:
+                    tree[i] = style
+
+        def calc(node, inherit=None):
+            style = tree.get(node)
+            if style and (not inherit or inherit[1] < 10000 or style[1] > 10000):
+                inherit = style
+            if inherit:
+                src = tuple(set(inherit[0]))
+                value = GLYPH.get(src)
+                for i in node.xpath('./text()'):
+                    GLYPH[src] = i+value if value else i
+            for child in node.iterchildren():
+                calc(child, inherit)
+        calc(dom.xpath('//ns:body', namespaces=ns)[0])
+    for src, text in GLYPH.items():
+        pass
     HAS, LOSS = {}.fromkeys(GLYPH, set()), {}.fromkeys(GLYPH, set())
     for i1, i2 in FONT.items():
         for j in i1:
@@ -166,6 +184,7 @@ def sbf(f, d):
         'DSIG'], 'woff2', Subsetter(OPT), load_font(f, OPT)
     subsetter.populate(unicodes=d), subsetter.subset(
         font), font.save(file), font.close()
+    subsetter.get
     font = file.getvalue()
     file.close()
     return font

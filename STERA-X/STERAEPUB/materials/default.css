@@ -14,11 +14,12 @@
 .vt{vertical-align:top;}.vb{vertical-align:bottom;}.vm{vertical-align:middle;vertical-align:duokan-middle-line;}
 .fl{float:left;}.fr{float:right;}
 .cl{clear:left;}.cr{clear:right;}.cb{clear:both;}
-.cc{margin:0 auto;max-width:fit-content;}
+.cc{margin-left:auto;margin-right:auto;max-width:fit-content;}
 .fc{display:flex;justify-content:center;align-items:center;}
 .r{--position:relative;position:var(--position);}
 .ac{--position:absolute;position:var(--position);width:100%;left:0;right:0;margin:auto;}
 .lt{position:absolute;left:0;top:0;}.lb{position:absolute;left:0;bottom:0;}.rt{position:absolute;right:0;top:0;}.rb{position:absolute;right:0;bottom:0;}
+.dkl{duokan-bleed:left;margin-left:0;}.dkr{duokan-bleed:right;margin-right:0;}.dkt{duokan-bleed:top;margin-top:0;}.dkb{duokan-bleed:bottom;margin-bottom:0;}.dklr{duokan-bleed:leftright;margin-left:0;margin-right:0;}.dklt{duokan-bleed:lefttop;margin-left:0;margin-top:0;}.dkrt{duokan-bleed:topright;margin-top:0;margin-right:0;}.dkltr{duokan-bleed:lefttopright;margin-top:0;margin-left:0;margin-right:0;}
 /*格式化*/
 .zin,.zin *{text-indent:0;duokan-text-indent:0;}
 .w{width:100%;}
@@ -38,16 +39,16 @@
 .kuro{text-shadow:1px 1px 1px #000;}.shiro{text-shadow:1px 1px 1px #fff;}
 .hei{text-shadow:0 0 3px #000;}.bai{text-shadow:0 0 3px #fff;}
 .koku{text-shadow:2px 2px 0 #000;}.haku{text-shadow:2px 2px 0 #fff;}
-/*盒子*/
+/*背景与盒子*/
+.bgwhite{background-color:#fff;}.bgblack{background-color:#000;}
 .line{box-sizing:content-box;width:100%;height:1px;margin:2em 0;text-indent:0;duokan-text-indent:0;line-height:0;border-width:1px;border-color:#000;border-style:solid none none;}
 .paper{width:90%;margin:1em auto;padding:0.5em 1em;background-color:#fff;border-width:1px 5px 5px 1px;border-color:#000;border-style:solid double double solid;box-shadow:3px 3px 3px #777;}
 .dialog{margin:1em 0.5em;padding:0.2em 1em;background-color:rgba(255,255,255,0.8);border:1px solid #000;border-radius:10px;box-shadow:1px 1px 1px #777;}
 .circle{width:2em;height:2em;text-align:center;padding:1em 0.5em 0;background-color:#fff;border:1px solid #000;border-radius:50%;box-shadow:1px 1px 1px #777;}
 /*表格与列表*/
-table{margin:1em auto;font-family:int,emoji,sym;}
-td{padding:0.2em 1em;}
+table{margin:1em auto;border-spacing:0;}
+td{vertical-align:middle;}
 .bc{border-collapse:collapse;}
-.bs{border-spacing:0;}
 ul{margin:2em 1em;padding:0;text-indent:0;duokan-text-indent:0;font-weight:bold;line-height:1.5em;}
 ul li{margin:0.5em 0 0.5em 1em;text-indent:0;duokan-text-indent:0;font-weight:lighter;list-style-position:inside;}
 /*变形*/

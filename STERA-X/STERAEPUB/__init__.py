@@ -10,7 +10,7 @@ from .t2stext_core import t2stext
 from .cpsimg_core import cpsimg
 from .subfont_core import subfont
 
-version = __version__ = '1.4.0'
+version = __version__ = '1.4.0beta1'
 __all__ = ['start']
 
 
