@@ -57,7 +57,7 @@ def first(group: Iterable):
     return group
 
 
-def getbsn(p: str) :
+def getbsn(p: str):
     '''
     查找文本中的完整文件名，返回包含所有文件名的生成器。\n
     p -> 需查找文本
@@ -128,7 +128,7 @@ class book:
                 self.remove(dst)
             makedirs(path.dirname(dst), exist_ok=True)
             try:
-                return self.elem(copytree(self.fp, dst, dirs_exist_ok=True) if self.isdir else copyfile(self.fp, dst))
+                return self.__new(copytree(self.fp, dst, dirs_exist_ok=True) if self.isdir else copyfile(self.fp, dst))
             except FileExistsError:
                 raise FileExistsError('目标路径存在重名文件')
             except FileNotFoundError:
@@ -183,7 +183,7 @@ class book:
                 self.remove(dst)
             with ZipFile(self.fp) as zip:
                 zip.extractall(dst)
-            return self.elem(dst)
+            return self.__new(dst)
 
         def create(self, dst: str, clear: bool = False):
             '''
@@ -202,7 +202,7 @@ class book:
                         with open(absdir, 'rb') as fp:
                             zip.writestr(path.relpath(absdir, self.fp),
                                          fp.read(), ZIP_DEFLATED)
-            return self.elem(dst)
+            return self.__new(dst)
 
         def remove(self):
             '''
@@ -217,6 +217,10 @@ class book:
                     dclear(fp)
             except FileNotFoundError:
                 raise FileNotFoundError('源路径不存在')
+
+        @classmethod
+        def __new(cls, fp: str):
+            return cls(fp)
 
     def __init__(self, src: str, runInSigil: bool = False):
         '''

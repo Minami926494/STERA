@@ -1,14 +1,12 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from turtle import goto
 from fontTools.ttLib import TTFont, TTCollection
 from fontTools.subset import load_font, Subsetter, Options
-from lxml.html import XHTMLParser, document_fromstring
+from lxml.html import HTMLParser, document_fromstring
 from css_parser.parse import CSSParser
 from regex import compile
 from os.path import join, dirname
 from multiprocessing import Pool
-from collections.abc import Iterable
 from io import BytesIO
 from html import unescape
 try:
@@ -23,7 +21,7 @@ white_clear, html_line, css_splitsel, css_clssel, css_idsel, css_regsel, font_sp
 
 def subfont(bk: book):
     print('\n字体子集化……')
-    GLYPH = {}
+    GLYPH, HAS, LOSS = {}, {}, {}
     for ele in bk.iter('css'):
         sheet, ele.imp, ele.font, style = CSSParser(
             loglevel='CRITICAL', parseComments=False, validate=False).parseString(ele.read()).cssRules, [], {}, {}
@@ -62,20 +60,20 @@ def subfont(bk: book):
                     j[0].remove(k)
         ele.sel = style
     for ele in bk.iter('font'):
+        HAS[ele], LOSS[ele] = set(), set()
         try:
-            cmap = set(TTFont(ele.fp).getBestCmap())
+            cmap = TTFont(ele.fp).getBestCmap()
         except:
             fc, bsn = TTCollection(ele.fp).fonts[0], ele.name+'.ttf'
-            cmap, fp = set(fc.getBestCmap()), join(dirname(ele.fp), bsn)
+            cmap, fp = fc.getBestCmap(), join(dirname(ele.fp), bsn)
             bk.delete(ele)
             fc.save(fp)
             ele = bk.set(bk.elem(fp))
-        ele.cmap = cmap
-    ns = {'ns': 'http://www.w3.org/1999/xhtml'}
+        ele.cmap = set(cmap)
     for ele in bk.iter('text'):
-        dom, csssel, cssfont, tree = document_fromstring(ele.read(True), XHTMLParser(
-            ns_clean=True, recover=True, remove_comments=True)), {}, {}, {}
-        for i in dom.xpath('//ns:link', namespaces=ns):
+        dom, csssel, cssfont, tree = document_fromstring(ele.read(True), HTMLParser(
+            remove_blank_text=True, remove_comments=True, remove_pis=True)), {}, {}, {}
+        for i in dom.xpath('//link'):
             css = bk.get(bsn=first(getbsn(i.get('href'))))
             if css:
                 for imp in css.imp:
@@ -83,7 +81,7 @@ def subfont(bk: book):
                     cssfont.update(imp.font)
                 csssel.update(css.sel)
                 cssfont.update(css.font)
-        for i in dom.xpath('//ns:style', namespaces=ns):
+        for i in dom.xpath('//style'):
             sheet = CSSParser(loglevel='CRITICAL', parseComments=False,
                               validate=False).parseString(i.text).cssRules
             for rule in sheet:
@@ -108,7 +106,7 @@ def subfont(bk: book):
                             if font:
                                 csssel[sel] = (
                                     font, im+10000 if rule.style.getPropertyPriority('font-family') else im)
-        for i in dom.xpath('//ns:*[contains(@style,"font-family")]', namespaces=ns):
+        for i in dom.xpath('//*[contains(@style,"font-family")]'):
             (fml, im), font = html_line.search(i.get('style')).groups(), []
             for f in font_split.split(fml):
                 src = cssfont.get(f)
@@ -131,39 +129,54 @@ def subfont(bk: book):
                     GLYPH[src] = i+value if value else i
             for child in node.iterchildren():
                 calc(child, inherit)
-        calc(dom.xpath('//ns:body', namespaces=ns)[0])
+        calc(dom.xpath('//body')[0])
     for src, text in GLYPH.items():
-        pass
-    HAS, LOSS = {}.fromkeys(GLYPH, set()), {}.fromkeys(GLYPH, set())
-    for i1, i2 in FONT.items():
-        for j in i1:
-            if i2:
-                has = i2 & GLYPH[j]
-                HAS[j] = HAS[j] | has
-                i2 -= has
-            else:
+        text = set(map(ord, unescape(text)))
+        for font in src:
+            has = text & font.cmap
+            HAS[font] |= has
+            text -= has
+            if not text:
+                HAS[font] |= set(range(32, 126))  # 末位字体保留ASCII字符
                 break
-        else:
-            LOSS[i1[-1]] = LOSS[i1[-1]] | i2
+        if text:
+            for font in src:
+                LOSS[font] |= text
     pool = Pool()
-    for i in GLYPH:
-        fid, has, loss = FML2ID[i], ''.join(
-            chr(j) for j in HAS[i]), ''.join(chr(j) for j in LOSS[i])
-        bsn = bk.id_to_href(fid).rsplit('/', 1)[-1]
-        if not has:
-            print('　-删除：【', bsn, '】', sep='')
-            bk.deletefile(fid)
-        elif loss:
+    for ele in bk.iter('font'):
+        has,loss=HAS.get(ele),LOSS.get(ele)
+        if loss:
             ll = len(loss)
-            print('　-缺字', str(ll), '个：【', bsn, '】=>【',
-                  loss[:80], '】' if ll <= 80 else '】等', sep='')
-        else:
+            print('　-缺字', str(ll), '个：【', bsn, '】=>【', loss[:80], '】' if ll <= 80 else '】等', sep='')
+        elif has:
             hl = len(has)
             HAS[i].add(30340)
-            CHANGED[(fid, bsn)] = pool.apply_async(
-                sbf, args=(ID2FILE[fid], HAS[i]))
+            CHANGED[(fid, bsn)] = pool.apply_async(sbf, args=(ID2FILE[fid], HAS[i]))
             print('　+保留', str(hl), '个：【', bsn, '】=>【',
                   has[:80], '】' if hl <= 80 else '】等', sep='')
+        else:
+            print('　-删除：【', bsn, '】', sep='')
+            bk.deletefile(fid)
+
+
+    # for i in GLYPH:
+    #     fid, has, loss = FML2ID[i], ''.join(
+    #         chr(j) for j in HAS[i]), ''.join(chr(j) for j in LOSS[i])
+    #     bsn = bk.id_to_href(fid).rsplit('/', 1)[-1]
+    #     if not has:
+    #         print('　-删除：【', bsn, '】', sep='')
+    #         bk.deletefile(fid)
+    #     elif loss:
+    #         ll = len(loss)
+    #         print('　-缺字', str(ll), '个：【', bsn, '】=>【',
+    #               loss[:80], '】' if ll <= 80 else '】等', sep='')
+    #     else:
+    #         hl = len(has)
+    #         HAS[i].add(30340)
+    #         CHANGED[(fid, bsn)] = pool.apply_async(
+    #             sbf, args=(ID2FILE[fid], HAS[i]))
+    #         print('　+保留', str(hl), '个：【', bsn, '】=>【',
+    #               has[:80], '】' if hl <= 80 else '】等', sep='')
     pool.close(), pool.join()
     for (fid, bsn), file in CHANGED.items():
         n, f = bsn.rsplit('.', 1)
