@@ -7,7 +7,6 @@ from css_parser.parse import CSSParser
 from regex import compile
 from os.path import join, dirname
 from multiprocessing import Pool
-from io import BytesIO
 from html import unescape
 try:
     from .bookenv_core import book, getbsn, first
@@ -21,10 +20,29 @@ white_clear, html_line, css_splitsel, css_clssel, css_idsel, css_regsel, font_sp
 
 def subfont(bk: book):
     print('\n字体子集化……')
-    GLYPH, HAS, LOSS = {}, {}, {}
+    CHANGE, GLYPH, HAS, LOSS = {}, {}, {}, {}
+    for ele in bk.iter('font'):
+        HAS[ele], LOSS[ele], stdbsn = set(), set(), ele.name+'.ttf'
+        try:
+            ttf = TTFont(ele.fp)
+        except:
+            ttf = TTCollection(ele.fp).fonts[0]
+        if ele.bsn != stdbsn:
+            CHANGE[ele.bsn] = stdbsn
+            fp = join(dirname(ele.fp), stdbsn)
+            bk.delete(ele)
+            ttf.save(fp)
+            ele = bk.set(bk.elem(fp))
+        ele.cmap = set(ttf.getBestCmap())
+        ttf.close()
+    OLD = sorted(CHANGE, reverse=True, key=len)
     for ele in bk.iter('css'):
+        data = ele.read()
+        for aim in OLD:
+            data = data.replace(aim, CHANGE[aim])
+        ele.write(data)
         sheet, ele.imp, ele.font, style = CSSParser(
-            loglevel='CRITICAL', parseComments=False, validate=False).parseString(ele.read()).cssRules, [], {}, {}
+            loglevel='CRITICAL', parseComments=False, validate=False).parseString(data).cssRules, [], {}, {}
         for i in sheet:
             if i.type == 3:
                 imp = bk.get(bsn=first(getbsn(i.href)))
@@ -59,17 +77,6 @@ def subfont(bk: book):
                 if k not in ele.font:
                     j[0].remove(k)
         ele.sel = style
-    for ele in bk.iter('font'):
-        HAS[ele], LOSS[ele] = set(), set()
-        try:
-            cmap = TTFont(ele.fp).getBestCmap()
-        except:
-            fc, bsn = TTCollection(ele.fp).fonts[0], ele.name+'.ttf'
-            cmap, fp = fc.getBestCmap(), join(dirname(ele.fp), bsn)
-            bk.delete(ele)
-            fc.save(fp)
-            ele = bk.set(bk.elem(fp))
-        ele.cmap = set(cmap)
     for ele in bk.iter('text'):
         dom, csssel, cssfont, tree = document_fromstring(ele.read(True), HTMLParser(
             remove_blank_text=True, remove_comments=True, remove_pis=True)), {}, {}, {}
@@ -144,60 +151,26 @@ def subfont(bk: book):
                 LOSS[font] |= text
     pool = Pool()
     for ele in bk.iter('font'):
-        has,loss=HAS.get(ele),LOSS.get(ele)
+        has, loss = HAS.get(ele), LOSS.get(ele)
         if loss:
             ll = len(loss)
-            print('　-缺字', str(ll), '个：【', bsn, '】=>【', loss[:80], '】' if ll <= 80 else '】等', sep='')
+            print('　-缺字', str(ll), '个：【', ele.bsn, '】=>',
+                  loss[:80], '' if ll <= 80 else '等', sep='')
         elif has:
             hl = len(has)
-            HAS[i].add(30340)
-            CHANGED[(fid, bsn)] = pool.apply_async(sbf, args=(ID2FILE[fid], HAS[i]))
-            print('　+保留', str(hl), '个：【', bsn, '】=>【',
-                  has[:80], '】' if hl <= 80 else '】等', sep='')
+            has.add(30340)
+            pool.apply_async(sbf, args=(ele, has))
+            print('　+保留', str(hl), '个：【', ele.bsn, '】=>',
+                  has[:80], '' if hl <= 80 else '等', sep='')
         else:
-            print('　-删除：【', bsn, '】', sep='')
-            bk.deletefile(fid)
-
-
-    # for i in GLYPH:
-    #     fid, has, loss = FML2ID[i], ''.join(
-    #         chr(j) for j in HAS[i]), ''.join(chr(j) for j in LOSS[i])
-    #     bsn = bk.id_to_href(fid).rsplit('/', 1)[-1]
-    #     if not has:
-    #         print('　-删除：【', bsn, '】', sep='')
-    #         bk.deletefile(fid)
-    #     elif loss:
-    #         ll = len(loss)
-    #         print('　-缺字', str(ll), '个：【', bsn, '】=>【',
-    #               loss[:80], '】' if ll <= 80 else '】等', sep='')
-    #     else:
-    #         hl = len(has)
-    #         HAS[i].add(30340)
-    #         CHANGED[(fid, bsn)] = pool.apply_async(
-    #             sbf, args=(ID2FILE[fid], HAS[i]))
-    #         print('　+保留', str(hl), '个：【', bsn, '】=>【',
-    #               has[:80], '】' if hl <= 80 else '】等', sep='')
+            print('　-删除：【', ele.bsn, '】', sep='')
+            bk.delete(ele)
     pool.close(), pool.join()
-    for (fid, bsn), file in CHANGED.items():
-        n, f = bsn.rsplit('.', 1)
-        if f == 'ttf':
-            bk.writefile(fid, file.get())
-        else:
-            nbsn = ''.join((n, '.ttf'))
-            bk.deletefile(fid), bk.addfile(fid, nbsn, file.get())
-            for j in bk.iter('text', 'css'):
-                inner = bk.readfile(j[0])
-                if bsn in inner:
-                    bk.writefile(j[0], inner.replace(bsn, nbsn))
 
 
-def sbf(f, d):
-    OPT, file = Options(), BytesIO()
+def sbf(ele: book.elem, used: set):
+    OPT, fp = Options(), ele.fp
     OPT.layout_features, OPT.glyph_names, OPT.desubroutinize, OPT.drop_tables, OPT.flavor, subsetter, font = '*', True, True, [
-        'DSIG'], 'woff2', Subsetter(OPT), load_font(f, OPT)
-    subsetter.populate(unicodes=d), subsetter.subset(
-        font), font.save(file), font.close()
-    subsetter.get
-    font = file.getvalue()
-    file.close()
-    return font
+        'DSIG'], 'woff2', Subsetter(OPT), load_font(fp, OPT)
+    subsetter.populate(unicodes=used), subsetter.subset(
+        font), font.save(fp), font.close()
