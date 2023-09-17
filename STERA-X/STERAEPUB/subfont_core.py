@@ -7,6 +7,7 @@ from css_parser.parse import CSSParser
 from regex import compile
 from os.path import join, dirname
 from multiprocessing import Pool
+from collections.abc import Iterable
 from html import unescape
 try:
     from .bookenv_core import book, getbsn, first
@@ -19,6 +20,10 @@ white_clear, html_line, css_splitsel, css_clssel, css_idsel, css_regsel, font_sp
 
 
 def subfont(bk: book):
+    '''
+    传入book对象，将所有字体文件转换为ttf格式后，通过检索CSS样式确定HTML文档中内嵌字体的使用情况，并以此为依据进行字体子集化，其中缺字的字体将不进行处理，而没有使用到的字体将被删除。\n
+    bk -> EPUB的book对象
+    '''
     print('\n字体子集化……')
     CHANGE, GLYPH, HAS, LOSS = {}, {}, {}, {}
     for ele in bk.iter('font'):
@@ -168,7 +173,12 @@ def subfont(bk: book):
     pool.close(), pool.join()
 
 
-def sbf(ele: book.elem, used: set):
+def sbf(ele: book.elem, used: Iterable):
+    '''
+    传入字体的elem对象和字体被使用字形集合的可迭代对象，子集化字体文件，删除未使用的字形并转换为woff2风格，完成后覆盖保存于原路径。\n
+    ele -> 目标字体文件的elem对象\n
+    used -> 目标字体所用字形集合的可迭代对象
+    '''
     OPT, fp = Options(), ele.fp
     OPT.layout_features, OPT.glyph_names, OPT.desubroutinize, OPT.drop_tables, OPT.flavor, subsetter, font = '*', True, True, [
         'DSIG'], 'woff2', Subsetter(OPT), load_font(fp, OPT)
