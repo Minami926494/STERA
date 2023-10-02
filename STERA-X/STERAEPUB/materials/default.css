@@ -21,7 +21,7 @@
 .lt{position:absolute;left:0;top:0;}.lb{position:absolute;left:0;bottom:0;}.rt{position:absolute;right:0;top:0;}.rb{position:absolute;right:0;bottom:0;}
 .dkl{duokan-bleed:left;margin-left:0;}.dkr{duokan-bleed:right;margin-right:0;}.dkt{duokan-bleed:top;margin-top:0;}.dkb{duokan-bleed:bottom;margin-bottom:0;}.dklr{duokan-bleed:leftright;margin-left:0;margin-right:0;}.dklt{duokan-bleed:lefttop;margin-left:0;margin-top:0;}.dkrt{duokan-bleed:topright;margin-top:0;margin-right:0;}.dkltr{duokan-bleed:lefttopright;margin-top:0;margin-left:0;margin-right:0;}
 /*格式化*/
-.zin,.zin *{text-indent:0;duokan-text-indent:0;}
+.zin{text-indent:0;duokan-text-indent:0;}
 .w{width:100%;}
 .m0{margin:0;}.p0{padding:0;}
 .lh{line-height:1em;}
@@ -33,8 +33,7 @@
 /*字体*/
 .title{font-family:title,main,emoji,sym;}
 .illus1{font-family:illus1;}.illus2{font-family:illus2;}.illus3{font-family:illus3;}.illus4{font-family:illus4;}.illus5{font-family:illus5;}
-.num{font-family:num;}.num p{margin:0;text-indent:0;duokan-text-indent:0;line-height:1em;}/*直排英数*/
-@font-face{font-family:"title";src:url(../Fonts/title.ttf);}@font-face{font-family:"illus1";src:url(../Fonts/illus1.ttf);}@font-face{font-family:"illus2";src:url(../Fonts/illus2.ttf);}@font-face{font-family:"illus3";src:url(../Fonts/illus3.ttf);}@font-face{font-family:"illus4";src:url(../Fonts/illus4.ttf);}@font-face{font-family:"illus5";src:url(../Fonts/illus5.ttf);}@font-face{font-family:"num";src:url(../Fonts/num.ttf);}
+@font-face{font-family:"title";src:url(../Fonts/title.ttf);}@font-face{font-family:"illus1";src:url(../Fonts/illus1.ttf);}@font-face{font-family:"illus2";src:url(../Fonts/illus2.ttf);}@font-face{font-family:"illus3";src:url(../Fonts/illus3.ttf);}@font-face{font-family:"illus4";src:url(../Fonts/illus4.ttf);}@font-face{font-family:"illus5";src:url(../Fonts/illus5.ttf);}
 /*字体阴影*/
 .kuro{text-shadow:1px 1px 1px #000;}.shiro{text-shadow:1px 1px 1px #fff;}
 .hei{text-shadow:0 0 3px #000;}.bai{text-shadow:0 0 3px #fff;}
@@ -60,4 +59,3 @@ ul li{margin:0.5em 0 0.5em 1em;text-indent:0;duokan-text-indent:0;font-weight:li
 .x-10{-webkit-transform:skewX(-10deg);transform:matrix(1,0,-0.17633,1,0,0);transform-origin:center;}.x-15{-webkit-transform:skewX(-15deg);transform:matrix(1,0,-0.26795,1,0,0);transform-origin:center;}.x-20{-webkit-transform:skewX(-20deg);transform:matrix(1,0,-0.36397,1,0,0);transform-origin:center;}.x-30{-webkit-transform:skewX(-30deg);transform:matrix(1,0,-0.57735,1,0,0);transform-origin:center;}.x-45{-webkit-transform:skewX(-45deg);transform:matrix(1,0,-1,1,0,0);transform-origin:center;}.x-60{-webkit-transform:skewX(-60deg);transform:matrix(1,0,-1.73205,1,0,0);transform-origin:center;}
 .y10{-webkit-transform:skewY(10deg);transform:matrix(1,0.17633,0,1,0,0);transform-origin:center;}.y15{-webkit-transform:skewY(15deg);transform:matrix(1,0.26795,0,1,0,0);transform-origin:center;}.y20{-webkit-transform:skewY(20deg);transform:matrix(1,0.36397,0,1,0,0);transform-origin:center;}.y30{-webkit-transform:skewY(30deg);transform:matrix(1,0.57735,0,1,0,0);transform-origin:center;}.y45{-webkit-transform:skewY(45deg);transform:matrix(1,1,0,1,0,0);transform-origin:center;}.y60{-webkit-transform:skewY(60deg);transform:matrix(1,1.73205,0,1,0,0);transform-origin:center;}
 .y-10{-webkit-transform:skewY(-10deg);transform:matrix(1,-0.17633,0,1,0,0);transform-origin:center;}.y-15{-webkit-transform:skewY(-15deg);transform:matrix(1,-0.26795,0,1,0,0);transform-origin:center;}.y-20{-webkit-transform:skewY(-20deg);transform:matrix(1,-0.36397,0,1,0,0);transform-origin:center;}.y-30{-webkit-transform:skewY(-30deg);transform:matrix(1,-0.57735,0,1,0,0);transform-origin:center;}.y-45{-webkit-transform:skewY(-45deg);transform:matrix(1,-1,0,1,0,0);transform-origin:center;}.y-60{-webkit-transform:skewY(-60deg);transform:matrix(1,-1.73205,0,1,0,0);transform-origin:center;}
-/*虚空文学旅团STERAePub++*/

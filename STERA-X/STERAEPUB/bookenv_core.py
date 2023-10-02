@@ -222,14 +222,14 @@ class book:
         def __new(cls, fp: str):
             return cls(fp)
 
-    def __init__(self, src: str, runInSigil: bool = False):
+    def __init__(self, src: str):
         '''
         传入源EPUB以初始化book对象并执行规范化，将在系统的用户文件夹下建立工作区。\n
         src -> 源EPUB文件（夹）路径\n
-        runInSigil -> 是否作为插件在Sigil中运行
         '''
-        self.runInSigil, self.sdir, epub, norepeat = runInSigil, path.dirname(
-            __file__), self.elem(src), {'container.xml', 'mimetype'}
+        sdir = self.sdir = path.dirname(__file__)
+        self.cdir, epub, norepeat = pjoin(sdir, 'config'), self.elem(src), {
+            'container.xml', 'mimetype'}
         outdir = self.outdir = pjoin(path.expanduser('~').replace(
             '\\', '/'), 'STERAEPUB', str(time()).replace('.', '-'))
         epub.copy(outdir, True) if epub.isdir else epub.extract(outdir, True)

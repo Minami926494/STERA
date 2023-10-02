@@ -48,14 +48,14 @@ img.change{max-width:90vh;max-height:100vw;-webkit-transform:rotate(90deg);trans
 .sym{font-family:sym}/*特殊符号*/
 @font-face{font-family:"mes";src:url(../Fonts/mes.ttf);}@font-face{font-family:"sum";src:url(../Fonts/sum.ttf);}@font-face{font-family:"cont";src:url(../Fonts/cont.ttf);}@font-face{font-family:"ctt1";src:url(../Fonts/ctt1.ttf);}@font-face{font-family:"ctt2";src:url(../Fonts/ctt2.ttf);}@font-face{font-family:"ch1";src:url(../Fonts/ch1.ttf);}@font-face{font-family:"ch2";src:url(../Fonts/ch2.ttf);}@font-face{font-family:"ch3";src:url(../Fonts/ch3.ttf);}@font-face{font-family:"main";src:url(../Fonts/main.ttf);}@font-face{font-family:"int";src:url(../Fonts/int.ttf);}@font-face{font-family:"note";src:url(../Fonts/note.ttf);}@font-face{font-family:"emoji";src:url(../Fonts/emoji.ttf);}@font-face{font-family:"sym";src:url(../Fonts/sym.ttf);}
 /*目录*/
-.ctt{font-family:cont,emoji,sym;text-align:left;font-size:2em;margin:1.3em 0.75em 0.5em;font-weight:bold;}
-.toc{margin:0 0 0.5em 1.75em;text-align:left;border-left:3px rgba(124,124,124,0.5) solid;}
-.toc a{display:block;font-family:ctt1,emoji,sym;padding:0.25em 0.5em;}
-.toc a:hover{background-color:rgba(124,124,124,0.15);}
-.toc a p{text-indent:0;duokan-text-indent:0;margin:0;line-height:1em;}
-.toc .ctit{font-family:ctt2,emoji,sym;font-size:1.1em;padding:0.2em 0 0 1em;}
-.toc .toc{margin:0.2em 0 0;border:none;}
-.toc .part{font-size:0.9em;border-left:2em rgba(124,124,124,0.15) solid;}
+#ctt{text-shadow:0 0 3px #fff;}
+#ctt h3{font-family:cont,emoji,sym;text-align:left;font-size:2em;margin:1.3em 0.75em 0.5em;font-weight:bold;}
+#ctt>div{margin:0 0 0.5em 1.75em;text-align:left;border-left:3px rgba(124,124,124,0.5) solid;}
+#ctt div>div{font-size:0.9em;border-left:2em rgba(124,124,124,0.15) solid;}
+#ctt a{display:block;font-family:ctt1,emoji,sym;padding:0.25em 0.5em;}
+#ctt a:hover{background-color:rgba(124,124,124,0.15);}
+#ctt a>p{text-indent:0;duokan-text-indent:0;margin:0;line-height:1em;}
+#ctt a>p+p{font-family:ctt2,emoji,sym;font-size:1.1em;padding:0.2em 0 0 1em;}
 /*制作信息*/
 .message{display:flex;justify-content:center;align-items:center;max-width:30em;height:90vh;max-height:40em;min-height:32em;margin:0 auto;padding:1em 0 2em;background-color:#333;border:1px solid #333;font-family:mes,emoji,sym;}
 .message>div{width:100%;margin:7% 0;padding:1em;background-color:#fcfcfc;-webkit-transform:skewY(8deg);transform:matrix(1,0.14054,0,1,0,0);transform-origin:center;}
@@ -80,11 +80,11 @@ sup,sup *{cursor:help;}
 sup{font-size:0.75em;line-height:1.2;vertical-align:super !important;z-index:1;}
 aside{border:3px #333 double;margin:0 2em;border-radius:10px;background-color:#fcfcfc;}
 aside:hover{background-color:#eee;}
-aside ol{margin:0.2em auto;padding:0 0.5em;list-style:none !important;}
-aside p{margin-left:2em;text-indent:-2em;duokan-text-indent:-2em;}
 .zhangyue-footnote{vertical-align:top;height:1.2em !important;width:auto;border:0;}
 .duokan-footnote{height:1.2em !important;width:auto;border:0;}
+.duokan-footnote-content{margin:0.2em auto;padding:0 0.5em;list-style:none !important;}
 .duokan-footnote-item{text-indent:0;duokan-text-indent:0;font-family:note,emoji,sym;text-shadow:0 0 0.1em #000;font-size:0.9em;text-align:left;}
+.duokan-footnote-item p{margin:0.5em 0 0.5em 2em;text-indent:-2em;duokan-text-indent:-2em;line-height:1.5em;}
 note{display:block;width:100%;}
 note.change{position:relative;}
 note.change a{cursor:help;}
@@ -95,5 +95,4 @@ note.change aside.zuo-shang:after{border-width:10px 30px 0 0;-webkit-transform:s
 note.change aside p{color:#fcfcfc;text-shadow:0 0 3px #333;}
 @-webkit-keyframes show{0%{opacity:0;}100%{opacity:0.9;}}@-webkit-keyframes fade{0%{opacity:0.9;}100%{opacity:0;}}@keyframes show{0%{opacity:0;}100%{opacity:0.9;}}@keyframes fade{0%{opacity:0.9;}100%{opacity:0;}}
 /*检查与调试*/
-*[type*="check"]{border:2px purple solid;}*[type*="check"] *:nth-child(4n){border:1px red solid;}*[type*="check"] *:nth-child(4n+1){border:1px blue solid;}*[type*="check"] *:nth-child(4n+2){border:1px orange solid;}*[type*="check"] *:nth-child(4n+3){border:1px green solid;}
-/*虚空文学旅团STERAePub++*/
+*[type*="check"]{border:1px purple dotted;}*[type*="check"] *:nth-child(4n){border:1px red solid;}*[type*="check"] *:nth-child(4n+1){border:1px blue solid;}*[type*="check"] *:nth-child(4n+2){border:1px orange solid;}*[type*="check"] *:nth-child(4n+3){border:1px green solid;}

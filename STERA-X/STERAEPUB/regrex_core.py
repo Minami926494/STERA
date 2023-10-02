@@ -15,8 +15,8 @@ except ImportError:
     sigilbs4 = False
 
 # DOM正则读写
-wrap, pginfo, pgsplit = compile(r'(?:\r\n|(?<![\r\n])\r(?![\r\n]))'), compile(
-    r'<page href="([^"]*?)">'), compile(r'\s*</page>\s*')
+wrap, pginfo, pgsplit, tcatch, dcatch = compile(r'(?:\r\n|(?<![\r\n])\r(?![\r\n]))'), compile(
+    r'<page id="([^"]*?)">'), compile(r'\s*</page>\s*'), compile(r'^\[\*(\d*)\]'), compile(r'\[#(\d*)\]')
 
 
 def overwrite(bk: book, bsn: str, data: str | bytes):
@@ -38,11 +38,11 @@ def overwrite(bk: book, bsn: str, data: str | bytes):
 class dom:
     def __init__(self, bk: book, chk: bool = True):
         '''
-        初始化dom对象，将book对象spine中包含的文档使用'<page href="[文件名]">[文档内容]</page>'形式包裹后按顺序连接，并将CRLF统一为LF（\\n）、清除制表符（\\t）。\n
+        初始化dom对象，将book对象spine中包含的文档使用'<page id="[文件名]">[文档内容]</page>'形式包裹后按顺序连接，并将CRLF统一为LF（\\n）、清除制表符（\\t）。\n
         bk -> EPUB的book对象\n
         chk -> 是否进行样式检查
         '''
-        self.bk, self.chk, self.page = bk, chk, '\n'.join(''.join(('<page href="', i.bsn, '">\n', wrap.sub(
+        self.bk, self.chk, self.page = bk, chk, '\n'.join(''.join(('<page id="', i.bsn, '">\n', wrap.sub(
             '\n', bs(i.read(), True).expandtabs(1)), '\n</page>')) for i in bk.spine)
 
     def __call__(self, *flow: bool):
@@ -57,7 +57,7 @@ class dom:
 
     def __del__(self):
         '''
-        dom对象删除前将已更改内容写入对应文件中，若文件不存在则新建。
+        dom对象删除前根据'<page>'标签的'id'属性作为文件名，将已更改内容写入对应文件中，若文件不存在则新建。
         '''
         pgclear = compile(
             r'\s*<page.*?>\s*' if self.chk else r'(?:\s*<page.*?>\s*|\s*type="check")')
@@ -75,8 +75,8 @@ def reg(aim: str, regrex: tuple, log: bool = True, debug: bool = False) -> str:
     '''
     if log and regrex[0]:
         print('\n', regrex[0], '……', sep='')
-    pre = compile(regrex[1].replace('^^', '(?<![^\\n])').replace(
-        '$$', '(?![^\\n])')) if regrex[1] else None
+    pre = compile(regrex[1].replace('[^]', '(?<![^\\n])').replace(
+        '[$]', '(?![^\\n])')) if regrex[1] else None
     for s in regrex[2:]:
         if debug:
             print('　-【', s[0], '】：', sep='', end='')
@@ -103,7 +103,7 @@ def reg(aim: str, regrex: tuple, log: bool = True, debug: bool = False) -> str:
 
 def rex(pg: str, dic: tuple, debug: bool = False):
     '''
-    无穷递增正则拓展，返回处理后文本片段与片段的总替换次数，'^'与'$'表示文本整体的开头与结尾，'^^'与'$$'表示一行文本的开头与结尾；在查找正则以'(*)'或'(*[数字])'作为开头的情况下，若没有数字则执行无穷次替换直至文本中不再有匹配结果为止，若有数字则执行数字次数的重复替换；在前述无穷正则修饰符存在条件下，若替换条目中含有'*'，其位置将被替换为以当前已重复次数为基础、前补零的三位数字。\n
+    无穷递增正则拓展，返回处理后文本片段与片段的总替换次数，'^'与'$'表示文本整体的开头与结尾，'[^]'与'[$]'表示一行文本的开头与结尾；在查找正则以'[*]'或'[*正整数]'作为开头的情况下，若不传入正整数则执行无穷次替换直至文本中不再有匹配结果为止，若有数字则执行数字次数的重复替换；在前述无穷正则修饰符存在的条件下，若替换条目中含有'[#]'或'[#正整数]'，其位置将被替换为以所给定数字为起始的数字，每一轮替换自增一次，输出数字的最小位数与给定数字一致，即会保留前补0格式。\n
     pg -> 需处理的原文本片段\n
     dic -> 查找替换执行组的一个逻辑分组\n
     debug -> 是否输出每个键值对的替换情况
@@ -113,14 +113,16 @@ def rex(pg: str, dic: tuple, debug: bool = False):
         if debug:
             step += 1
             print('[', step, '/', len(d), ']', sep='', end='')
-        m, r, t = m.replace('^^', '(?<![^\\n])').replace(
-            '$$', '(?![^\\n])'), d[m], 0
-        if m.startswith('(*'):
-            e, x = m.find(')'), 1
-            m, n = compile(m[e+1:]), int(m[2:e]) if e > 2 else 0
-            while x <= n or not n:
+        m, r, t = m.replace('[^]', '(?<![^\\n])').replace(
+            '[$]', '(?![^\\n])'), d[m], 0
+        rep = tcatch.search(m)
+        if rep:
+            l, rep = len(rep.group(0)), rep.group(1)
+            m, n, x = compile(m[l:]), int(rep) if rep else 0, 0
+            while x < n or not n:
                 if m.search(pg):
-                    pg, _t = m.subn(r.replace('*', str(x).zfill(3)), pg)
+                    pg, _t = m.subn(dcatch.sub(lambda y: str(
+                        x+int(y.group(1))).zfill(len(y.group(1))) if y.group(1) else str(x), r), pg)
                     t += _t
                     x += 1
                 else:

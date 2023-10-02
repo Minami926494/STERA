@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-from PyQt5 import QtCore, QtGui, QtWidgets
 from regex import compile
 from os import path, remove
 from sys import argv
 from json import loads, dumps
+from PySide6 import QtCore, QtGui, QtWidgets
 try:
     from os import startfile
 except ImportError:
@@ -21,7 +21,7 @@ f2p, gettit, getisbn, getsub, getvol, getsum, setsum, chkisbn = compile(r'[ａ-�
     r'[~～\s](\S*?[^\d\sA-z]\S*?)(?:[~～\s]|$)'), compile(r'([(（【〈-])?(\d+)(?(1)[)）】〉]|(?:[\s.-]|$))'), compile(r'(?:^[\s\S]+<body.*?>\s*|\s*</body>[\s\S]+$)|(?<=<p)[^>]+|(?<=<br)[^/]+'), compile(r'<[^>]+>'), compile(r'\D+')
 
 
-def launch(bk:book):
+def launch(bk: book):
     app, win = QtWidgets.QApplication(argv), QtWidgets.QMainWindow()
     ui = UI(win, bk)
     app.exec_()
