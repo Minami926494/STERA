@@ -32,7 +32,7 @@
             "indentLevel": 1,
             "outerWrap": 1,
             "innerWrap": 1,
-            "stripText": false,
+            "stripText": true,
             "selfClose": false
         },
         "applet": {
@@ -74,7 +74,7 @@
             "indentLevel": 1,
             "outerWrap": 0,
             "innerWrap": 0,
-            "stripText": null,
+            "stripText": true,
             "selfClose": false
         },
         "base": {
@@ -82,18 +82,18 @@
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "basefont": {
             "indentLevel": 1,
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "bdi": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -101,13 +101,13 @@
         "bdo": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "big": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -115,27 +115,27 @@
         "blockquote": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "body": {
             "indentLevel": 0,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "br": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "button": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -156,14 +156,14 @@
         },
         "center": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
         },
         "cite": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -172,7 +172,7 @@
             "indentLevel": 1,
             "outerWrap": 1,
             "innerWrap": 0,
-            "stripText": true,
+            "stripText": false,
             "selfClose": false
         },
         "col": {
@@ -180,25 +180,25 @@
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "colgroup": {
             "indentLevel": 1,
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "command": {
             "indentLevel": 1,
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "data": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -206,20 +206,20 @@
         "datalist": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "dd": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
         },
         "del": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -227,6 +227,13 @@
         "details": {
             "indentLevel": 1,
             "outerWrap": 1,
+            "innerWrap": 1,
+            "stripText": true,
+            "selfClose": false
+        },
+        "dialog": {
+            "indentLevel": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -234,27 +241,20 @@
         "dir": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "div": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "dfn": {
             "indentLevel": 1,
-            "outerWrap": 1,
-            "innerWrap": 0,
-            "stripText": true,
-            "selfClose": false
-        },
-        "dialog": {
-            "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -262,7 +262,7 @@
         "dl": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
@@ -275,7 +275,7 @@
         },
         "em": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -284,13 +284,13 @@
             "indentLevel": 1,
             "outerWrap": 1,
             "innerWrap": 0,
-            "stripText": true,
-            "selfClose": false
+            "stripText": false,
+            "selfClose": true
         },
         "fieldset": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
@@ -304,13 +304,13 @@
         "figure": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "font": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -318,14 +318,14 @@
         "footer": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "form": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
@@ -334,12 +334,12 @@
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "frameset": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
@@ -388,14 +388,14 @@
         "head": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "header": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
@@ -407,15 +407,15 @@
             "selfClose": true
         },
         "html": {
-            "indentLevel": 1,
+            "indentLevel": 0,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "i": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -423,7 +423,7 @@
         "iframe": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
@@ -432,18 +432,18 @@
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "input": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "ins": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -453,11 +453,11 @@
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "kbd": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -467,7 +467,7 @@
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "label": {
             "indentLevel": 1,
@@ -495,7 +495,7 @@
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "main": {
             "indentLevel": 1,
@@ -507,13 +507,13 @@
         "map": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "mark": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -521,7 +521,7 @@
         "menu": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
@@ -530,14 +530,14 @@
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "meta": {
             "indentLevel": 1,
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "meter": {
             "indentLevel": 1,
@@ -549,14 +549,14 @@
         "nav": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "noframes": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
@@ -568,30 +568,30 @@
             "selfClose": false
         },
         "note": {
-            "indentLevel": 1,
+            "indentLevel": 0,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "object": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "ol": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "optgroup": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
@@ -600,11 +600,11 @@
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "output": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -621,67 +621,67 @@
             "outerWrap": 1,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "pre": {
             "indentLevel": 1,
             "outerWrap": 1,
             "innerWrap": 0,
-            "stripText": true,
+            "stripText": false,
             "selfClose": false
         },
         "progress": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
-            "selfClose": false
+            "selfClose": true
         },
         "q": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
         },
         "rb": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
         },
         "rp": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
         },
         "rt": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
         },
         "ruby": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
         },
         "s": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
         },
         "samp": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -689,27 +689,27 @@
         "script": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
-            "stripText": true,
-            "selfClose": false
+            "innerWrap": 1,
+            "stripText": false,
+            "selfClose": true
         },
         "section": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "select": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
+            "innerWrap": 1,
             "stripText": true,
             "selfClose": false
         },
         "small": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -737,7 +737,7 @@
         },
         "strong": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
             "stripText": true,
             "selfClose": false
@@ -745,9 +745,9 @@
         "style": {
             "indentLevel": 1,
             "outerWrap": 1,
-            "innerWrap": 0,
-            "stripText": true,
-            "selfClose": false
+            "innerWrap": 1,
+            "stripText": false,
+            "selfClose": true
         },
         "sub": {
             "indentLevel": 1,
@@ -884,9 +884,9 @@
         },
         "var": {
             "indentLevel": 1,
-            "outerWrap": 1,
+            "outerWrap": 0,
             "innerWrap": 0,
-            "stripText": true,
+            "stripText": false,
             "selfClose": false
         },
         "video": {
