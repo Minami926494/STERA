@@ -1,0 +1,914 @@
+{
+    "default": {
+        "indentLevel": 1,
+        "outerWrap": 1,
+        "innerWrap": 0,
+        "stripText": true,
+        "selfClose": false
+    },
+    "defined": {
+        "a": {
+            "indentLevel": 1,
+            "outerWrap": 0,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "abbr": {
+            "indentLevel": 1,
+            "outerWrap": 0,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "acronym": {
+            "indentLevel": 1,
+            "outerWrap": 0,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "address": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 1,
+            "stripText": false,
+            "selfClose": false
+        },
+        "applet": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 1,
+            "stripText": false,
+            "selfClose": true
+        },
+        "area": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": true
+        },
+        "article": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 1,
+            "stripText": true,
+            "selfClose": false
+        },
+        "aside": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 1,
+            "stripText": true,
+            "selfClose": false
+        },
+        "audio": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 1,
+            "stripText": true,
+            "selfClose": true
+        },
+        "b": {
+            "indentLevel": 1,
+            "outerWrap": 0,
+            "innerWrap": 0,
+            "stripText": null,
+            "selfClose": false
+        },
+        "base": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "basefont": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "bdi": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "bdo": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "big": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "blockquote": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "body": {
+            "indentLevel": 0,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "br": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "button": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "canvas": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "caption": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "center": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "cite": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "code": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "col": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "colgroup": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "command": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "data": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "datalist": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "dd": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "del": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "details": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "dir": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "div": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "dfn": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "dialog": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "dl": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "dt": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "em": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "embed": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "fieldset": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "figcaption": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "figure": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "font": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "footer": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "form": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "frame": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "frameset": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "h1": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "h2": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "h3": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "h4": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "h5": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "h6": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "head": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "header": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "hr": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": true
+        },
+        "html": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "i": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "iframe": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "img": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "input": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "ins": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "isindex": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "kbd": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "keygen": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "label": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "legend": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "li": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "link": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "main": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "map": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "mark": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "menu": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "menuitem": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "meta": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "meter": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "nav": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "noframes": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "noscript": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "note": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "object": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "ol": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "optgroup": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "option": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "output": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "p": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "param": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "pre": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "progress": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "q": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "rb": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "rp": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "rt": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "ruby": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "s": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "samp": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "script": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "section": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "select": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "small": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "source": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "span": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "strike": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "strong": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "style": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "sub": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "summary": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "sup": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "svg": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "table": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "tbody": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "td": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "template": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "textarea": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "tfoot": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "th": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "thead": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "time": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "title": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "tr": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "track": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "tt": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "u": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "ul": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "var": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "video": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "wbr": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        },
+        "xmp": {
+            "indentLevel": 1,
+            "outerWrap": 1,
+            "innerWrap": 0,
+            "stripText": true,
+            "selfClose": false
+        }
+    }
+}
